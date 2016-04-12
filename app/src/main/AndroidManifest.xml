@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="io.bloco.cardcase">
+
+  <uses-permission android:name="android.permission.INTERNET"/>
+  <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+  <uses-permission android:name="android.permission.WAKE_LOCK" tools:node="remove" />
+
+  <application
+      android:name=".AndroidApplication"
+      android:allowBackup="true"
+      android:icon="@mipmap/logo"
+      android:label="@string/app_name"
+      android:supportsRtl="true"
+      android:theme="@style/AppTheme">
+
+    <meta-data
+        android:name="com.google.android.nearby.messages.API_KEY"
+        android:value="@string/google_nearby_api_key"/>
+
+    <meta-data
+        android:name="com.google.android.gms.version"
+        android:value="@integer/google_play_services_version"/>
+
+    <activity
+        android:name=".presentation.home.HomeActivity"
+        android:label="@string/app_name"
+        android:screenOrientation="portrait">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN"/>
+        <category android:name="android.intent.category.LAUNCHER"/>
+      </intent-filter>
+    </activity>
+
+    <activity
+        android:name=".presentation.user.UserActivity"
+        android:windowSoftInputMode="adjustResize|stateHidden"
+        android:launchMode="singleTask"
+        android:label="@string/user_card"
+        android:screenOrientation="portrait"/>
+
+    <activity
+        android:name=".presentation.user.CropAvatarActivity"
+        android:screenOrientation="portrait"/>
+
+    <activity android:name=".presentation.exchange.ExchangeActivity"
+        android:theme="@style/AppThemeAlt"
+        android:screenOrientation="portrait"/>
+
+    <activity
+        android:name=".presentation.welcome.WelcomeActivity"
+        android:screenOrientation="portrait"/>
+
+    <provider
+        android:name="android.support.v4.content.FileProvider"
+        android:authorities="${filesAuthority}"
+        android:exported="false"
+        android:grantUriPermissions="true">
+      <meta-data
+          android:name="android.support.FILE_PROVIDER_PATHS"
+          android:resource="@xml/file_paths"/>
+    </provider>
+
+  </application>
+</manifest>

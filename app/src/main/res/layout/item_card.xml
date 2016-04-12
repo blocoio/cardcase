@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/card_item_divider"
+    style="@style/card"
+    >
+
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:gravity="center_vertical"
+      android:orientation="horizontal"
+      android:paddingBottom="@dimen/margin_small"
+      android:paddingEnd="@dimen/margin_default"
+      android:paddingStart="@dimen/margin_default"
+      android:paddingTop="@dimen/margin_small"
+      >
+
+    <ImageView
+        android:id="@+id/card_avatar"
+        android:layout_width="@dimen/card_item_avatar"
+        android:layout_height="@dimen/card_item_avatar"
+        android:background="@drawable/avatar_placeholder"
+        android:contentDescription="@null"
+        android:src="@drawable/ic_avatar"
+        />
+
+    <TextView
+        android:id="@+id/card_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:paddingEnd="@dimen/margin_default"
+        android:paddingStart="@dimen/margin_default"
+        android:textSize="@dimen/text_large"
+        tools:text="Jamie Frazier"
+        />
+
+    <TextView
+        android:id="@+id/card_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/text_light"
+        android:textSize="@dimen/text_small"
+        tools:text="1m"
+        />
+
+  </LinearLayout>
+
+</android.support.v7.widget.CardView>

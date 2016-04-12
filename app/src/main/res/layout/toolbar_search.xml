@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<io.bloco.cardcase.presentation.common.SearchToolbar
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/toolbar_search"
+    style="@style/toolbar">
+
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:animateLayoutChanges="true"
+      android:gravity="center_vertical"
+      android:orientation="horizontal">
+
+    <ImageButton
+        android:id="@+id/toolbar_search_close"
+        android:contentDescription="@string/close"
+        android:src="@drawable/ic_back_left"
+        style="@style/toolbar_icon"/>
+
+    <EditText
+        android:id="@+id/toolbar_search_field"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginEnd="@dimen/toolbar_icon"
+        android:layout_weight="1"
+        android:background="@null"
+        android:hint="@string/search"
+        android:maxLines="1"
+        android:textColor="@color/text_alt"
+        android:textColorHint="@color/text_alt_hint"
+        android:textSize="@dimen/text_large"/>
+
+  </LinearLayout>
+
+</io.bloco.cardcase.presentation.common.SearchToolbar>

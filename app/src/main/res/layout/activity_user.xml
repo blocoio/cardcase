@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/layout"
+    tools:context=".presentation.user.UserActivity">
+
+  <include layout="@layout/toolbar"/>
+
+  <android.support.v4.widget.NestedScrollView
+      style="@style/layout_inner">
+
+    <io.bloco.cardcase.presentation.common.CardInfoView
+        android:id="@+id/user_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+  </android.support.v4.widget.NestedScrollView>
+
+  <android.support.design.widget.FloatingActionButton
+      android:id="@+id/user_edit"
+      style="@style/fab"
+      app:backgroundTint="@color/background_card"
+      android:contentDescription="@string/edit"
+      android:src="@drawable/ic_edit"
+      android:visibility="gone"/>
+
+  <android.support.design.widget.FloatingActionButton
+      android:id="@+id/user_done"
+      style="@style/fab"
+      android:contentDescription="@string/done"
+      android:src="@drawable/ic_done"
+      android:visibility="gone"
+      tools:visibility="visible"/>
+
+</android.support.design.widget.CoordinatorLayout>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".presentation.welcome.WelcomeActivity"
+    style="@style/layout"
+    android:orientation="vertical">
+
+  <LinearLayout
+      android:layout_weight="1"
+      android:layout_width="match_parent"
+      android:gravity="center"
+      android:layout_height="0dp"
+      android:layout_margin="@dimen/margin_double"
+      android:orientation="vertical">
+
+    <ImageView
+        android:contentDescription="@null"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/cards"
+        android:layout_marginBottom="@dimen/margin_default"/>
+
+    <TextView
+        style="@style/text_block"
+        android:layout_margin="@dimen/margin_default"
+        android:text="@string/welcome_title"
+        android:textAppearance="@style/text_title"
+        android:textSize="@dimen/text_title"/>
+
+    <TextView
+        style="@style/text_block"
+        android:layout_margin="@dimen/margin_default"
+        android:textSize="@dimen/text_large"
+        android:text="@string/welcome_text"/>
+
+  </LinearLayout>
+
+  <Button
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center_horizontal"
+      android:layout_margin="@dimen/margin_triple"
+      android:paddingStart="@dimen/margin_double"
+      android:paddingEnd="@dimen/margin_double"
+      android:paddingTop="@dimen/margin_default"
+      android:paddingBottom="@dimen/margin_default"
+      android:id="@+id/welcome_start"
+      android:drawableEnd="@drawable/ic_chevron_right"
+      android:textColor="@color/text_alt"
+      android:textAllCaps="true"
+      android:textAppearance="@style/text_bold"
+      android:backgroundTint="@color/secondary"
+      android:text="@string/welcome_start"/>
+
+</LinearLayout>

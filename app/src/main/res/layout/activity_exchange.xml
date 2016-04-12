@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".presentation.exchange.ExchangeActivity"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/exchange_container"
+    android:background="@color/secondary">
+
+  <android.support.design.widget.CoordinatorLayout
+      android:id="@+id/layout"
+      style="@style/layout">
+
+    <include layout="@layout/toolbar"/>
+
+    <FrameLayout
+        style="@style/layout_inner">
+
+      <LinearLayout
+          android:id="@+id/exchange_empty"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:orientation="vertical">
+
+        <TextView
+            style="@style/text_block"
+            android:layout_marginTop="@dimen/margin_triple"
+            android:layout_marginBottom="@dimen/margin_default"
+            android:text="@string/exchange_title"
+            android:textSize="@dimen/text_title"/>
+
+        <TextView
+            style="@style/text_block"
+            android:layout_margin="@dimen/margin_small"
+            android:text="@string/exchange_help"
+            android:textSize="@dimen/text_small"/>
+
+        <ProgressBar
+            style="@style/loader"
+            android:id="@+id/exchange_loader"
+            android:layout_width="@dimen/exchange_loader"
+            android:layout_height="@dimen/exchange_loader"
+            android:layout_marginTop="@dimen/margin_triple"/>
+
+        <View
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"/>
+
+        <Button
+            android:id="@+id/exchange_invite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_small"
+            android:layout_gravity="center_horizontal"
+            android:paddingTop="@dimen/margin_default"
+            android:paddingBottom="@dimen/margin_default"
+            android:paddingStart="@dimen/margin_double"
+            android:paddingEnd="@dimen/margin_double"
+            android:background="?attr/selectableItemBackground"
+            android:text="@string/exchange_invite"
+            android:textColor="@color/text_alt"
+            android:textAllCaps="false"/>
+
+      </LinearLayout>
+
+      <LinearLayout
+          android:id="@+id/exchange_cards"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:orientation="vertical"
+          android:visibility="gone">
+
+        <TextView
+            style="@style/text_block"
+            android:layout_marginTop="@dimen/margin_triple"
+            android:layout_marginBottom="@dimen/margin_default"
+            android:text="@string/exchange_cards_title"
+            android:textSize="@dimen/text_title"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/exchange_cards_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+      </LinearLayout>
+
+    </FrameLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/exchange_done"
+        style="@style/fab"
+        android:contentDescription="@string/done"
+        android:src="@drawable/ic_done"
+        android:visibility="gone"
+        tools:visibility="visible"/>
+
+  </android.support.design.widget.CoordinatorLayout>
+
+</FrameLayout>

@@ -1,0 +1,38 @@
+<resources>
+  <dimen name="margin_tiny">4dp</dimen>
+  <dimen name="margin_small">8dp</dimen>
+  <dimen name="margin_default">16dp</dimen>
+  <dimen name="margin_double">32dp</dimen>
+  <dimen name="margin_triple">48dp</dimen>
+
+  <dimen name="text_small">14sp</dimen>
+  <dimen name="text_default">16sp</dimen>
+  <dimen name="text_large">18sp</dimen>
+  <dimen name="text_title">22sp</dimen>
+
+  <dimen name="elevation_card">4dp</dimen>
+
+  <dimen name="status_bar">40dp</dimen>
+  <dimen name="toolbar">56dp</dimen>
+  <dimen name="toolbar_icon">40dp</dimen>
+  <dimen name="toolbar_icon_padding">@dimen/margin_small</dimen>
+  <dimen name="nav_bar">56dp</dimen>
+  <dimen name="nav_bar_subtraction">-48dp</dimen>
+
+  <dimen name="fab_size">56dp</dimen>
+  <dimen name="fab_margin">@dimen/margin_default</dimen>
+
+  <dimen name="card_margin">@dimen/margin_double</dimen>
+  <dimen name="card_avatar">128dp</dimen>
+  <dimen name="card_avatar_margin">@dimen/margin_default</dimen>
+  <dimen name="card_name_text">24sp</dimen>
+  <dimen name="card_name_height">48dp</dimen>
+  <dimen name="card_field_height">40dp</dimen>
+
+  <dimen name="card_item_avatar">64dp</dimen>
+  <dimen name="card_item_name">@dimen/text_large</dimen>
+  <dimen name="card_item_divider">1px</dimen>
+  <dimen name="card_list_loader">56dp</dimen>
+
+  <dimen name="exchange_loader">88dp</dimen>
+</resources>

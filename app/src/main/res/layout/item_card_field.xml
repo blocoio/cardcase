@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<EditText
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/card_field"
+    android:layout_marginTop="@dimen/margin_tiny"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/card_field_height"
+    android:hint="@string/field_hint"/>

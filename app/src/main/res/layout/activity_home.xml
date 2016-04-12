@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+  <android.support.design.widget.CoordinatorLayout
+      style="@style/layout"
+      tools:context=".presentation.home.HomeActivity">
+
+    <android.support.design.widget.AppBarLayout
+        style="@style/app_bar">
+      <include layout="@layout/toolbar_inner"/>
+      <include layout="@layout/toolbar_search" android:visibility="gone"/>
+    </android.support.design.widget.AppBarLayout>
+
+    <LinearLayout
+        android:id="@+id/home_empty"
+        style="@style/layout_inner"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:visibility="gone"
+        tools:visibility="visible">
+
+      <ImageView
+          android:contentDescription="@null"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:src="@drawable/cards"
+          android:layout_marginBottom="@dimen/margin_default"/>
+
+      <TextView
+          style="@style/text_block"
+          android:layout_margin="@dimen/margin_default"
+          android:text="@string/home_empty_text"
+          android:textSize="@dimen/text_title"
+          android:paddingBottom="@dimen/margin_triple"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/home_search_empty"
+        style="@style/layout_inner"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:visibility="gone">
+
+      <TextView
+          style="@style/text_block"
+          android:layout_margin="@dimen/margin_default"
+          android:text="@string/home_search_empty_text"/>
+
+    </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        style="@style/layout_inner"
+        android:id="@+id/home_cards"
+        android:layout_marginBottom="@dimen/nav_bar_subtraction"
+        android:visibility="gone"
+        android:paddingBottom="88dp"
+        android:clipToPadding="false"
+        tools:visibility="visible"/>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/home_exchange"
+        style="@style/fab"
+        android:scaleType="center"
+        android:src="@drawable/ic_exchange"/>
+
+  </android.support.design.widget.CoordinatorLayout>
+
+  <View
+      android:id="@+id/home_transition_overlay"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:background="@color/secondary"
+      android:visibility="gone"/>
+
+</FrameLayout>

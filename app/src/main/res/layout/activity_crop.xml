@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/layout"
+    >
+
+  <include layout="@layout/toolbar"/>
+
+  <FrameLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      app:layout_behavior="@string/appbar_scrolling_view_behavior"
+      >
+
+    <com.lyft.android.scissors.CropView
+        android:id="@+id/crop_avatar_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background_crop"
+        app:cropviewViewportHeightRatio="1"
+        />
+
+  </FrameLayout>
+
+  <android.support.design.widget.FloatingActionButton
+      android:id="@+id/crop_avatar_fab"
+      style="@style/fab"
+      android:layout_gravity="bottom|center_horizontal"
+      android:src="@drawable/ic_done"
+      />
+
+</android.support.design.widget.CoordinatorLayout>

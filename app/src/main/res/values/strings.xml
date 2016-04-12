@@ -1,0 +1,85 @@
+<resources>
+  <string name="app_name">Card Case</string>
+  <string name="cards_received">Cards received</string>
+  <string name="user_card">My card</string>
+  <string name="back">Back</string>
+  <string name="done">Done</string>
+  <string name="avatar">Photo</string>
+  <string name="name">Name</string>
+  <string name="email">Email</string>
+  <string name="phone">Phone number</string>
+  <string name="field_hint"></string>
+  <string name="exchange">Exchange</string>
+  <string name="close">Close</string>
+  <string name="edit">Edit</string>
+  <string name="card_time">Added %s</string>
+  <string name="added_at">Added %s</string>
+  <string name="waiting">Waiting</string>
+  <string name="ok">OK</string>
+  <string name="cancel">Cancel</string>
+
+  <string name="avatar_edit">Change avatar</string>
+  <string name="avatar_picker">Where from?</string>
+  <string name="crop_avatar">Crop photo</string>
+  <string name="crop_avatar_dialog">Cropping photo</string>
+
+  <string name="time_just_now">now</string>
+  <string name="time_a_minute_ago">a minute ago</string>
+  <string name="time_minutes">%dm</string>
+  <string name="time_hours">%dh</string>
+
+  <string name="welcome_start">Create your card</string>
+  <string name="welcome_title">Welcome to Card Case</string>
+  <string name="welcome_text">The easiest way to exchange contacts with people nearby</string>
+
+  <string name="home_empty_text">
+    Here you will see the\n
+    cards you receive.\n\n
+    Mingle and exchange\n
+    cards with others!
+  </string>
+  <string name="send_email">Send email</string>
+
+  <!-- Exchange -->
+  <string name="exchange_title">
+    Sharing your card\n
+    and searching for other cards
+  </string>
+  <string name="exchange_help">Make sure others are also exchanging their card</string>
+  <string name="exchange_invite">
+    <![CDATA[
+      They don\'t have this app installed?<br/><u>Invite them</u>
+    ]]>
+  </string>
+  <string name="exchange_cards_title">Cards received</string>
+  <string name="exchange_close_confirm">Are you sure you want to close and lose the cards you
+    received?
+  </string>
+  <string name="exchange_close_yes">Discard and close</string>
+
+  <!-- Invite -->
+  <string name="invite_title">Invite to Card Case</string>
+  <string name="invite_message">
+    Hey, check out Card Case, an app to easily exchange business cards with people nearby.
+  </string>
+  <string name="invite_button">Invite</string>
+
+  <!-- Errors -->
+  <string name="error">Error (sorry!)</string>
+  <string name="error_exchange_general">Could not start card exchange. Please try again later.
+  </string>
+  <string name="error_need_nearby_permission">This application needs the Nearby permission to
+    exchange cards with people nearby.
+  </string>
+  <string name="error_connection">Could not connect. Please confirm internet is available and try
+    again.
+  </string>
+  <string name="error_play_services_update_required">You need to upgrade Google Play Services to
+    exchange cards with people nearby.
+  </string>
+  <string name="error_play_services_required">Card Case needs Google Play Services installed to
+    exchange cards with people nearby.
+  </string>
+  <string name="search">Search cards</string>
+  <string name="home_search_empty_text">No cards found</string>
+</resources>
