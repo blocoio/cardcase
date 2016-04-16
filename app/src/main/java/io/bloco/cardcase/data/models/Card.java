@@ -16,9 +16,9 @@ import java.util.List;
   @DatabaseField private String phone;
   @DatabaseField private String avatarPath;
   @DatabaseField(dataType = DataType.SERIALIZABLE) private ArrayList<String> fields;
-  @DatabaseField private Date createdAt;
-  @DatabaseField private Date updatedAt;
-  @DatabaseField private boolean isUser;
+  @DatabaseField private transient Date createdAt;
+  @DatabaseField private transient Date updatedAt;
+  @DatabaseField private transient boolean isUser;
 
   public Card() {
     fields = new ArrayList<>();

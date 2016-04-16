@@ -27,7 +27,9 @@ public class SearchToolbar extends android.support.v7.widget.Toolbar {
 
     field.addTextChangedListener(new SimpleTextWatcher() {
       @Override public void onTextChanged(String newText) {
-        listener.onSearchQuery(newText);
+        if (listener != null) {
+          listener.onSearchQuery(newText);
+        }
       }
     });
   }

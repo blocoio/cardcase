@@ -227,7 +227,7 @@ public class CardInfoView extends FrameLayout {
     editText.setSelected(false);
 
     // Hide background
-    editText.setBackgroundTintList(getResources().getColorStateList(R.color.background_card));
+    editText.setBackgroundTintList(getResources().getColorStateList(android.R.color.white));
   }
 
   private void enableEditText(EditText editText) {
