@@ -62,8 +62,7 @@
   <!-- Invite -->
   <string name="invite_title">Convida para o Card Case</string>
   <string name="invite_message">
-    Olá, experimenta o Card Case, uma aplicação para partilhar facilmente cartões de negócios com
-    pessoas perto de ti.
+    Olá, experimenta o Card Case, uma app para partilhar contactos com pessoas perto de ti.
   </string>
   <string name="invite_button">Convidar</string>
 

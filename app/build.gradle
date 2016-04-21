@@ -24,8 +24,8 @@ android {
     applicationId "io.bloco.cardcase"
     minSdkVersion 21
     targetSdkVersion 23
-    versionCode 21
-    versionName "1.0.1"
+    versionCode 22
+    versionName "1.0.2"
     testInstrumentationRunner 'android.support.test.runner.AndroidJUnitRunner'
 
     def filesAuthorityValue = applicationId + ".files"
