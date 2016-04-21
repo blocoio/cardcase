@@ -6,6 +6,7 @@ import io.bloco.cardcase.presentation.common.FileHelper;
 import java.io.File;
 import javax.inject.Inject;
 import javax.inject.Singleton;
+import timber.log.Timber;
 
 @Singleton public class CardSerializer {
 
@@ -24,6 +25,7 @@ import javax.inject.Singleton;
 
   public Card deserialize(byte[] data) {
     String cardSerialized = new String(data);
+    Timber.i("Card received: %s", cardSerialized);
     CardWrapper cardWrapper = gson.fromJson(cardSerialized, CardWrapper.class);
     return unwrapCard(cardWrapper);
   }
@@ -39,6 +41,9 @@ import javax.inject.Singleton;
 
   public Card unwrapCard(CardWrapper cardWrapper) {
     Card card = cardWrapper.card;
+    if (card == null) {
+      return null;
+    }
 
     if (card.getAvatarPath() != null) {
       File avatarFile = fileHelper.createFinalImageFile();

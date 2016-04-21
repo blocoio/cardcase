@@ -14,7 +14,7 @@ import javax.inject.Inject;
 public class Bootstrap {
 
   private static final int NUM_CARDS = 16;
-  private static final int NUM_AVATARS = 9;
+  private static final int NUM_AVATARS = 10;
 
   private final Context context;
   private final Database database;
@@ -52,7 +52,7 @@ public class Bootstrap {
 
     Card card = new Card();
     card.setName(faker.name.name());
-    card.setEmail(faker.internet.email(card.getName().split(" ")[0]));
+    card.setEmail(faker.internet.safeEmail(card.getName().split(" ")[0]));
     card.setPhone(faker.phoneNumber.cellPhone());
     card.setAvatarPath(avatarPath);
     return card;

@@ -10,6 +10,7 @@ import io.bloco.cardcase.data.models.Card;
 import io.bloco.cardcase.domain.GetUserCard;
 import io.bloco.cardcase.domain.SaveReceivedCards;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import javax.inject.Inject;
 import timber.log.Timber;
@@ -100,7 +101,9 @@ import timber.log.Timber;
   @Override public void onMessageReceived(byte[] messageBytes) {
     analyticsService.trackEvent("Exchange Card Received");
     Card card = cardSerializer.deserialize(messageBytes);
-    addNewCard(card);
+    if (card != null) {
+      addNewCard(card);
+    }
   }
 
   @Override public void onConnectionFailed(ConnectionResult connectionResult) {
@@ -143,6 +146,10 @@ import timber.log.Timber;
     if (receivedCards.contains(card)) {
       return;
     }
+
+    card.setCreatedAt(Calendar.getInstance().getTime());
+    card.setUpdatedAt(card.getCreatedAt());
+    card.setIsUser(false);
 
     receivedCards.add(card);
     view.notifyCardAdded();
