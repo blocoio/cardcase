@@ -230,6 +230,11 @@ public class ExchangeActivity extends BaseActivity implements ExchangeContract.V
   }
 
   private void closeActivityWithAnimation() {
+    if (!overlay.isAttachedToWindow()) {
+      finishWithAnimation();
+      return;
+    }
+
     float fabMargin = getResources().getDimension(R.dimen.fab_margin);
     float fabSize = getResources().getDimension(R.dimen.fab_size);
     float fabOffset = fabMargin + fabSize / 2;

@@ -82,7 +82,7 @@ dependencies {
     transitive = true;
   }
   // Generate fake data
-  compile 'com.github.blocoio:faker:1.2.0'
+  compile 'com.github.blocoio:faker:1.2.3'
   // Testing
   testCompile 'junit:junit:4.12'
   testCompile 'org.mockito:mockito-core:2.0.31-beta'
