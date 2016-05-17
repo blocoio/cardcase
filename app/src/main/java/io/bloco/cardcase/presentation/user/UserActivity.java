@@ -16,6 +16,7 @@ import io.bloco.cardcase.common.di.DaggerActivityComponent;
 import io.bloco.cardcase.data.models.Card;
 import io.bloco.cardcase.presentation.BaseActivity;
 import io.bloco.cardcase.presentation.common.CardInfoView;
+import io.bloco.cardcase.presentation.common.ErrorDisplayer;
 import io.bloco.cardcase.presentation.common.ImageLoader;
 import io.bloco.cardcase.presentation.home.HomeActivity;
 import java.io.File;
@@ -27,6 +28,7 @@ public class UserActivity extends BaseActivity
   @Inject UserContract.Presenter presenter;
   @Inject ImageLoader imageLoader;
   @Inject AvatarPicker avatarPicker;
+  @Inject ErrorDisplayer errorDisplayer;
 
   @Bind(R.id.user_card) CardInfoView cardView;
   @Bind(R.id.user_edit) FloatingActionButton edit;
@@ -64,8 +66,7 @@ public class UserActivity extends BaseActivity
 
     presenter.start(this, onboarding);
 
-    Transition slideEnd =
-        TransitionInflater.from(this).inflateTransition(R.transition.slide_end);
+    Transition slideEnd = TransitionInflater.from(this).inflateTransition(R.transition.slide_end);
     Transition slideStart =
         TransitionInflater.from(this).inflateTransition(R.transition.slide_start);
     getWindow().setEnterTransition(slideStart);
@@ -84,7 +85,15 @@ public class UserActivity extends BaseActivity
 
   @Override protected void onActivityResult(int requestCode, int resultCode, Intent data) {
     super.onActivityResult(requestCode, resultCode, data);
-    File avatarFile = avatarPicker.processActivityResult(requestCode, resultCode, data, this);
+    File avatarFile;
+
+    try {
+      avatarFile = avatarPicker.processActivityResult(requestCode, resultCode, data, this);
+    } catch (AvatarPicker.AvatarReceivingError avatarReceivingError) {
+      errorDisplayer.show(this, R.string.error_avatar_receiving);
+      return;
+    }
+
     if (avatarFile != null) {
       cardView.setAvatar(avatarFile.getAbsolutePath());
       presenter.onCardChanged(cardView.getCard());

@@ -65,7 +65,8 @@ import timber.log.Timber;
     try {
       parcelFileDes = contentResolver.openFileDescriptor(uri, "r");
     } catch (FileNotFoundException e) {
-      throw new RuntimeException(e);
+      Timber.e(e, "saveUriToFile");
+      return null;
     }
 
     Preconditions.checkNotNull(parcelFileDes, "Could not open file URI");

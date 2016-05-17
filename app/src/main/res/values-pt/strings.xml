@@ -30,7 +30,8 @@
 
   <string name="welcome_start">Cria o teu cartão</string>
   <string name="welcome_title">Bem-vindo ao Card Case</string>
-  <string name="welcome_text">A forma mais fácil de trocar contactos com pessoas perto de ti</string>
+  <string name="welcome_text">A forma mais fácil de trocar contactos com pessoas perto de ti
+  </string>
 
   <string name="home_empty_text">
     Aqui irás ver os\n
@@ -83,6 +84,9 @@
   </string>
   <string name="error_play_services_required">
     Card Case precisa de Google Play Services instalado para trocar cartões com pessoas perto de ti.
+  </string>
+  <string name="error_avatar_receiving">Não foi possível processar a image. Por favor tente com uma
+    imagem diferente.
   </string>
   <string name="search">Pesquisar cartões</string>
   <string name="home_search_empty_text">Nenhum cartão encontrado</string>

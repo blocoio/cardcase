@@ -22,6 +22,8 @@ import javax.inject.Singleton;
 
 @Singleton public class AvatarPicker {
 
+  public class AvatarReceivingError extends Exception {}
+
   public static final int AVATAR_REQUEST_CODE = 21;
   public static final int CROP_REQUEST_CODE = 31;
   public static final int IMAGE_QUALITY = 50;
@@ -65,7 +67,7 @@ import javax.inject.Singleton;
   }
 
   public File processActivityResult(int requestCode, int resultCode, Intent data,
-      Activity activity) {
+      Activity activity) throws AvatarReceivingError {
     // Crop
     if (requestCode == CROP_REQUEST_CODE) {
       clearTempFile();
@@ -89,17 +91,24 @@ import javax.inject.Singleton;
       return null;
     }
 
+    // Check if we still have the tempFile
+    if (tempFile == null) {
+      throw new AvatarReceivingError();
+    }
+
     // Gallery
     if (data != null) {
       Uri imageUri = data.getData();
       if (imageUri != null) {
         tempFile = fileHelper.saveUriToFile(imageUri, tempFile);
+        if (tempFile == null) {
+          throw new AvatarReceivingError();
+        }
       }
     }
 
     // Camera: nothing to do, the photo is already on tempFile
 
-    Preconditions.checkNotNull(tempFile, "Received invalid image");
     cropPhoto(activity);
 
     return null;

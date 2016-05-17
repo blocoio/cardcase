@@ -13,6 +13,7 @@ import io.bloco.cardcase.domain.SaveUserCard;
 import io.bloco.cardcase.presentation.common.Bootstrap;
 import io.bloco.cardcase.presentation.common.CardInfoView;
 import io.bloco.cardcase.presentation.common.CardViewHolder;
+import io.bloco.cardcase.presentation.common.ErrorDisplayer;
 import io.bloco.cardcase.presentation.common.ImageLoader;
 import io.bloco.cardcase.presentation.exchange.CardSerializer;
 import io.bloco.cardcase.presentation.user.AvatarPicker;
@@ -50,4 +51,6 @@ import javax.inject.Singleton;
   AnalyticsService analyticsService();
 
   Bootstrap bootstrap();
+
+  ErrorDisplayer errorDisplayer();
 }
