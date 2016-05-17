@@ -24,6 +24,8 @@ import javax.inject.Inject;
 
 public class CropAvatarActivity extends BaseActivity {
 
+  public static final int RESULT_ERROR = 999;
+
   @Inject AvatarPicker avatarPicker;
 
   @Bind(R.id.crop_avatar_view) CropView cropView;
@@ -81,15 +83,25 @@ public class CropAvatarActivity extends BaseActivity {
     showWaitDialog();
 
     new AsyncTask<Void, Void, File>() {
+      private Exception exception;
+
       @Override protected File doInBackground(Void... params) {
         File avatarFile = avatarPicker.createNewAvatarFile();
         executeCrop(avatarFile);
-        avatarPicker.resizeAvatar(avatarFile);
+        try {
+          avatarPicker.resizeAvatar(avatarFile);
+        } catch (AvatarPicker.ResizeError resizeError) {
+          exception = resizeError;
+        }
         return avatarFile;
       }
 
       @Override protected void onPostExecute(File avatarFile) {
-        finishWithResult(avatarFile);
+        if (exception != null) {
+          finishWithError();
+        } else {
+          finishWithResult(avatarFile);
+        }
         dismissDialog();
       }
     }.execute();
@@ -111,6 +123,12 @@ public class CropAvatarActivity extends BaseActivity {
     Intent intent = new Intent();
     intent.putExtra(AvatarPicker.BundleArgs.FILE_PATH, avatarFile.getAbsolutePath());
     setResult(Activity.RESULT_OK, intent);
+    finish();
+  }
+
+  private void finishWithError() {
+    Intent intent = new Intent();
+    setResult(RESULT_ERROR, intent);
     finish();
   }
 

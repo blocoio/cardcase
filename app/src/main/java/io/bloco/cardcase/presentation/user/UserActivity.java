@@ -7,6 +7,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.transition.Transition;
 import android.transition.TransitionInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -30,6 +31,7 @@ public class UserActivity extends BaseActivity
   @Inject AvatarPicker avatarPicker;
   @Inject ErrorDisplayer errorDisplayer;
 
+  @Bind(R.id.user_layout) ViewGroup rootLayout;
   @Bind(R.id.user_card) CardInfoView cardView;
   @Bind(R.id.user_edit) FloatingActionButton edit;
   @Bind(R.id.user_done) FloatingActionButton done;
@@ -89,8 +91,11 @@ public class UserActivity extends BaseActivity
 
     try {
       avatarFile = avatarPicker.processActivityResult(requestCode, resultCode, data, this);
-    } catch (AvatarPicker.AvatarReceivingError avatarReceivingError) {
-      errorDisplayer.show(this, R.string.error_avatar_receiving);
+    } catch (AvatarPicker.ReceivingError avatarReceivingError) {
+      errorDisplayer.show(rootLayout, R.string.error_avatar_receiving);
+      return;
+    } catch (AvatarPicker.ResizeError resizeError) {
+      errorDisplayer.show(rootLayout, R.string.error_avatar_resize);
       return;
     }
 

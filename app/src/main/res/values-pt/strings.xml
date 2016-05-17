@@ -88,6 +88,8 @@
   <string name="error_avatar_receiving">Não foi possível processar a image. Por favor tente com uma
     imagem diferente.
   </string>
+  <string name="error_avatar_resize">Não foi possível cortar imagem. Por favor tente novamente.
+  </string>
   <string name="search">Pesquisar cartões</string>
   <string name="home_search_empty_text">Nenhum cartão encontrado</string>
 </resources>

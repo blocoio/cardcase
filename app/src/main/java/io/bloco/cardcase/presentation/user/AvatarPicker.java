@@ -22,7 +22,8 @@ import javax.inject.Singleton;
 
 @Singleton public class AvatarPicker {
 
-  public class AvatarReceivingError extends Exception {}
+  public class ReceivingError extends Exception {}
+  public class ResizeError extends Exception {}
 
   public static final int AVATAR_REQUEST_CODE = 21;
   public static final int CROP_REQUEST_CODE = 31;
@@ -67,7 +68,7 @@ import javax.inject.Singleton;
   }
 
   public File processActivityResult(int requestCode, int resultCode, Intent data,
-      Activity activity) throws AvatarReceivingError {
+      Activity activity) throws ReceivingError, ResizeError {
     // Crop
     if (requestCode == CROP_REQUEST_CODE) {
       clearTempFile();
@@ -75,6 +76,8 @@ import javax.inject.Singleton;
         String croppedAvatarPath = data.getStringExtra("file_path");
         Preconditions.checkNotNull(croppedAvatarPath, "Empty cropped avatar");
         return new File(croppedAvatarPath);
+      } else if (resultCode == CropAvatarActivity.RESULT_ERROR) {
+        throw new ResizeError();
       }
       return null;
     }
@@ -93,7 +96,7 @@ import javax.inject.Singleton;
 
     // Check if we still have the tempFile
     if (tempFile == null) {
-      throw new AvatarReceivingError();
+      throw new ReceivingError();
     }
 
     // Gallery
@@ -102,7 +105,7 @@ import javax.inject.Singleton;
       if (imageUri != null) {
         tempFile = fileHelper.saveUriToFile(imageUri, tempFile);
         if (tempFile == null) {
-          throw new AvatarReceivingError();
+          throw new ReceivingError();
         }
       }
     }
@@ -118,8 +121,12 @@ import javax.inject.Singleton;
     return fileHelper.createFinalImageFile();
   }
 
-  public void resizeAvatar(File avatarFile) {
+  public void resizeAvatar(File avatarFile) throws ResizeError {
     Bitmap originalBitmap = BitmapFactory.decodeFile(avatarFile.getAbsolutePath());
+    if (originalBitmap == null) {
+      throw new ResizeError();
+    }
+
     Bitmap bitmap = Bitmap.createScaledBitmap(originalBitmap, AVATAR_SIZE, AVATAR_SIZE, false);
     FileOutputStream fos;
     try {

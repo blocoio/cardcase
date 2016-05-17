@@ -82,6 +82,7 @@
   </string>
   <string name="error_avatar_receiving">Could not process image. Please try with a different one.
   </string>
+  <string name="error_avatar_resize">Could not crop image. Please try again.</string>
   <string name="search">Search cards</string>
   <string name="home_search_empty_text">No cards found</string>
 </resources>
