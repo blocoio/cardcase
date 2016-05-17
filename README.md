@@ -1,6 +1,6 @@
 # Card Case
 
-_Exchange your business card with people nearby_
+_Exchange your business card with people nearby_ ([Website](https://www.bloco.io/card-case))
 
 Leave your paper business cards at home. With Card Case you can create your digital business card, and share it with people nearby in seconds.
 
@@ -10,6 +10,9 @@ Using Google’s Nearby technology, the Card Case app exchanges your business ca
   <img src="https://play.google.com/intl/en_us/badges/images/generic/en-play-badge.png"
        alt="Android app on Google Play" width="200"/>
 </a>
+
+<img src="http://static1.squarespace.com/static/551d4b4fe4b088e1f808d234/t/573b026427d4bdd18a9e36da/1463485030238/card-case-preview.png"
+       alt="Card Case preview" width="500"/>
 
 ## Features
 
