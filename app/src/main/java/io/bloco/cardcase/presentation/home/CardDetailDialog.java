@@ -2,6 +2,7 @@ package io.bloco.cardcase.presentation.home;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.support.design.widget.FloatingActionButton;
 import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
@@ -27,7 +28,7 @@ public class CardDetailDialog {
     @Bind(R.id.card_dialog_info)
     CardInfoView cardInfoView;
     @Bind(R.id.buttonDeleteCard)
-    Button deleteCard;
+    FloatingActionButton deleteCard;
 
     // TODO: Inject only the activity context?
     @Inject
