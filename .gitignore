@@ -50,3 +50,5 @@ fabric.properties
 keystore.jks
 google-services.json
 google_analytics_tracker.xml
+
+/gradle/wrapper
