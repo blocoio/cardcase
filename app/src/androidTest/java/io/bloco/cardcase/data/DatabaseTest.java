@@ -8,13 +8,14 @@ import io.bloco.cardcase.data.models.Card;
 import io.bloco.cardcase.helpers.CardFactory;
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 
 import static org.hamcrest.core.IsCollectionContaining.hasItems;
 import static org.junit.Assert.assertThat;
 
 public class DatabaseTest extends ApplicationTestCase<AndroidApplication> {
 
-  private RuntimeExceptionDao<Card, String> cardDao;
+  private RuntimeExceptionDao<Card, UUID> cardDao;
   private Database database;
   private CardFactory cardFactory;
 

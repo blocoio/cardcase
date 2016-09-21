@@ -13,7 +13,7 @@ import java.util.UUID;
 public class CardFactory {
 
   private final Faker faker;
-  private RuntimeExceptionDao<Card, String> cardDao;
+  private RuntimeExceptionDao<Card, UUID> cardDao;
 
   public CardFactory() {
     faker = new Faker();
@@ -28,14 +28,14 @@ public class CardFactory {
     this.cardDao = new ApplicationModule(application).provideCardDao();
   }
 
-  public CardFactory(RuntimeExceptionDao<Card, String> cardDao) {
+  public CardFactory(RuntimeExceptionDao<Card, UUID> cardDao) {
     this();
     this.cardDao = cardDao;
   }
 
   public Card build() {
     Card card = new Card();
-    card.setId(UUID.randomUUID().toString());
+    card.setId(UUID.randomUUID());
     card.setName(faker.name.name());
     card.setEmail(faker.internet.email(card.getName()));
     card.setPhone(faker.phoneNumber.phoneNumber());
