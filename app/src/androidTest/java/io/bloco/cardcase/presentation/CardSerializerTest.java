@@ -9,6 +9,7 @@ import io.bloco.cardcase.presentation.exchange.CardSerializer;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.Random;
+import java.util.UUID;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.core.Is.is;
@@ -38,7 +39,7 @@ public class CardSerializerTest extends ApplicationTestCase<AndroidApplication> 
 
   public void test() throws Exception {
     Card card = new Card();
-    card.setId("card-id");
+    card.setId(UUID.randomUUID());
     card.setAvatar(avatarFile);
 
     byte[] data = cardSerializer.serialize(card);
