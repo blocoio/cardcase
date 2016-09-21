@@ -12,6 +12,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.bloco.cardcase.R;
 import io.bloco.cardcase.common.di.PerActivity;
+import io.bloco.cardcase.data.Database;
 import io.bloco.cardcase.data.models.Card;
 import io.bloco.cardcase.presentation.common.CardInfoView;
 
@@ -21,6 +22,7 @@ import javax.inject.Inject;
 public class CardDetailDialog {
 
     private final Dialog dialog;
+    private final Database database;
 
     @Bind(R.id.card_dialog_info)
     CardInfoView cardInfoView;
@@ -29,10 +31,11 @@ public class CardDetailDialog {
 
     // TODO: Inject only the activity context?
     @Inject
-    public CardDetailDialog(Activity activity) {
+    public CardDetailDialog(Activity activity, Database database) {
         this.dialog = new Dialog(activity);
         this.dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         this.dialog.setContentView(R.layout.card_detail_dialog);
+        this.database = database;
         ButterKnife.bind(this, dialog);
     }
 
@@ -52,6 +55,8 @@ public class CardDetailDialog {
 
     @OnClick(R.id.buttonDeleteCard)
     public void onClickedDelete() {
-        Log.d("TEST", "TODO Delete");
+        Log.d("TEST", "card id:" + cardInfoView.getCard().getId());
+        database.deleteCard(cardInfoView.getCard());
+        Log.d("TEST", "TODO Delete?" + cardInfoView.getCard().getName() + ", id:" + cardInfoView.getCard().getId());
     }
 }

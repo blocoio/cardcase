@@ -31,7 +31,7 @@ import javax.inject.Inject;
 
     if (onboarding) {
       userCard = new Card();
-      userCard.setId(UUID.randomUUID().toString());
+      userCard.setId(UUID.randomUUID());
       view.showUser(userCard);
       view.enableEditMode();
       analyticsService.trackEvent("Onboarding Screen");
