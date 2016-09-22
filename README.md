@@ -21,6 +21,7 @@ Using Google’s Nearby technology, the Card Case app exchanges your business ca
 - Only exchange your business card when you want to
 - Keep all the cards you received for later
 - Search your received cards
+- **Delete your received cards**
 
 ## Development
 
