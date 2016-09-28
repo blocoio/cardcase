@@ -31,6 +31,8 @@ public class Card {
     private transient Date updatedAt;
     @DatabaseField
     private transient boolean isUser;
+    @DatabaseField
+    private UUID categoryId;
 
     public Card() {
         fields = new ArrayList<>();
@@ -64,6 +66,7 @@ public class Card {
         card.createdAt = createdAt;
         card.updatedAt = updatedAt;
         card.isUser = isUser;
+        card.categoryId = categoryId;
         return card;
     }
 
@@ -156,6 +159,14 @@ public class Card {
 
     public boolean isValid() {
         return !getName().isEmpty();
+    }
+
+    public UUID getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(UUID categoryId) {
+        this.categoryId = categoryId;
     }
 
     public boolean matchQuery(String query) {
