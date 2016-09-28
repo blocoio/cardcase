@@ -28,12 +28,18 @@ public class Database {
         this.categoryDao = categoryDao;
     }
 
-    public void saveCategory(final Category category){
+    public void saveCategory(final Category category) {
         categoryDao.createOrUpdate(category);
     }
 
-    public Category getCategory(UUID id){
-        return categoryDao.queryForId(id);
+    public void saveCategories(List<Category> categories) {
+        for (Category category : categories) {
+            saveCategory(category);
+        }
+    }
+
+    public List<Category> getCategories() {
+        return categoryDao.queryForAll();
     }
 
     public Card getUserCard() {

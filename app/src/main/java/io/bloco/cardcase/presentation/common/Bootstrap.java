@@ -5,6 +5,7 @@ import android.util.Log;
 
 import io.bloco.cardcase.data.Database;
 import io.bloco.cardcase.data.models.Card;
+import io.bloco.cardcase.data.models.Category;
 import io.bloco.faker.Faker;
 
 import java.io.File;
@@ -12,6 +13,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Random;
 import java.util.UUID;
 
 import javax.inject.Inject;
@@ -52,6 +54,16 @@ public class Bootstrap {
         }
     }
 
+    private Category buildFakeCategory() {
+        Category category = new Category();
+
+        Random random = new Random();
+        category.setName("test category " + random.nextInt(100));
+        database.saveCategory(category);
+        System.out.println("SAVED, categoryId: " + category.getId() + " " + category.getName());
+        return category;
+    }
+
     private Card buildFakeCard() {
         String avatarFilePath = "avatars/avatar" + (avatarIndex + 1) + ".jpg";
         String avatarPath = fileFromAssetPath(avatarFilePath).getAbsolutePath();
@@ -62,6 +74,7 @@ public class Bootstrap {
         card.setEmail(faker.internet.safeEmail(card.getName().split(" ")[0]));
         card.setPhone(faker.phoneNumber.cellPhone());
         card.setAvatarPath(avatarPath);
+        card.setCategoryId(buildFakeCategory().getId());
         database.saveCard(card);
         System.out.println("SAVED, id:" + card.getId());
         return card;
