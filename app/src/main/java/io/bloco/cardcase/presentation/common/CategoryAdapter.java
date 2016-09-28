@@ -1,8 +1,96 @@
 package io.bloco.cardcase.presentation.common;
 
-/**
- * Created by Mtrs on 28.09.2016.
- */
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
-public class CategoryAdapter {
+import io.bloco.cardcase.R;
+import io.bloco.cardcase.common.di.PerActivity;
+import io.bloco.cardcase.data.models.Card;
+import io.bloco.cardcase.data.models.Category;
+import io.bloco.cardcase.presentation.home.CardDetailDialog;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.inject.Inject;
+
+@PerActivity
+public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+
+    private static class ViewType {
+        private static final int NORMAL = 0;
+        private static final int FOOTER = 1;
+    }
+
+    private List<Category> categories;
+    private boolean showLoader;
+
+    @Inject
+    public CategoryAdapter() {
+        this.categories = new ArrayList<>();
+        this.showLoader = false;
+    }
+
+    public void showLoader() {
+        this.showLoader = true;
+    }
+
+    @Override
+    public int getItemCount() {
+        return categories.size() + (showLoader ? 1 : 0);
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        if (position < categories.size()) {
+            return ViewType.NORMAL;
+        } else {
+            return ViewType.FOOTER;
+        }
+    }
+
+    @Override
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view;
+        switch (viewType) {
+            case ViewType.FOOTER:
+                view = LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.categories_list_loader, parent, false);
+                return new FooterViewHolder(view);
+
+            case ViewType.NORMAL:
+            default:
+                view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_category, parent, false);
+                return new CategoryViewHolder(view); //TODO showCards
+        }
+    }
+
+    @Override
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+        if (holder instanceof CategoryViewHolder) {
+            Category category = categories.get(position);
+            ((CategoryViewHolder) holder).bind(category);
+        } else if (holder instanceof FooterViewHolder) {
+            ((FooterViewHolder) holder).start();
+        }
+    }
+
+    public void setCategories(List<Category> categories) {
+        this.categories = categories;
+    }
+
+    private static class FooterViewHolder extends RecyclerView.ViewHolder {
+
+        private final View view;
+
+        public FooterViewHolder(View view) {
+            super(view);
+            this.view = view;
+        }
+
+        public void start() {
+        }
+    }
 }
