@@ -18,11 +18,21 @@ public class Card {
     @DatabaseField(canBeNull = false)
     private String name;
     @DatabaseField
+    private String company;
+    @DatabaseField
+    private String position;
+    @DatabaseField
+    private String address;
+    @DatabaseField
+    private String website;
+    @DatabaseField
     private String email;
     @DatabaseField
     private String phone;
     @DatabaseField
     private String avatarPath;
+
+
     @DatabaseField(dataType = DataType.SERIALIZABLE)
     private ArrayList<String> fields;
     @DatabaseField
@@ -31,6 +41,7 @@ public class Card {
     private transient Date updatedAt;
     @DatabaseField
     private transient boolean isUser;
+
 
     public Card() {
         fields = new ArrayList<>();
@@ -57,6 +68,10 @@ public class Card {
         Card card = new Card();
         card.id = id;
         card.name = name;
+        card.company = company;
+        card.position = position;
+        card.address = address;
+        card.website = website;
         card.email = email;
         card.phone = phone;
         card.avatarPath = avatarPath;
@@ -81,6 +96,38 @@ public class Card {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getCompany(){
+        return company;
+    }
+
+    public void setCompany(String company) {
+        this.company = company;
+    }
+
+    public String getPosition(){
+        return position;
+    }
+
+    public void setPosition(String position) {
+        this.position = position;
+    }
+
+    public String getAddress(){
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getWebsite(){
+        return website;
+    }
+
+    public void setWebsite(String website) {
+        this.website = website;
     }
 
     public String getEmail() {
@@ -163,6 +210,10 @@ public class Card {
 
         List<String> fieldsToMatch = new ArrayList<>(fields);
         fieldsToMatch.add(name);
+        fieldsToMatch.add(company);
+        fieldsToMatch.add(position);
+        fieldsToMatch.add(address);
+        fieldsToMatch.add(website);
         fieldsToMatch.add(email);
         fieldsToMatch.add(phone);
 
