@@ -14,7 +14,7 @@ public class Category {
 
     @DatabaseField(generatedId = true)
     private UUID id;
-    @DatabaseField(throwIfNull = true)
+    @DatabaseField
     private String name;
 
     public UUID getId() {
@@ -43,5 +43,8 @@ public class Category {
         return id.equals(category.id);
     }
 
-
+    @Override
+    public int hashCode() {
+        return id.hashCode();
+    }
 }

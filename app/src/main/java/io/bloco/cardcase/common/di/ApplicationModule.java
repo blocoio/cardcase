@@ -12,6 +12,7 @@ import dagger.Provides;
 import io.bloco.cardcase.AndroidApplication;
 import io.bloco.cardcase.data.DatabaseHelper;
 import io.bloco.cardcase.data.models.Card;
+import io.bloco.cardcase.data.models.Category;
 
 import java.sql.SQLException;
 import java.util.UUID;
@@ -52,6 +53,19 @@ public class ApplicationModule {
         ConnectionSource connectionSource = databaseHelper.getConnectionSource();
         try {
             return RuntimeExceptionDao.createDao(connectionSource, Card.class);
+        } catch (SQLException exception) {
+            throw new RuntimeException(exception);
+        }
+    }
+
+    @Provides
+    @Singleton
+    public RuntimeExceptionDao<Category, UUID> provideCategoryDao() {
+        DatabaseHelper databaseHelper =
+                new DatabaseHelper(application.getApplicationContext(), application.getMode());
+        ConnectionSource connectionSource = databaseHelper.getConnectionSource();
+        try {
+            return RuntimeExceptionDao.createDao(connectionSource, Category.class);
         } catch (SQLException exception) {
             throw new RuntimeException(exception);
         }

@@ -10,7 +10,6 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import io.bloco.cardcase.AndroidApplication;
 import io.bloco.cardcase.R;
-import io.bloco.cardcase.data.models.Card;
 import io.bloco.cardcase.data.models.Category;
 
 public class CategoryViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
