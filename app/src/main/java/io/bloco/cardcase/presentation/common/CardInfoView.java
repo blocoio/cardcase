@@ -36,6 +36,12 @@ public class CardInfoView extends FrameLayout {
     View avatarEditOverlay;
     @Bind(R.id.card_name)
     EditText name;
+    @Bind(R.id.card_phone)
+    EditText phone;
+    @Bind(R.id.card_fields)
+    ViewGroup fields;
+    @Bind(R.id.card_time)
+    TextView time;
     @Bind(R.id.card_company)
     EditText company;
     @Bind(R.id.card_address)
@@ -46,13 +52,6 @@ public class CardInfoView extends FrameLayout {
     EditText position;
     @Bind(R.id.card_email)
     EditText email;
-    @Bind(R.id.card_phone)
-    EditText phone;
-    @Bind(R.id.card_fields)
-    ViewGroup fields;
-    @Bind(R.id.card_time)
-    TextView time;
-
 
 
 
