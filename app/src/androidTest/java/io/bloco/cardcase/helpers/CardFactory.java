@@ -34,14 +34,18 @@ public class CardFactory {
   }
 
   public Card build() {
-    Card card = new Card();
-    card.setId(UUID.randomUUID());
-    card.setName(faker.name.name());
-    card.setEmail(faker.internet.email(card.getName()));
-    card.setPhone(faker.phoneNumber.phoneNumber());
-    card.setCreatedAt(faker.time.backward(365));
-    card.setUpdatedAt(card.getCreatedAt());
-    return card;
+      Card card = new Card();
+      card.setId(UUID.randomUUID());
+      card.setName(faker.name.name());
+      card.setCompany(faker.company.name());
+      card.setAddress(faker.address.toString());
+      card.setWebsite(faker.internet.email());
+      card.setPosition(faker.company.profession());
+      card.setEmail(faker.internet.email(card.getName()));
+      card.setPhone(faker.phoneNumber.phoneNumber());
+      card.setCreatedAt(faker.time.backward(365));
+      card.setUpdatedAt(card.getCreatedAt());
+      return card;
   }
 
   public Card buildUserCard() {

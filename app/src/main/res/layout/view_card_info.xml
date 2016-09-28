@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     style="@style/card"
     android:layout_width="match_parent"
@@ -8,7 +9,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="464dp"
         android:layout_margin="@dimen/margin_double"
         android:orientation="vertical">
 
@@ -46,6 +47,41 @@
             android:hint="@string/name"
             android:nextFocusDown="@+id/card_email"
             android:textSize="@dimen/card_name_text" />
+
+        <EditText
+            android:id="@+id/card_company"
+            style="@style/card_field"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="4dp"
+            android:hint="Company"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/card_position"
+            style="@style/card_field"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/card_field_height"
+            android:layout_marginTop="@dimen/margin_tiny"
+            android:inputType="textPersonName"
+            android:hint="Position" />
+
+        <EditText
+            android:id="@+id/card_address"
+            style="@style/card_field"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="4dp"
+            android:hint="Address"
+            android:inputType="textPostalAddress" />
+
+        <EditText
+            android:id="@+id/card_website"
+            style="@style/card_field"
+            android:layout_height="@dimen/card_field_height"
+            android:layout_marginTop="@dimen/margin_tiny"
+            android:hint="website"
+            android:inputType="textPersonName" />
 
         <EditText
             android:id="@id/card_email"

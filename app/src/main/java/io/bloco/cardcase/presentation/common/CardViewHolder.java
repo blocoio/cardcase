@@ -2,6 +2,8 @@ package io.bloco.cardcase.presentation.common;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -24,7 +26,21 @@ public class CardViewHolder extends RecyclerView.ViewHolder implements View.OnCl
     @Bind(R.id.card_avatar)
     ImageView avatar;
     @Bind(R.id.card_name)
-    TextView name;
+    EditText name;
+    @Bind(R.id.card_company)
+    EditText company;
+    @Bind(R.id.card_address)
+    EditText address;
+    @Bind(R.id.card_website)
+    EditText website;
+    @Bind(R.id.card_position)
+    EditText position;
+    @Bind(R.id.card_email)
+    EditText email;
+    @Bind(R.id.card_phone)
+    EditText phone;
+    @Bind(R.id.card_fields)
+    ViewGroup fields;
     @Bind(R.id.card_time)
     TextView time;
 
@@ -44,6 +60,12 @@ public class CardViewHolder extends RecyclerView.ViewHolder implements View.OnCl
     public void bind(Card card) {
         this.card = card;
         name.setText(card.getName());
+        company.setText(card.getCompany());
+        address.setText(card.getAddress());
+        website.setText(card.getWebsite());
+        position.setText(card.getPosition());
+        email.setText(card.getEmail());
+        phone.setText(card.getPhone());
 
         CharSequence timeStr = dateTimeFormat.getRelativeTimeSpanString(card.getUpdatedAt());
         time.setText(timeStr);

@@ -36,6 +36,14 @@ public class CardInfoView extends FrameLayout {
     View avatarEditOverlay;
     @Bind(R.id.card_name)
     EditText name;
+    @Bind(R.id.card_company)
+    EditText company;
+    @Bind(R.id.card_address)
+    EditText address;
+    @Bind(R.id.card_website)
+    EditText website;
+    @Bind(R.id.card_position)
+    EditText position;
     @Bind(R.id.card_email)
     EditText email;
     @Bind(R.id.card_phone)
@@ -44,6 +52,8 @@ public class CardInfoView extends FrameLayout {
     ViewGroup fields;
     @Bind(R.id.card_time)
     TextView time;
+
+
 
 
     private Card card;
@@ -60,6 +70,10 @@ public class CardInfoView extends FrameLayout {
 
         fieldTextWatcher = new FieldTextWatcher();
         name.addTextChangedListener(fieldTextWatcher);
+        company.addTextChangedListener(fieldTextWatcher);
+        address.addTextChangedListener(fieldTextWatcher);
+        website.addTextChangedListener(fieldTextWatcher);
+        position.addTextChangedListener(fieldTextWatcher);
         email.addTextChangedListener(fieldTextWatcher);
         phone.addTextChangedListener(fieldTextWatcher);
 
@@ -113,8 +127,13 @@ public class CardInfoView extends FrameLayout {
 
     public Card getCard() {
         card.setName(name.getText().toString().trim());
+        card.setCompany(company.getText().toString().trim());
+        card.setAddress(address.getText().toString().trim());
+        card.setWebsite(website.getText().toString().trim());
+        card.setPosition(position.getText().toString().trim());
         card.setEmail(email.getText().toString().trim());
         card.setPhone(phone.getText().toString().trim());
+
 
         int fieldsCount = fields.getChildCount();
         ArrayList<String> fieldValues = new ArrayList<>(fieldsCount);
@@ -134,6 +153,10 @@ public class CardInfoView extends FrameLayout {
         this.card = card.copy();
 
         name.setText(card.getName());
+        company.setText(card.getCompany());
+        address.setText(card.getAddress());
+        website.setText(card.getWebsite());
+        position.setText(card.getPosition());
         email.setText(card.getEmail());
         phone.setText(card.getPhone());
 
@@ -166,6 +189,10 @@ public class CardInfoView extends FrameLayout {
         editMode = true;
 
         enableEditText(name);
+        enableEditText(company);
+        enableEditText(address);
+        enableEditText(website);
+        enableEditText(position);
         enableEditText(email);
         enableEditText(phone);
 
@@ -186,6 +213,10 @@ public class CardInfoView extends FrameLayout {
         editMode = false;
 
         disabledEditText(name);
+        disabledEditText(company);
+        disabledEditText(address);
+        disabledEditText(website);
+        disabledEditText(position);
         disabledEditText(email);
         disabledEditText(phone);
 
