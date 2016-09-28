@@ -107,27 +107,27 @@ public class Card {
     }
 
     public String getPosition(){
-        return company;
+        return position;
     }
 
-    public void setPosition(String company) {
-        this.company = company;
+    public void setPosition(String position) {
+        this.position = position;
     }
 
     public String getAddress(){
-        return company;
+        return address;
     }
 
-    public void setAddress(String company) {
-        this.company = company;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public String getWebsite(){
-        return company;
+        return website;
     }
 
-    public void setWebsite(String company) {
-        this.company = company;
+    public void setWebsite(String website) {
+        this.website = website;
     }
 
     public String getEmail() {
