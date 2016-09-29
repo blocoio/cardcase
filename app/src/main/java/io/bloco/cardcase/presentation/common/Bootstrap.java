@@ -20,7 +20,7 @@ import javax.inject.Inject;
 
 public class Bootstrap {
 
-    private static final int NUM_CARDS = 3;
+    private static final int NUM_CARDS = 10;
     private static final int NUM_AVATARS = 10;
 
     private final Context context;
@@ -28,6 +28,7 @@ public class Bootstrap {
     private final FileHelper fileHelper;
     private final Faker faker;
     private int avatarIndex = 0;
+    private Category category;
 
     @Inject
     public Bootstrap(Context context, Database database, FileHelper fileHelper) {
@@ -39,6 +40,8 @@ public class Bootstrap {
 
     public void clearAndBootstrap() {
         database.clear();
+        this.category = buildFakeCategory();
+        buildFakeCategory();
         bootstrap();
     }
 
@@ -57,7 +60,7 @@ public class Bootstrap {
         Category category = new Category();
 
         Random random = new Random();
-        category.setName("test category " + random.nextInt(1));
+        category.setName("test category " + random.nextInt(100));
         database.saveCategory(category);
         Log.d("CREATE", "SAVED, categoryId: " + category.getId() + " " + category.getName());
         return category;
@@ -81,8 +84,7 @@ public class Bootstrap {
         card.setUpdatedAt(card.getCreatedAt());
         card.setAvatarPath(avatarPath);
 
-        UUID categoryId = buildFakeCategory().getId();
-        card.setCategoryId(categoryId);
+        card.setCategoryId(category.getId());
         database.saveCard(card);
         Log.d("CREATE", "SAVED, id:" + card.getId());
         return card;

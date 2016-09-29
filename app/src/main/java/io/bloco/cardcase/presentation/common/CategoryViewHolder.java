@@ -1,6 +1,5 @@
 package io.bloco.cardcase.presentation.common;
 
-import android.provider.ContactsContract;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
@@ -19,7 +18,6 @@ import io.bloco.cardcase.data.Database;
 import io.bloco.cardcase.data.models.Card;
 import io.bloco.cardcase.data.models.Category;
 import io.bloco.cardcase.presentation.home.HomeContract;
-import io.bloco.cardcase.presentation.home.HomePresenter;
 
 public class CategoryViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
