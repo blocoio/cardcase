@@ -20,8 +20,10 @@ import io.bloco.cardcase.R;
 import io.bloco.cardcase.common.di.ActivityComponent;
 import io.bloco.cardcase.common.di.DaggerActivityComponent;
 import io.bloco.cardcase.data.models.Card;
+import io.bloco.cardcase.data.models.Category;
 import io.bloco.cardcase.presentation.BaseActivity;
 import io.bloco.cardcase.presentation.common.CardAdapter;
+import io.bloco.cardcase.presentation.common.CategoryAdapter;
 import io.bloco.cardcase.presentation.common.SearchToolbar;
 import io.bloco.cardcase.presentation.exchange.ExchangeActivity;
 import io.bloco.cardcase.presentation.user.UserActivity;
@@ -40,6 +42,8 @@ public class HomeActivity extends BaseActivity
     HomeContract.Presenter presenter;
     @Inject
     CardAdapter cardAdapter;
+    @Inject
+    CategoryAdapter categoryAdapter;
 
     @Bind(R.id.toolbar_search)
     SearchToolbar searchToolbar;
@@ -52,6 +56,9 @@ public class HomeActivity extends BaseActivity
 
     @Bind(R.id.home_cards)
     RecyclerView cardsView;
+
+    @Bind(R.id.home_categories)
+    RecyclerView categoriesView;
 
     @Bind(R.id.home_exchange)
     FloatingActionButton exchangeButton;
@@ -141,6 +148,18 @@ public class HomeActivity extends BaseActivity
             }
         });
     }
+
+    @Override
+    public void showCategories(List<Category> categories) {
+        categoryAdapter.setCategories(categories);
+        categoriesView.setAdapter(categoryAdapter);
+        RecyclerView.LayoutManager layoutManager =
+                new LinearLayoutManager(HomeActivity.this, LinearLayoutManager.VERTICAL, false);
+        categoriesView.setLayoutManager(layoutManager);
+        categoriesView.setVisibility(View.VISIBLE);
+        homeEmpty.setVisibility(View.GONE);
+    }
+
 
     @Override
     public void hideEmptySearchResult() {

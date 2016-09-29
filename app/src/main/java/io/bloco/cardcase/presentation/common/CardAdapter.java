@@ -1,5 +1,6 @@
 package io.bloco.cardcase.presentation.common;
 
+import android.provider.ContactsContract;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,6 +8,7 @@ import android.view.ViewGroup;
 
 import io.bloco.cardcase.R;
 import io.bloco.cardcase.common.di.PerActivity;
+import io.bloco.cardcase.data.Database;
 import io.bloco.cardcase.data.models.Card;
 import io.bloco.cardcase.presentation.home.CardDetailDialog;
 
@@ -24,14 +26,16 @@ public class CardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     private final CardDetailDialog cardDetailDialog;
+    private final Database database;
     private List<Card> cards;
     private boolean showLoader;
 
     @Inject
-    public CardAdapter(CardDetailDialog cardDetailDialog) {
+    public CardAdapter(CardDetailDialog cardDetailDialog, Database database) {
         this.cards = new ArrayList<>();
         this.cardDetailDialog = cardDetailDialog;
         this.showLoader = false;
+        this.database = database;
     }
 
     public void showLoader() {
@@ -64,7 +68,7 @@ public class CardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             case ViewType.NORMAL:
             default:
                 view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_card, parent, false);
-                return new CardViewHolder(view, cardDetailDialog);
+                return new CardViewHolder(view, cardDetailDialog, database);
         }
     }
 

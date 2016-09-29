@@ -1,40 +1,44 @@
 package io.bloco.cardcase.presentation.home;
 
 import io.bloco.cardcase.data.models.Card;
+import io.bloco.cardcase.data.models.Category;
+
 import java.util.List;
 
 public class HomeContract {
-  public interface View {
-    void showEmpty();
+    public interface View {
+        void showEmpty();
 
-    void showCards(List<Card> cards);
+        void showCards(List<Card> cards);
 
-    void showEmptySearchResult();
+        void showCategories(List<Category> categories);
 
-    void hideEmptySearchResult();
+        void showEmptySearchResult();
 
-    void openOnboarding();
+        void hideEmptySearchResult();
 
-    void openUser();
+        void openOnboarding();
 
-    void openExchange();
+        void openUser();
 
-    void openSearch();
+        void openExchange();
 
-    void closeSearch();
-  }
+        void openSearch();
 
-  public interface Presenter {
-    void start(View view);
+        void closeSearch();
+    }
 
-    void clickedSearch();
+    public interface Presenter {
+        void start(View view);
 
-    void clickedCloseSearch();
+        void clickedSearch();
 
-    void searchEntered(String query);
+        void clickedCloseSearch();
 
-    void clickedUser();
+        void searchEntered(String query);
 
-    void clickedExchange();
-  }
+        void clickedUser();
+
+        void clickedExchange();
+    }
 }

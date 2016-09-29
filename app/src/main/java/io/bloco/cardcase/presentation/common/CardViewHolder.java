@@ -1,6 +1,8 @@
 package io.bloco.cardcase.presentation.common;
 
+import android.provider.ContactsContract;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -9,6 +11,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import io.bloco.cardcase.AndroidApplication;
 import io.bloco.cardcase.R;
+import io.bloco.cardcase.data.Database;
 import io.bloco.cardcase.data.models.Card;
 import io.bloco.cardcase.presentation.home.CardDetailDialog;
 
@@ -21,20 +24,25 @@ public class CardViewHolder extends RecyclerView.ViewHolder implements View.OnCl
     @Inject
     ImageLoader imageLoader;
 
+    Database database;
+
     @Bind(R.id.card_avatar)
     ImageView avatar;
     @Bind(R.id.card_name)
     TextView name;
     @Bind(R.id.card_time)
     TextView time;
+    @Bind(R.id.card_category)
+    TextView cardCategory;
 
     private final CardDetailDialog cardDetailDialog;
     private Card card;
 
-    public CardViewHolder(View view, CardDetailDialog cardDetailDialog) {
+    public CardViewHolder(View view, CardDetailDialog cardDetailDialog, Database database) {
         super(view);
         view.setOnClickListener(this);
         this.cardDetailDialog = cardDetailDialog;
+        this.database = database;
 
         ((AndroidApplication) view.getContext().getApplicationContext()).getApplicationComponent()
                 .inject(this);
@@ -48,6 +56,8 @@ public class CardViewHolder extends RecyclerView.ViewHolder implements View.OnCl
         CharSequence timeStr = dateTimeFormat.getRelativeTimeSpanString(card.getUpdatedAt());
         time.setText(timeStr);
 
+        cardCategory.setText(database.getCategory(card.getCategoryId()).getName());
+
         if (card.hasAvatar()) {
             imageLoader.loadAvatar(avatar, card.getAvatarPath());
         }
@@ -55,6 +65,7 @@ public class CardViewHolder extends RecyclerView.ViewHolder implements View.OnCl
 
     @Override
     public void onClick(View view) {
+        Log.d("TEST", "CLICKED CARD");
         cardDetailDialog.show(card);
     }
 }

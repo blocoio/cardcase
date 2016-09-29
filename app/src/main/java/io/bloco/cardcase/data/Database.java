@@ -38,6 +38,10 @@ public class Database {
         }
     }
 
+    public Category getCategory(UUID id) {
+        return categoryDao.queryForId(id);
+    }
+
     public List<Category> getCategories() {
         return categoryDao.queryForAll();
     }
@@ -83,6 +87,7 @@ public class Database {
     public void clear() {
         try {
             TableUtils.clearTable(cardDao.getConnectionSource(), Card.class);
+            TableUtils.clearTable(categoryDao.getConnectionSource(), Category.class);
         } catch (SQLException exception) {
             throw new RuntimeException(exception);
         }

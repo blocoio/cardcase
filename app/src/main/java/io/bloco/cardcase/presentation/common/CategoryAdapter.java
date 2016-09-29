@@ -1,5 +1,7 @@
 package io.bloco.cardcase.presentation.common;
 
+import android.app.Activity;
+import android.provider.ContactsContract;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,9 +9,11 @@ import android.view.ViewGroup;
 
 import io.bloco.cardcase.R;
 import io.bloco.cardcase.common.di.PerActivity;
+import io.bloco.cardcase.data.Database;
 import io.bloco.cardcase.data.models.Card;
 import io.bloco.cardcase.data.models.Category;
 import io.bloco.cardcase.presentation.home.CardDetailDialog;
+import io.bloco.cardcase.presentation.home.HomeContract;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,13 +28,17 @@ public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         private static final int FOOTER = 1;
     }
 
+    private final HomeContract.View homeContract;
+    private final Database database;
     private List<Category> categories;
     private boolean showLoader;
 
     @Inject
-    public CategoryAdapter() {
+    public CategoryAdapter(Activity activity, Database database) {
         this.categories = new ArrayList<>();
         this.showLoader = false;
+        this.homeContract = (HomeContract.View) activity;
+        this.database = database;
     }
 
     public void showLoader() {
@@ -63,7 +71,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             case ViewType.NORMAL:
             default:
                 view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_category, parent, false);
-                return new CategoryViewHolder(view); //TODO showCards
+                return new CategoryViewHolder(view, homeContract, database);
         }
     }
 

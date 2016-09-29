@@ -49,8 +49,7 @@ public class Bootstrap {
 
         for (int i = 0; i < NUM_CARDS; i++) {
             Card card = buildFakeCard();
-//            database.saveCard(card);
-            Log.d("TEST", "id:" + card.getId());
+            Log.d("CREATE", "id:" + card.getId());
         }
     }
 
@@ -58,9 +57,9 @@ public class Bootstrap {
         Category category = new Category();
 
         Random random = new Random();
-        category.setName("test category " + random.nextInt(100));
+        category.setName("test category " + random.nextInt(1));
         database.saveCategory(category);
-        System.out.println("SAVED, categoryId: " + category.getId() + " " + category.getName());
+        Log.d("CREATE", "SAVED, categoryId: " + category.getId() + " " + category.getName());
         return category;
     }
 
@@ -74,9 +73,11 @@ public class Bootstrap {
         card.setEmail(faker.internet.safeEmail(card.getName().split(" ")[0]));
         card.setPhone(faker.phoneNumber.cellPhone());
         card.setAvatarPath(avatarPath);
-        card.setCategoryId(buildFakeCategory().getId());
+
+        UUID categoryId = buildFakeCategory().getId();
+        card.setCategoryId(categoryId);
         database.saveCard(card);
-        System.out.println("SAVED, id:" + card.getId());
+        Log.d("CREATE", "SAVED, id:" + card.getId());
         return card;
     }
 
