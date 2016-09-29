@@ -35,6 +35,8 @@ public class CardDetailDialog {
     public CardDetailDialog(Activity activity, Database database) {
         if (!(activity instanceof ExchangeActivity)) {
             homeContract = (HomeContract.View) activity;
+        } else {
+            homeContract = null;
         }
 
         this.dialog = new Dialog(activity);
@@ -62,6 +64,7 @@ public class CardDetailDialog {
     public void onClickedDelete() {
         database.deleteCard(cardInfoView.getCard());
         dialog.dismiss();
-        homeContract.showCards(database.getReceivedCards());
+        if (homeContract != null)
+            homeContract.showCards(database.getReceivedCards());
     }
 }
