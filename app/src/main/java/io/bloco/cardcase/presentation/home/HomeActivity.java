@@ -116,6 +116,13 @@ public class HomeActivity extends BaseActivity
         presenter.clickedExchange();
     }
 
+    @OnClick(R.id.add_user_card)
+    void onClickStart() {
+        Intent intent = UserActivity.Factory.getOnboardingIntent(this);
+        startActivity(intent);
+        finishWithAnimation();
+    }
+
     @Override
     public void showEmpty() {
         homeEmpty.setVisibility(View.VISIBLE);
