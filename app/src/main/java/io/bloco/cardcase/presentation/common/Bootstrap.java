@@ -72,6 +72,13 @@ public class Bootstrap {
         card.setName(faker.name.name());
         card.setEmail(faker.internet.safeEmail(card.getName().split(" ")[0]));
         card.setPhone(faker.phoneNumber.cellPhone());
+
+        card.setCompany(faker.company.name());
+        card.setAddress(faker.address.city().toString());
+        card.setWebsite(faker.internet.email());
+        card.setPosition(faker.company.profession());
+        card.setCreatedAt(faker.time.backward(365));
+        card.setUpdatedAt(card.getCreatedAt());
         card.setAvatarPath(avatarPath);
 
         UUID categoryId = buildFakeCategory().getId();

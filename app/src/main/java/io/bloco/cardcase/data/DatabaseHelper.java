@@ -20,9 +20,9 @@ import javax.inject.Singleton;
 @Singleton
 public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 
-    private static final String DATABASE_NAME = "database2";
-    private static final String TEST_DATABASE_NAME = "database_test2";
-    private static final int DATABASE_VERSION = 4;
+  private static final String DATABASE_NAME = "CardsDataBase";
+  private static final String TEST_DATABASE_NAME = "database_test";
+  private static final int DATABASE_VERSION = 2;
 
     private Class[] mTables = new Class[]{Card.class, Category.class};
 
