@@ -3,6 +3,7 @@ package io.bloco.cardcase.presentation.common;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -59,7 +60,9 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder implements View.
                 cardsByCategory.add(card);
             }
         }
-//        view.setVisibility(View.GONE);
+
+
+
         homeContract.showCards(cardsByCategory);
     }
 }

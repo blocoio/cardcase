@@ -42,6 +42,8 @@ public class Bootstrap {
         database.clear();
         this.category = buildFakeCategory();
         buildFakeCategory();
+        buildFakeCategory();
+        buildFakeCategory();
         bootstrap();
     }
 
