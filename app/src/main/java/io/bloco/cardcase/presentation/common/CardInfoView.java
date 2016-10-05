@@ -22,6 +22,8 @@ import io.bloco.cardcase.data.models.Card;
 import io.bloco.cardcase.presentation.home.SimpleTextWatcher;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -52,6 +54,10 @@ public class CardInfoView extends FrameLayout {
     EditText position;
     @Bind(R.id.card_email)
     EditText email;
+    @Bind(R.id.linkedinLink)
+    EditText linkedinProfile;
+    @Bind(R.id.linkedin_icon)
+    ImageView linkedinIcon;
     @Bind(R.id.card_vk)
     EditText vklink;
 
@@ -78,6 +84,7 @@ public class CardInfoView extends FrameLayout {
         email.addTextChangedListener(fieldTextWatcher);
         phone.addTextChangedListener(fieldTextWatcher);
         vklink.addTextChangedListener(fieldTextWatcher);
+        linkedinProfile.addTextChangedListener(fieldTextWatcher);
 
         disabledEditMode();
     }
@@ -149,6 +156,8 @@ public class CardInfoView extends FrameLayout {
         card.setPhone(phone.getText().toString().trim());
         card.setVklink(vklink.getText().toString().trim());
 
+        List<String> urlParts = Arrays.asList(linkedinProfile.toString().trim().split("/"));
+        card.setLinkedinURL(urlParts.get(urlParts.size() - 1));
 
         int fieldsCount = fields.getChildCount();
         ArrayList<String> fieldValues = new ArrayList<>(fieldsCount);
@@ -175,6 +184,7 @@ public class CardInfoView extends FrameLayout {
         email.setText(card.getEmail());
         phone.setText(card.getPhone());
         vklink.setText(card.getVklink());
+        linkedinProfile.setText(card.getLinkedinURL());
 
         setAvatar(card.getAvatarPath());
 
@@ -211,6 +221,7 @@ public class CardInfoView extends FrameLayout {
         enableEditText(position);
         enableEditText(email);
         enableEditText(phone);
+        enableEditText(linkedinProfile);
         enableEditText(vklink);
 
         if (card == null || !card.hasAvatar()) {
@@ -237,6 +248,7 @@ public class CardInfoView extends FrameLayout {
         disabledEditText(email);
         disabledEditText(phone);
         disabledEditText(vklink);
+        disabledEditText(linkedinProfile);
 
         if (card == null || !card.hasAvatar()) {
             avatar.setImageResource(R.drawable.ic_avatar);
@@ -268,6 +280,22 @@ public class CardInfoView extends FrameLayout {
         if (!editMode) {
             disabledEditText(field);
         }
+    }
+
+    @OnClick(R.id.linkedinLink)
+    public void clickLinkedInURL() {
+        if (editMode) {
+            return;
+        }
+
+        Uri webpage = Uri.parse("https://www.linkedin.com/in/" + card.getLinkedinURL());
+        Intent intent = new Intent(Intent.ACTION_VIEW, webpage);
+        getContext().startActivity(intent);
+    }
+
+    @OnClick(R.id.linkedin_icon)
+    public void clickLinkedinIcon() {
+       clickLinkedInURL();
     }
 
     // Private

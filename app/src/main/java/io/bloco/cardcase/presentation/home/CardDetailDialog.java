@@ -14,6 +14,7 @@ import io.bloco.cardcase.common.di.PerActivity;
 import io.bloco.cardcase.data.Database;
 import io.bloco.cardcase.data.models.Card;
 import io.bloco.cardcase.presentation.common.CardInfoView;
+import io.bloco.cardcase.presentation.exchange.ExchangeActivity;
 
 import javax.inject.Inject;
 
@@ -32,7 +33,12 @@ public class CardDetailDialog {
     // TODO: Inject only the activity context?
     @Inject
     public CardDetailDialog(Activity activity, Database database) {
-        homeContract = (HomeContract.View) activity;
+        if (!(activity instanceof ExchangeActivity)) {
+            homeContract = (HomeContract.View) activity;
+        } else {
+            homeContract = null;
+        }
+
         this.dialog = new Dialog(activity);
         this.dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         this.dialog.setContentView(R.layout.card_detail_dialog);
@@ -58,6 +64,7 @@ public class CardDetailDialog {
     public void onClickedDelete() {
         database.deleteCard(cardInfoView.getCard());
         dialog.dismiss();
-        homeContract.showCards(database.getReceivedCards());
+        if (homeContract != null)
+            homeContract.showCards(database.getReceivedCards());
     }
 }

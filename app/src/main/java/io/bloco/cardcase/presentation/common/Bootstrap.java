@@ -5,6 +5,7 @@ import android.util.Log;
 
 import io.bloco.cardcase.data.Database;
 import io.bloco.cardcase.data.models.Card;
+import io.bloco.cardcase.data.models.Category;
 import io.bloco.faker.Faker;
 
 import java.io.File;
@@ -12,13 +13,14 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Random;
 import java.util.UUID;
 
 import javax.inject.Inject;
 
 public class Bootstrap {
 
-    private static final int NUM_CARDS = 3;
+    private static final int NUM_CARDS = 10;
     private static final int NUM_AVATARS = 10;
 
     private final Context context;
@@ -26,6 +28,7 @@ public class Bootstrap {
     private final FileHelper fileHelper;
     private final Faker faker;
     private int avatarIndex = 0;
+    private Category category;
 
     @Inject
     public Bootstrap(Context context, Database database, FileHelper fileHelper) {
@@ -37,6 +40,10 @@ public class Bootstrap {
 
     public void clearAndBootstrap() {
         database.clear();
+        this.category = buildFakeCategory();
+        buildFakeCategory();
+        buildFakeCategory();
+        buildFakeCategory();
         bootstrap();
     }
 
@@ -47,9 +54,18 @@ public class Bootstrap {
 
         for (int i = 0; i < NUM_CARDS; i++) {
             Card card = buildFakeCard();
-//            database.saveCard(card);
-            Log.d("TEST", "id:" + card.getId());
+            Log.d("CREATE", "id:" + card.getId());
         }
+    }
+
+    private Category buildFakeCategory() {
+        Category category = new Category();
+
+        Random random = new Random();
+        category.setName("test category " + random.nextInt(100));
+        database.saveCategory(category);
+        Log.d("CREATE", "SAVED, categoryId: " + category.getId() + " " + category.getName());
+        return category;
     }
 
     private Card buildFakeCard() {
@@ -70,8 +86,11 @@ public class Bootstrap {
         card.setCreatedAt(faker.time.backward(365));
         card.setUpdatedAt(card.getCreatedAt());
         card.setAvatarPath(avatarPath);
+        card.setLinkedinURL("alexey-merzlikin");
+
+        card.setCategoryId(category.getId());
         database.saveCard(card);
-        System.out.println("SAVED, id:" + card.getId());
+        Log.d("CREATE", "SAVED, id:" + card.getId());
         return card;
     }
 
