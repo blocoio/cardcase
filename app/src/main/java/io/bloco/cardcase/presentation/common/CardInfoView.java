@@ -56,7 +56,8 @@ public class CardInfoView extends FrameLayout {
     EditText email;
     @Bind(R.id.linkedinLink)
     EditText linkedinProfile;
-
+    @Bind(R.id.linkedin_icon)
+    ImageView linkedinIcon;
 
     private Card card;
     private CardEditListener editListener;
@@ -269,6 +270,11 @@ public class CardInfoView extends FrameLayout {
         Uri webpage = Uri.parse("https://www.linkedin.com/in/" + card.getLinkedinURL());
         Intent intent = new Intent(Intent.ACTION_VIEW, webpage);
         getContext().startActivity(intent);
+    }
+
+    @OnClick(R.id.linkedin_icon)
+    public void clickLinkedinIcon() {
+       clickLinkedInURL();
     }
 
     // Private
