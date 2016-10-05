@@ -131,20 +131,18 @@ public class CardInfoView extends FrameLayout {
 
     }
     @OnClick(R.id.facebook_link)
-    public void clickFacebookLink(){
-        if (editMode){
+    public void clickFacebookLink() {
+        if (editMode) {
             return;
         }
-
-<<<<<<< HEAD
         Uri webpage = Uri.parse(card.getFacebookLink());
         Intent intent = new Intent(Intent.ACTION_VIEW, webpage);
         getContext().startActivity(intent);
-=======
+    }
+
     @OnClick(R.id.vk_icon)
     public void clickVkIcon() {
         clickVkLink();
->>>>>>> xolodilnichka-link-to-vk
     }
 
     @OnClick(R.id.card_phone)
@@ -202,13 +200,10 @@ public class CardInfoView extends FrameLayout {
         card.setEmail(email.getText().toString().trim());
         card.setPhone(phone.getText().toString().trim());
         card.setVklink(vklink.getText().toString().trim());
-<<<<<<< HEAD
         card.setFacebookLink(facebooklink.getText().toString().trim());
-=======
 
         List<String> urlParts = Arrays.asList(linkedinProfile.toString().trim().split("/"));
         card.setLinkedinURL(urlParts.get(urlParts.size() - 1));
->>>>>>> xolodilnichka-link-to-vk
 
         int fieldsCount = fields.getChildCount();
         ArrayList<String> fieldValues = new ArrayList<>(fieldsCount);
@@ -235,11 +230,8 @@ public class CardInfoView extends FrameLayout {
         email.setText(card.getEmail());
         phone.setText(card.getPhone());
         vklink.setText(card.getVklink());
-<<<<<<< HEAD
         facebooklink.setText(card.getFacebookLink());
-=======
         linkedinProfile.setText(card.getLinkedinURL());
->>>>>>> xolodilnichka-link-to-vk
 
         setAvatar(card.getAvatarPath());
 
@@ -304,12 +296,9 @@ public class CardInfoView extends FrameLayout {
         disabledEditText(email);
         disabledEditText(phone);
         disabledEditText(vklink);
-<<<<<<< HEAD
         disabledEditText(facebooklink);
-=======
         disabledEditText(linkedinProfile);
->>>>>>> xolodilnichka-link-to-vk
-
+        
         if (card == null || !card.hasAvatar()) {
             avatar.setImageResource(R.drawable.ic_avatar);
         }

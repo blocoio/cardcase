@@ -58,15 +58,28 @@
             android:hint="vk.com"
              />
 
-        <EditText
-            android:id="@+id/facebook_link"
-            style="@style/card_field"
+        <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:inputType="textPersonName"
-            android:layout_marginTop="4dp"
-            android:hint="facebook.com"
-            />
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_height="30dp"
+                android:layout_marginTop="@dimen/margin_tiny"
+                android:contentDescription="@string/auth_google_play_services_client_facebook_display_name"
+                android:background="@drawable/ic_facebook"
+                android:scaleType="centerInside"
+                android:layout_width="30dp" />
+
+            <EditText
+                android:id="@+id/facebook_link"
+                style="@style/card_field"
+                android:layout_height="40dp"
+                android:inputType="textPersonName"
+                android:layout_marginTop="4dp"
+                android:hint="facebook.com" />
+        </LinearLayout>
 
         <EditText
             android:id="@+id/card_company"
