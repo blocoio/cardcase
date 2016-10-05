@@ -62,6 +62,7 @@ public class Bootstrap {
         card.setEmail(faker.internet.safeEmail(card.getName().split(" ")[0]));
         card.setPhone(faker.phoneNumber.cellPhone());
 
+        card.setVklink("http://vk.com/xolodilnichka");
         card.setCompany(faker.company.name());
         card.setAddress(faker.address.city().toString());
         card.setWebsite(faker.internet.email());

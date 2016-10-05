@@ -52,6 +52,8 @@ public class CardInfoView extends FrameLayout {
     EditText position;
     @Bind(R.id.card_email)
     EditText email;
+    @Bind(R.id.card_vk)
+    EditText vklink;
 
 
 
@@ -75,6 +77,7 @@ public class CardInfoView extends FrameLayout {
         position.addTextChangedListener(fieldTextWatcher);
         email.addTextChangedListener(fieldTextWatcher);
         phone.addTextChangedListener(fieldTextWatcher);
+        vklink.addTextChangedListener(fieldTextWatcher);
 
         disabledEditMode();
     }
@@ -93,6 +96,18 @@ public class CardInfoView extends FrameLayout {
         Intent chooser = Intent.createChooser(intent, getResources().getString(R.string.send_email));
         getContext().startActivity(chooser);
     }
+
+    @OnClick(R.id.card_vk)
+    public void clickVkLink(){
+        if (editMode){
+            return;
+        }
+
+        Uri webpage = Uri.parse(card.getVklink());
+        Intent intent = new Intent(Intent.ACTION_VIEW, webpage);
+        getContext().startActivity(intent);
+    }
+
 
     @OnClick(R.id.card_phone)
     public void clickPhone() {
@@ -132,6 +147,7 @@ public class CardInfoView extends FrameLayout {
         card.setPosition(position.getText().toString().trim());
         card.setEmail(email.getText().toString().trim());
         card.setPhone(phone.getText().toString().trim());
+        card.setVklink(vklink.getText().toString().trim());
 
 
         int fieldsCount = fields.getChildCount();
@@ -158,6 +174,7 @@ public class CardInfoView extends FrameLayout {
         position.setText(card.getPosition());
         email.setText(card.getEmail());
         phone.setText(card.getPhone());
+        vklink.setText(card.getVklink());
 
         setAvatar(card.getAvatarPath());
 
@@ -194,6 +211,7 @@ public class CardInfoView extends FrameLayout {
         enableEditText(position);
         enableEditText(email);
         enableEditText(phone);
+        enableEditText(vklink);
 
         if (card == null || !card.hasAvatar()) {
             avatar.setImageResource(R.drawable.avatar_edit);
@@ -218,6 +236,7 @@ public class CardInfoView extends FrameLayout {
         disabledEditText(position);
         disabledEditText(email);
         disabledEditText(phone);
+        disabledEditText(vklink);
 
         if (card == null || !card.hasAvatar()) {
             avatar.setImageResource(R.drawable.ic_avatar);

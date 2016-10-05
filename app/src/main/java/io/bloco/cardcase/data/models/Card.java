@@ -31,6 +31,8 @@ public class Card {
     private String phone;
     @DatabaseField
     private String avatarPath;
+    @DatabaseField
+    private String vklink;
 
 
     @DatabaseField(dataType = DataType.SERIALIZABLE)
@@ -74,12 +76,22 @@ public class Card {
         card.website = website;
         card.email = email;
         card.phone = phone;
+        card.vklink = vklink;
         card.avatarPath = avatarPath;
         card.fields = new ArrayList<>(getFields());
         card.createdAt = createdAt;
         card.updatedAt = updatedAt;
         card.isUser = isUser;
+
         return card;
+    }
+
+    public void setVklink(String link){
+        this.vklink = link;
+    }
+
+    public String getVklink(){
+        return vklink;
     }
 
     public UUID getId() {
@@ -216,6 +228,7 @@ public class Card {
         fieldsToMatch.add(website);
         fieldsToMatch.add(email);
         fieldsToMatch.add(phone);
+        fieldsToMatch.add(vklink);
 
         for (String field : fieldsToMatch) {
             if (field != null && field.toLowerCase().contains(queryNormalized)) {
