@@ -52,7 +52,8 @@ public class CardInfoView extends FrameLayout {
     EditText position;
     @Bind(R.id.card_email)
     EditText email;
-
+    @Bind(R.id.linkedin)
+    EditText linkedinURL;
 
 
     private Card card;
@@ -75,6 +76,7 @@ public class CardInfoView extends FrameLayout {
         position.addTextChangedListener(fieldTextWatcher);
         email.addTextChangedListener(fieldTextWatcher);
         phone.addTextChangedListener(fieldTextWatcher);
+        linkedinURL.addTextChangedListener(fieldTextWatcher);
 
         disabledEditMode();
     }
@@ -132,7 +134,7 @@ public class CardInfoView extends FrameLayout {
         card.setPosition(position.getText().toString().trim());
         card.setEmail(email.getText().toString().trim());
         card.setPhone(phone.getText().toString().trim());
-
+        card.setLinkedinURL(linkedinURL.toString().trim());
 
         int fieldsCount = fields.getChildCount();
         ArrayList<String> fieldValues = new ArrayList<>(fieldsCount);
@@ -158,6 +160,7 @@ public class CardInfoView extends FrameLayout {
         position.setText(card.getPosition());
         email.setText(card.getEmail());
         phone.setText(card.getPhone());
+        linkedinURL.setText(card.getLinkedinURL());
 
         setAvatar(card.getAvatarPath());
 
@@ -194,6 +197,7 @@ public class CardInfoView extends FrameLayout {
         enableEditText(position);
         enableEditText(email);
         enableEditText(phone);
+        enableEditText(linkedinURL);
 
         if (card == null || !card.hasAvatar()) {
             avatar.setImageResource(R.drawable.avatar_edit);
@@ -218,6 +222,7 @@ public class CardInfoView extends FrameLayout {
         disabledEditText(position);
         disabledEditText(email);
         disabledEditText(phone);
+        disabledEditText(linkedinURL);
 
         if (card == null || !card.hasAvatar()) {
             avatar.setImageResource(R.drawable.ic_avatar);
@@ -249,6 +254,17 @@ public class CardInfoView extends FrameLayout {
         if (!editMode) {
             disabledEditText(field);
         }
+    }
+
+    @OnClick(R.id.linkedin)
+    public void clickLinkedInURL() {
+        if (editMode) {
+            return;
+        }
+
+        Uri webpage = Uri.parse(card.getLinkedinURL());
+        Intent intent = new Intent(Intent.ACTION_VIEW, webpage);
+        getContext().startActivity(intent);
     }
 
     // Private

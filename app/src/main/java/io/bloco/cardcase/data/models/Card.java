@@ -31,6 +31,8 @@ public class Card {
     private String phone;
     @DatabaseField
     private String avatarPath;
+    @DatabaseField
+    private String linkedinURL;
 
 
     @DatabaseField(dataType = DataType.SERIALIZABLE)
@@ -82,6 +84,7 @@ public class Card {
         card.updatedAt = updatedAt;
         card.isUser = isUser;
         card.categoryId = categoryId;
+        card.linkedinURL = linkedinURL;
         return card;
     }
 
@@ -216,6 +219,14 @@ public class Card {
         this.categoryId = categoryId;
     }
 
+    public String getLinkedinURL() {
+        return linkedinURL;
+    }
+
+    public void setLinkedinURL(String linkedinURL) {
+        this.linkedinURL = linkedinURL;
+    }
+
     public boolean matchQuery(String query) {
         String queryNormalized = query.toLowerCase().trim();
 
@@ -227,6 +238,7 @@ public class Card {
         fieldsToMatch.add(website);
         fieldsToMatch.add(email);
         fieldsToMatch.add(phone);
+        fieldsToMatch.add(linkedinURL);
 
         for (String field : fieldsToMatch) {
             if (field != null && field.toLowerCase().contains(queryNormalized)) {
