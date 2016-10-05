@@ -49,16 +49,6 @@
             android:textSize="@dimen/card_name_text" />
 
         <EditText
-            android:id="@+id/card_vk"
-            style="@style/card_field"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:inputType="textPersonName"
-            android:layout_marginTop="4dp"
-            android:hint="vk.com"
-             />
-
-        <EditText
             android:id="@+id/card_company"
             style="@style/card_field"
             android:layout_width="match_parent"
@@ -117,6 +107,34 @@
                 android:layout_marginTop="@dimen/margin_tiny"
                 android:hint="@string/linkedin"
                 android:inputType="textPersonName"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/vk_fields"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/vk_icon"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="@dimen/margin_tiny"
+                android:contentDescription="@string/vk"
+                android:background="@drawable/ic_vk_social_network_logo"
+                android:scaleType="centerInside" />
+
+
+            <EditText
+                android:id="@+id/card_vk"
+                style="@style/card_field"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:inputType="textPersonName"
+                android:layout_marginTop="4dp"
+                android:hint="vk.com"
                 />
 
         </LinearLayout>

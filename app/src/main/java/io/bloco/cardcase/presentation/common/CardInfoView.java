@@ -2,6 +2,7 @@ package io.bloco.cardcase.presentation.common;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.text.format.DateUtils;
 import android.util.AttributeSet;
@@ -105,16 +106,33 @@ public class CardInfoView extends FrameLayout {
     }
 
     @OnClick(R.id.card_vk)
-    public void clickVkLink(){
-        if (editMode){
+    public void clickVkLink() {
+        if (editMode) {
             return;
         }
-
-        Uri webpage = Uri.parse(card.getVklink());
+        Uri webpage = Uri.parse("https://www.vk.com/" + card.getVklink());
         Intent intent = new Intent(Intent.ACTION_VIEW, webpage);
+
+        List<ResolveInfo> resInfo = getContext().getPackageManager().queryIntentActivities(intent, 0);
+
+        if (resInfo.isEmpty()) return;
+
+        for (ResolveInfo info : resInfo) {
+            if (info.activityInfo == null) continue;
+            if ("com.vkontakte.android".equals(info.activityInfo.packageName)) {
+                intent.setPackage(info.activityInfo.packageName);
+                break;
+            }
+        }
         getContext().startActivity(intent);
+
+
     }
 
+    @OnClick(R.id.vk_icon)
+    public void clickVkIcon() {
+        clickVkLink();
+    }
 
     @OnClick(R.id.card_phone)
     public void clickPhone() {
@@ -133,6 +151,22 @@ public class CardInfoView extends FrameLayout {
         if (editMode && editListener != null) {
             editListener.onPickAvatar();
         }
+    }
+
+    @OnClick(R.id.linkedinLink)
+    public void clickLinkedInURL() {
+        if (editMode) {
+            return;
+        }
+
+        Uri webpage = Uri.parse("https://www.linkedin.com/in/" + card.getLinkedinURL());
+        Intent intent = new Intent(Intent.ACTION_VIEW, webpage);
+        getContext().startActivity(intent);
+    }
+
+    @OnClick(R.id.linkedin_icon)
+    public void clickLinkedinIcon() {
+        clickLinkedInURL();
     }
 
     public void setAvatar(String avatarPath) {
@@ -282,21 +316,7 @@ public class CardInfoView extends FrameLayout {
         }
     }
 
-    @OnClick(R.id.linkedinLink)
-    public void clickLinkedInURL() {
-        if (editMode) {
-            return;
-        }
 
-        Uri webpage = Uri.parse("https://www.linkedin.com/in/" + card.getLinkedinURL());
-        Intent intent = new Intent(Intent.ACTION_VIEW, webpage);
-        getContext().startActivity(intent);
-    }
-
-    @OnClick(R.id.linkedin_icon)
-    public void clickLinkedinIcon() {
-       clickLinkedInURL();
-    }
 
     // Private
 
