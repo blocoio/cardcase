@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     style="@style/card"
     android:layout_width="match_parent"
@@ -63,8 +62,8 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/card_field_height"
             android:layout_marginTop="@dimen/margin_tiny"
-            android:inputType="textPersonName"
-            android:hint="Position" />
+            android:hint="Position"
+            android:inputType="textPersonName" />
 
         <EditText
             android:id="@+id/card_address"
@@ -82,6 +81,35 @@
             android:layout_marginTop="@dimen/margin_tiny"
             android:hint="website"
             android:inputType="textPersonName" />
+
+        <LinearLayout
+            android:id="@+id/linkedin_fields"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/linkedin_icon"
+                android:layout_width="40dp"
+                android:layout_height="@dimen/card_field_height"
+                android:layout_marginTop="@dimen/margin_tiny"
+                android:contentDescription="@string/linkedin"
+                android:background="@drawable/avatar_placeholder"
+                android:scaleType="centerInside" />
+
+
+            <EditText
+                android:id="@+id/linkedin"
+                style="@style/card_field"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/card_field_height"
+                android:layout_marginTop="@dimen/margin_tiny"
+                android:hint="@string/linkedin"
+                android:inputType="textPersonName"
+                />
+
+        </LinearLayout>
+
 
         <EditText
             android:id="@id/card_email"
@@ -102,6 +130,7 @@
             android:hint="@string/phone"
             android:inputType="phone"
             android:nextFocusDown="@+id/card_fields" />
+
 
         <LinearLayout
             android:id="@id/card_fields"

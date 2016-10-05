@@ -9,6 +9,8 @@
     <string name="email">Email</string>
     <string name="phone">Phone number</string>
     <string name="field_hint"></string>
+    <string name="linkedin">LinkedIn</string>
+
     <string name="exchange">Exchange</string>
     <string name="close">Close</string>
     <string name="edit">Edit</string>
