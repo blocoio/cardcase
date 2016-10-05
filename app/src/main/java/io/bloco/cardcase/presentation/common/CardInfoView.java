@@ -54,7 +54,8 @@ public class CardInfoView extends FrameLayout {
     EditText email;
     @Bind(R.id.card_vk)
     EditText vklink;
-
+    @Bind(R.id.facebook_link)
+    EditText facebooklink;
 
 
     private Card card;
@@ -78,6 +79,7 @@ public class CardInfoView extends FrameLayout {
         email.addTextChangedListener(fieldTextWatcher);
         phone.addTextChangedListener(fieldTextWatcher);
         vklink.addTextChangedListener(fieldTextWatcher);
+        facebooklink.addTextChangedListener(fieldTextWatcher);
 
         disabledEditMode();
     }
@@ -107,7 +109,16 @@ public class CardInfoView extends FrameLayout {
         Intent intent = new Intent(Intent.ACTION_VIEW, webpage);
         getContext().startActivity(intent);
     }
+    @OnClick(R.id.facebook_link)
+    public void clickFacebookLink(){
+        if (editMode){
+            return;
+        }
 
+        Uri webpage = Uri.parse(card.getFacebookLink());
+        Intent intent = new Intent(Intent.ACTION_VIEW, webpage);
+        getContext().startActivity(intent);
+    }
 
     @OnClick(R.id.card_phone)
     public void clickPhone() {
@@ -148,7 +159,7 @@ public class CardInfoView extends FrameLayout {
         card.setEmail(email.getText().toString().trim());
         card.setPhone(phone.getText().toString().trim());
         card.setVklink(vklink.getText().toString().trim());
-
+        card.setFacebookLink(facebooklink.getText().toString().trim());
 
         int fieldsCount = fields.getChildCount();
         ArrayList<String> fieldValues = new ArrayList<>(fieldsCount);
@@ -175,6 +186,7 @@ public class CardInfoView extends FrameLayout {
         email.setText(card.getEmail());
         phone.setText(card.getPhone());
         vklink.setText(card.getVklink());
+        facebooklink.setText(card.getFacebookLink());
 
         setAvatar(card.getAvatarPath());
 
@@ -212,6 +224,7 @@ public class CardInfoView extends FrameLayout {
         enableEditText(email);
         enableEditText(phone);
         enableEditText(vklink);
+        enableEditText(facebooklink);
 
         if (card == null || !card.hasAvatar()) {
             avatar.setImageResource(R.drawable.avatar_edit);
@@ -237,6 +250,7 @@ public class CardInfoView extends FrameLayout {
         disabledEditText(email);
         disabledEditText(phone);
         disabledEditText(vklink);
+        disabledEditText(facebooklink);
 
         if (card == null || !card.hasAvatar()) {
             avatar.setImageResource(R.drawable.ic_avatar);
