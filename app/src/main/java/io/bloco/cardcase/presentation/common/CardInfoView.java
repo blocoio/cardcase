@@ -59,6 +59,12 @@ public class CardInfoView extends FrameLayout {
     @Bind(R.id.linkedin_icon)
     ImageView linkedinIcon;
 
+    @Bind(R.id.instagramLink)
+    EditText instagramProfile;
+    @Bind(R.id.instagramIcon)
+    ImageView instagramIcon;
+
+
     private Card card;
     private CardEditListener editListener;
     private FieldTextWatcher fieldTextWatcher;
@@ -80,6 +86,7 @@ public class CardInfoView extends FrameLayout {
         email.addTextChangedListener(fieldTextWatcher);
         phone.addTextChangedListener(fieldTextWatcher);
         linkedinProfile.addTextChangedListener(fieldTextWatcher);
+        instagramProfile.addTextChangedListener(fieldTextWatcher);
 
         disabledEditMode();
     }
@@ -92,6 +99,22 @@ public class CardInfoView extends FrameLayout {
 
         String uri = "mailto:" + card.getEmail();
         Intent intent = new Intent(Intent.ACTION_SENDTO);
+        intent.setType("text/plain");
+        intent.setData(Uri.parse(uri));
+
+        Intent chooser = Intent.createChooser(intent, getResources().getString(R.string.send_email));
+        getContext().startActivity(chooser);
+    }
+
+    @OnClick(R.id.instagramIcon)
+    public void instagramClick() {
+       /* Uri uri = Uri.parse(card.getInstagramURL());
+        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+        intent.setPackage("com.instagram.android");
+        getContext().startActivity(intent);*/
+
+        String uri = card.getInstagramURL();
+        Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.setType("text/plain");
         intent.setData(Uri.parse(uri));
 
@@ -141,6 +164,9 @@ public class CardInfoView extends FrameLayout {
         List<String> urlParts = Arrays.asList(linkedinProfile.toString().trim().split("/"));
         card.setLinkedinURL(urlParts.get(urlParts.size() - 1));
 
+        urlParts = Arrays.asList(instagramProfile.toString().trim().split("/"));
+        card.setInstagramURL(urlParts.get(urlParts.size() - 1));
+
         int fieldsCount = fields.getChildCount();
         ArrayList<String> fieldValues = new ArrayList<>(fieldsCount);
         for (int i = 0; i < fieldsCount; i++) {
@@ -166,6 +192,7 @@ public class CardInfoView extends FrameLayout {
         email.setText(card.getEmail());
         phone.setText(card.getPhone());
         linkedinProfile.setText(card.getLinkedinURL());
+        instagramProfile.setText(card.getInstagramURL());
 
         setAvatar(card.getAvatarPath());
 
@@ -228,6 +255,7 @@ public class CardInfoView extends FrameLayout {
         disabledEditText(email);
         disabledEditText(phone);
         disabledEditText(linkedinProfile);
+        disabledEditText(instagramProfile);
 
         if (card == null || !card.hasAvatar()) {
             avatar.setImageResource(R.drawable.ic_avatar);

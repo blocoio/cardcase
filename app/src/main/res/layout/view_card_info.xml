@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     style="@style/card"
     android:layout_width="match_parent"
@@ -110,6 +111,32 @@
 
         </LinearLayout>
 
+
+        <LinearLayout
+            android:id="@+id/instagram_fields"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/instagramIcon"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="@dimen/margin_tiny"
+                android:contentDescription="@string/instagram"
+                android:background="@drawable/ic_instagram"
+                android:scaleType="centerInside" />
+
+            <EditText
+                android:id="@+id/instagramLink"
+                style="@style/card_field"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/card_field_height"
+                android:layout_marginTop="@dimen/margin_tiny"
+                android:hint="@string/instagram"
+                android:inputType="textPersonName" />
+
+        </LinearLayout>
 
         <EditText
             android:id="@id/card_email"

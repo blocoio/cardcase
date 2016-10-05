@@ -13,6 +13,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 
@@ -61,11 +64,16 @@ public class Bootstrap {
     private Category buildFakeCategory() {
         Category category = new Category();
 
-        Random random = new Random();
-        category.setName("test category " + random.nextInt(100));
+        category.setName(getName());
         database.saveCategory(category);
         Log.d("CREATE", "SAVED, categoryId: " + category.getId() + " " + category.getName());
         return category;
+    }
+
+    private String getName() {
+        Random r = new Random();
+        List<String> names = Arrays.asList("Работа", "Конференции", "Друзья", "Всякие там", "Кто все эти люди");
+        return names.get(r.nextInt(4));
     }
 
     private Card buildFakeCard() {
@@ -86,6 +94,7 @@ public class Bootstrap {
         card.setUpdatedAt(card.getCreatedAt());
         card.setAvatarPath(avatarPath);
         card.setLinkedinURL("alexey-merzlikin");
+        card.setInstagramURL(faker.internet.freeEmail());
 
         card.setCategoryId(category.getId());
         database.saveCard(card);

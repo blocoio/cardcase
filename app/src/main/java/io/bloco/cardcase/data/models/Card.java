@@ -33,7 +33,8 @@ public class Card {
     private String avatarPath;
     @DatabaseField
     private String linkedinURL;
-
+    @DatabaseField
+    private String instagramURL;
 
     @DatabaseField(dataType = DataType.SERIALIZABLE)
     private ArrayList<String> fields;
@@ -85,6 +86,7 @@ public class Card {
         card.isUser = isUser;
         card.categoryId = categoryId;
         card.linkedinURL = linkedinURL;
+        card.instagramURL = instagramURL;
         return card;
     }
 
@@ -227,6 +229,14 @@ public class Card {
         this.linkedinURL = linkedinURL;
     }
 
+    public String getInstagramURL() {
+        return instagramURL;
+    }
+
+    public void setInstagramURL(String instagramURL) {
+        this.instagramURL = instagramURL;
+    }
+
     public boolean matchQuery(String query) {
         String queryNormalized = query.toLowerCase().trim();
 
@@ -239,6 +249,7 @@ public class Card {
         fieldsToMatch.add(email);
         fieldsToMatch.add(phone);
         fieldsToMatch.add(linkedinURL);
+        fieldsToMatch.add(instagramURL);
 
         for (String field : fieldsToMatch) {
             if (field != null && field.toLowerCase().contains(queryNormalized)) {
