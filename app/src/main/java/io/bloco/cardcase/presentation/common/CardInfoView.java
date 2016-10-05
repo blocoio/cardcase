@@ -2,6 +2,7 @@ package io.bloco.cardcase.presentation.common;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.text.format.DateUtils;
 import android.util.AttributeSet;
@@ -22,6 +23,8 @@ import io.bloco.cardcase.data.models.Card;
 import io.bloco.cardcase.presentation.home.SimpleTextWatcher;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -52,6 +55,10 @@ public class CardInfoView extends FrameLayout {
     EditText position;
     @Bind(R.id.card_email)
     EditText email;
+    @Bind(R.id.linkedinLink)
+    EditText linkedinProfile;
+    @Bind(R.id.linkedin_icon)
+    ImageView linkedinIcon;
     @Bind(R.id.card_vk)
     EditText vklink;
     @Bind(R.id.facebook_link)
@@ -80,6 +87,7 @@ public class CardInfoView extends FrameLayout {
         phone.addTextChangedListener(fieldTextWatcher);
         vklink.addTextChangedListener(fieldTextWatcher);
         facebooklink.addTextChangedListener(fieldTextWatcher);
+        linkedinProfile.addTextChangedListener(fieldTextWatcher);
 
         disabledEditMode();
     }
@@ -100,14 +108,27 @@ public class CardInfoView extends FrameLayout {
     }
 
     @OnClick(R.id.card_vk)
-    public void clickVkLink(){
-        if (editMode){
+    public void clickVkLink() {
+        if (editMode) {
             return;
         }
-
-        Uri webpage = Uri.parse(card.getVklink());
+        Uri webpage = Uri.parse("https://www.vk.com/" + card.getVklink());
         Intent intent = new Intent(Intent.ACTION_VIEW, webpage);
+
+        List<ResolveInfo> resInfo = getContext().getPackageManager().queryIntentActivities(intent, 0);
+
+        if (resInfo.isEmpty()) return;
+
+        for (ResolveInfo info : resInfo) {
+            if (info.activityInfo == null) continue;
+            if ("com.vkontakte.android".equals(info.activityInfo.packageName)) {
+                intent.setPackage(info.activityInfo.packageName);
+                break;
+            }
+        }
         getContext().startActivity(intent);
+
+
     }
     @OnClick(R.id.facebook_link)
     public void clickFacebookLink(){
@@ -115,9 +136,15 @@ public class CardInfoView extends FrameLayout {
             return;
         }
 
+<<<<<<< HEAD
         Uri webpage = Uri.parse(card.getFacebookLink());
         Intent intent = new Intent(Intent.ACTION_VIEW, webpage);
         getContext().startActivity(intent);
+=======
+    @OnClick(R.id.vk_icon)
+    public void clickVkIcon() {
+        clickVkLink();
+>>>>>>> xolodilnichka-link-to-vk
     }
 
     @OnClick(R.id.card_phone)
@@ -137,6 +164,22 @@ public class CardInfoView extends FrameLayout {
         if (editMode && editListener != null) {
             editListener.onPickAvatar();
         }
+    }
+
+    @OnClick(R.id.linkedinLink)
+    public void clickLinkedInURL() {
+        if (editMode) {
+            return;
+        }
+
+        Uri webpage = Uri.parse("https://www.linkedin.com/in/" + card.getLinkedinURL());
+        Intent intent = new Intent(Intent.ACTION_VIEW, webpage);
+        getContext().startActivity(intent);
+    }
+
+    @OnClick(R.id.linkedin_icon)
+    public void clickLinkedinIcon() {
+        clickLinkedInURL();
     }
 
     public void setAvatar(String avatarPath) {
@@ -159,7 +202,13 @@ public class CardInfoView extends FrameLayout {
         card.setEmail(email.getText().toString().trim());
         card.setPhone(phone.getText().toString().trim());
         card.setVklink(vklink.getText().toString().trim());
+<<<<<<< HEAD
         card.setFacebookLink(facebooklink.getText().toString().trim());
+=======
+
+        List<String> urlParts = Arrays.asList(linkedinProfile.toString().trim().split("/"));
+        card.setLinkedinURL(urlParts.get(urlParts.size() - 1));
+>>>>>>> xolodilnichka-link-to-vk
 
         int fieldsCount = fields.getChildCount();
         ArrayList<String> fieldValues = new ArrayList<>(fieldsCount);
@@ -186,7 +235,11 @@ public class CardInfoView extends FrameLayout {
         email.setText(card.getEmail());
         phone.setText(card.getPhone());
         vklink.setText(card.getVklink());
+<<<<<<< HEAD
         facebooklink.setText(card.getFacebookLink());
+=======
+        linkedinProfile.setText(card.getLinkedinURL());
+>>>>>>> xolodilnichka-link-to-vk
 
         setAvatar(card.getAvatarPath());
 
@@ -223,6 +276,7 @@ public class CardInfoView extends FrameLayout {
         enableEditText(position);
         enableEditText(email);
         enableEditText(phone);
+        enableEditText(linkedinProfile);
         enableEditText(vklink);
         enableEditText(facebooklink);
 
@@ -250,7 +304,11 @@ public class CardInfoView extends FrameLayout {
         disabledEditText(email);
         disabledEditText(phone);
         disabledEditText(vklink);
+<<<<<<< HEAD
         disabledEditText(facebooklink);
+=======
+        disabledEditText(linkedinProfile);
+>>>>>>> xolodilnichka-link-to-vk
 
         if (card == null || !card.hasAvatar()) {
             avatar.setImageResource(R.drawable.ic_avatar);
@@ -283,6 +341,8 @@ public class CardInfoView extends FrameLayout {
             disabledEditText(field);
         }
     }
+
+
 
     // Private
 

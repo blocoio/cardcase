@@ -32,6 +32,8 @@ public class Card {
     @DatabaseField
     private String avatarPath;
     @DatabaseField
+    private String linkedinURL;
+    @DatabaseField
     private String vklink;
     @DatabaseField
     private String facebookLink;
@@ -44,6 +46,8 @@ public class Card {
     private transient Date updatedAt;
     @DatabaseField
     private transient boolean isUser;
+    @DatabaseField
+    private UUID categoryId;
 
 
     public Card() {
@@ -84,6 +88,8 @@ public class Card {
         card.createdAt = createdAt;
         card.updatedAt = updatedAt;
         card.isUser = isUser;
+        card.categoryId = categoryId;
+        card.linkedinURL = linkedinURL;
 
         return card;
     }
@@ -227,6 +233,22 @@ public class Card {
         return !getName().isEmpty();
     }
 
+    public UUID getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(UUID categoryId) {
+        this.categoryId = categoryId;
+    }
+
+    public String getLinkedinURL() {
+        return linkedinURL;
+    }
+
+    public void setLinkedinURL(String linkedinURL) {
+        this.linkedinURL = linkedinURL;
+    }
+
     public boolean matchQuery(String query) {
         String queryNormalized = query.toLowerCase().trim();
 
@@ -240,6 +262,7 @@ public class Card {
         fieldsToMatch.add(phone);
         fieldsToMatch.add(vklink);
         fieldsToMatch.add(facebookLink);
+        fieldsToMatch.add(linkedinURL);
 
         for (String field : fieldsToMatch) {
             if (field != null && field.toLowerCase().contains(queryNormalized)) {

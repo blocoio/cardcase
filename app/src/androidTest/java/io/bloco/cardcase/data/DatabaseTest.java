@@ -5,6 +5,7 @@ import com.j256.ormlite.dao.RuntimeExceptionDao;
 import io.bloco.cardcase.AndroidApplication;
 import io.bloco.cardcase.common.di.ApplicationModule;
 import io.bloco.cardcase.data.models.Card;
+import io.bloco.cardcase.data.models.Category;
 import io.bloco.cardcase.helpers.CardFactory;
 import java.util.Arrays;
 import java.util.List;
@@ -16,6 +17,7 @@ import static org.junit.Assert.assertThat;
 public class DatabaseTest extends ApplicationTestCase<AndroidApplication> {
 
   private RuntimeExceptionDao<Card, UUID> cardDao;
+  private RuntimeExceptionDao<Category, UUID> categoryDao;
   private Database database;
   private CardFactory cardFactory;
 
@@ -26,7 +28,7 @@ public class DatabaseTest extends ApplicationTestCase<AndroidApplication> {
   @Override public void setUp() throws Exception {
     createApplication();
     cardDao = new ApplicationModule(getApplication()).provideCardDao();
-    database = new Database(cardDao);
+    database = new Database(cardDao, categoryDao);
     cardFactory = new CardFactory(cardDao);
   }
 

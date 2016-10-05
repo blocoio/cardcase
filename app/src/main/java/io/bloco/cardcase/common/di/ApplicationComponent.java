@@ -2,55 +2,69 @@ package io.bloco.cardcase.common.di;
 
 import android.content.Context;
 import android.content.res.Resources;
+
 import com.google.gson.Gson;
+
 import dagger.Component;
 import io.bloco.cardcase.common.analytics.AnalyticsService;
 import io.bloco.cardcase.data.Database;
+import io.bloco.cardcase.domain.GetCategories;
 import io.bloco.cardcase.domain.GetReceivedCards;
 import io.bloco.cardcase.domain.GetUserCard;
+import io.bloco.cardcase.domain.SaveCategories;
 import io.bloco.cardcase.domain.SaveReceivedCards;
 import io.bloco.cardcase.domain.SaveUserCard;
 import io.bloco.cardcase.presentation.common.Bootstrap;
 import io.bloco.cardcase.presentation.common.CardInfoView;
 import io.bloco.cardcase.presentation.common.CardViewHolder;
+import io.bloco.cardcase.presentation.common.CategoryViewHolder;
 import io.bloco.cardcase.presentation.common.ErrorDisplayer;
 import io.bloco.cardcase.presentation.common.ImageLoader;
 import io.bloco.cardcase.presentation.exchange.CardSerializer;
 import io.bloco.cardcase.presentation.user.AvatarPicker;
+
 import javax.inject.Singleton;
 
-@Singleton @Component(modules = ApplicationModule.class) public interface ApplicationComponent {
+@Singleton
+@Component(modules = ApplicationModule.class)
+public interface ApplicationComponent {
 
-  void inject(CardViewHolder cardViewHolder);
+    void inject(CardViewHolder cardViewHolder);
 
-  void inject(CardInfoView cardInfoView);
+    void inject(CategoryViewHolder categoryViewHolder);
 
-  //Exposed to sub-graphs.
-  Context context();
+    void inject(CardInfoView cardInfoView);
 
-  Resources resources();
+    //Exposed to sub-graphs.
+    Context context();
 
-  Gson gson();
+    Resources resources();
 
-  Database database();
+    Gson gson();
 
-  AvatarPicker avatarPicker();
+    Database database();
 
-  GetUserCard getUserCard();
+    AvatarPicker avatarPicker();
 
-  GetReceivedCards getReceivedCards();
+    GetUserCard getUserCard();
 
-  SaveUserCard saveUserCard();
+    GetReceivedCards getReceivedCards();
 
-  SaveReceivedCards saveReceivedCards();
+    SaveUserCard saveUserCard();
 
-  ImageLoader imageLoader();
+    GetCategories getCategories();
 
-  CardSerializer cardSerializer();
+    SaveCategories saveCategories();
 
-  AnalyticsService analyticsService();
+    SaveReceivedCards saveReceivedCards();
 
-  Bootstrap bootstrap();
+    ImageLoader imageLoader();
 
-  ErrorDisplayer errorDisplayer();
+    CardSerializer cardSerializer();
+
+    AnalyticsService analyticsService();
+
+    Bootstrap bootstrap();
+
+    ErrorDisplayer errorDisplayer();
 }

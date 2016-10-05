@@ -1,5 +1,7 @@
 package io.bloco.cardcase.presentation.common;
 
+import android.app.Activity;
+import android.provider.ContactsContract;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,7 +11,9 @@ import io.bloco.cardcase.R;
 import io.bloco.cardcase.common.di.PerActivity;
 import io.bloco.cardcase.data.Database;
 import io.bloco.cardcase.data.models.Card;
+import io.bloco.cardcase.data.models.Category;
 import io.bloco.cardcase.presentation.home.CardDetailDialog;
+import io.bloco.cardcase.presentation.home.HomeContract;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,23 +21,23 @@ import java.util.List;
 import javax.inject.Inject;
 
 @PerActivity
-public class CardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private static class ViewType {
         private static final int NORMAL = 0;
         private static final int FOOTER = 1;
     }
 
-    private final CardDetailDialog cardDetailDialog;
+    private final HomeContract.View homeContract;
     private final Database database;
-    private List<Card> cards;
+    private List<Category> categories;
     private boolean showLoader;
 
     @Inject
-    public CardAdapter(CardDetailDialog cardDetailDialog, Database database) {
-        this.cards = new ArrayList<>();
-        this.cardDetailDialog = cardDetailDialog;
+    public CategoryAdapter(Activity activity, Database database) {
+        this.categories = new ArrayList<>();
         this.showLoader = false;
+        this.homeContract = (HomeContract.View) activity;
         this.database = database;
     }
 
@@ -43,12 +47,12 @@ public class CardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     @Override
     public int getItemCount() {
-        return cards.size() + (showLoader ? 1 : 0);
+        return categories.size() + (showLoader ? 1 : 0);
     }
 
     @Override
     public int getItemViewType(int position) {
-        if (position < cards.size()) {
+        if (position < categories.size()) {
             return ViewType.NORMAL;
         } else {
             return ViewType.FOOTER;
@@ -61,28 +65,28 @@ public class CardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         switch (viewType) {
             case ViewType.FOOTER:
                 view = LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.card_list_loader, parent, false);
+                        .inflate(R.layout.categories_list_loader, parent, false);
                 return new FooterViewHolder(view);
 
             case ViewType.NORMAL:
             default:
-                view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_card, parent, false);
-                return new CardViewHolder(view, cardDetailDialog, database);
+                view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_category, parent, false);
+                return new CategoryViewHolder(view, homeContract, database);
         }
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        if (holder instanceof CardViewHolder) {
-            Card card = cards.get(position);
-            ((CardViewHolder) holder).bind(card);
+        if (holder instanceof CategoryViewHolder) {
+            Category category = categories.get(position);
+            ((CategoryViewHolder) holder).bind(category);
         } else if (holder instanceof FooterViewHolder) {
             ((FooterViewHolder) holder).start();
         }
     }
 
-    public void setCards(List<Card> cards) {
-        this.cards = cards;
+    public void setCategories(List<Category> categories) {
+        this.categories = categories;
     }
 
     private static class FooterViewHolder extends RecyclerView.ViewHolder {

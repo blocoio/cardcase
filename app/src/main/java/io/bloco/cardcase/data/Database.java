@@ -5,6 +5,7 @@ import com.j256.ormlite.stmt.Where;
 import com.j256.ormlite.table.TableUtils;
 
 import io.bloco.cardcase.data.models.Card;
+import io.bloco.cardcase.data.models.Category;
 
 import java.sql.SQLException;
 import java.util.Calendar;
@@ -19,10 +20,30 @@ import javax.inject.Singleton;
 public class Database {
 
     private RuntimeExceptionDao<Card, UUID> cardDao;
+    private RuntimeExceptionDao<Category, UUID> categoryDao;
 
     @Inject
-    public Database(RuntimeExceptionDao<Card, UUID> cardDao) {
+    public Database(RuntimeExceptionDao<Card, UUID> cardDao, RuntimeExceptionDao<Category, UUID> categoryDao) {
         this.cardDao = cardDao;
+        this.categoryDao = categoryDao;
+    }
+
+    public void saveCategory(final Category category) {
+        categoryDao.createOrUpdate(category);
+    }
+
+    public void saveCategories(List<Category> categories) {
+        for (Category category : categories) {
+            saveCategory(category);
+        }
+    }
+
+    public Category getCategory(UUID id) {
+        return categoryDao.queryForId(id);
+    }
+
+    public List<Category> getCategories() {
+        return categoryDao.queryForAll();
     }
 
     public Card getUserCard() {
@@ -66,6 +87,7 @@ public class Database {
     public void clear() {
         try {
             TableUtils.clearTable(cardDao.getConnectionSource(), Card.class);
+            TableUtils.clearTable(categoryDao.getConnectionSource(), Category.class);
         } catch (SQLException exception) {
             throw new RuntimeException(exception);
         }
