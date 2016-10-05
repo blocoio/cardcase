@@ -85,7 +85,7 @@ public class Bootstrap {
         card.setCreatedAt(faker.time.backward(365));
         card.setUpdatedAt(card.getCreatedAt());
         card.setAvatarPath(avatarPath);
-        card.setLinkedinURL("https://www.linkedin.com/in/alexey-merzlikin");
+        card.setLinkedinURL("alexey-merzlikin");
 
         card.setCategoryId(category.getId());
         database.saveCard(card);

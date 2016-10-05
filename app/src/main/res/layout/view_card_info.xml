@@ -90,16 +90,16 @@
 
             <ImageView
                 android:id="@+id/linkedin_icon"
-                android:layout_width="40dp"
-                android:layout_height="@dimen/card_field_height"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_marginTop="@dimen/margin_tiny"
                 android:contentDescription="@string/linkedin"
-                android:background="@drawable/avatar_placeholder"
+                android:background="@drawable/ic_linkedin"
                 android:scaleType="centerInside" />
 
 
             <EditText
-                android:id="@+id/linkedin"
+                android:id="@+id/linkedinLink"
                 style="@style/card_field"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/card_field_height"

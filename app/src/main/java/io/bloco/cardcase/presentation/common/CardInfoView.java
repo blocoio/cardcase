@@ -22,6 +22,8 @@ import io.bloco.cardcase.data.models.Card;
 import io.bloco.cardcase.presentation.home.SimpleTextWatcher;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -52,8 +54,8 @@ public class CardInfoView extends FrameLayout {
     EditText position;
     @Bind(R.id.card_email)
     EditText email;
-    @Bind(R.id.linkedin)
-    EditText linkedinURL;
+    @Bind(R.id.linkedinLink)
+    EditText linkedinProfile;
 
 
     private Card card;
@@ -76,7 +78,7 @@ public class CardInfoView extends FrameLayout {
         position.addTextChangedListener(fieldTextWatcher);
         email.addTextChangedListener(fieldTextWatcher);
         phone.addTextChangedListener(fieldTextWatcher);
-        linkedinURL.addTextChangedListener(fieldTextWatcher);
+        linkedinProfile.addTextChangedListener(fieldTextWatcher);
 
         disabledEditMode();
     }
@@ -134,7 +136,9 @@ public class CardInfoView extends FrameLayout {
         card.setPosition(position.getText().toString().trim());
         card.setEmail(email.getText().toString().trim());
         card.setPhone(phone.getText().toString().trim());
-        card.setLinkedinURL(linkedinURL.toString().trim());
+
+        List<String> urlParts = Arrays.asList(linkedinProfile.toString().trim().split("/"));
+        card.setLinkedinURL(urlParts.get(urlParts.size() - 1));
 
         int fieldsCount = fields.getChildCount();
         ArrayList<String> fieldValues = new ArrayList<>(fieldsCount);
@@ -160,7 +164,7 @@ public class CardInfoView extends FrameLayout {
         position.setText(card.getPosition());
         email.setText(card.getEmail());
         phone.setText(card.getPhone());
-        linkedinURL.setText(card.getLinkedinURL());
+        linkedinProfile.setText(card.getLinkedinURL());
 
         setAvatar(card.getAvatarPath());
 
@@ -197,7 +201,7 @@ public class CardInfoView extends FrameLayout {
         enableEditText(position);
         enableEditText(email);
         enableEditText(phone);
-        enableEditText(linkedinURL);
+        enableEditText(linkedinProfile);
 
         if (card == null || !card.hasAvatar()) {
             avatar.setImageResource(R.drawable.avatar_edit);
@@ -222,7 +226,7 @@ public class CardInfoView extends FrameLayout {
         disabledEditText(position);
         disabledEditText(email);
         disabledEditText(phone);
-        disabledEditText(linkedinURL);
+        disabledEditText(linkedinProfile);
 
         if (card == null || !card.hasAvatar()) {
             avatar.setImageResource(R.drawable.ic_avatar);
@@ -256,13 +260,13 @@ public class CardInfoView extends FrameLayout {
         }
     }
 
-    @OnClick(R.id.linkedin)
+    @OnClick(R.id.linkedinLink)
     public void clickLinkedInURL() {
         if (editMode) {
             return;
         }
 
-        Uri webpage = Uri.parse(card.getLinkedinURL());
+        Uri webpage = Uri.parse("https://www.linkedin.com/in/" + card.getLinkedinURL());
         Intent intent = new Intent(Intent.ACTION_VIEW, webpage);
         getContext().startActivity(intent);
     }
