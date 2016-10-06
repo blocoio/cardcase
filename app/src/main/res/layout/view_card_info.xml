@@ -64,7 +64,7 @@
             android:layout_height="wrap_content">
 
             <ImageView
-                android:id="@+id/imageView2"
+                android:id="@+id/facebook_icon"
                 android:layout_height="30dp"
                 android:layout_marginTop="@dimen/margin_tiny"
                 android:contentDescription="@string/auth_google_play_services_client_facebook_display_name"

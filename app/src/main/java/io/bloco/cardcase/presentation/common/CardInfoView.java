@@ -135,7 +135,7 @@ public class CardInfoView extends FrameLayout {
         if (editMode) {
             return;
         }
-        Uri webpage = Uri.parse(card.getFacebookLink());
+        Uri webpage = Uri.parse("https://www.facebook.com/" + card.getFacebookLink());
         Intent intent = new Intent(Intent.ACTION_VIEW, webpage);
         getContext().startActivity(intent);
     }
@@ -143,6 +143,11 @@ public class CardInfoView extends FrameLayout {
     @OnClick(R.id.vk_icon)
     public void clickVkIcon() {
         clickVkLink();
+    }
+
+    @OnClick(R.id.facebook_icon)
+    public void clickFacebookIcon() {
+        clickFacebookLink();
     }
 
     @OnClick(R.id.card_phone)
@@ -298,7 +303,7 @@ public class CardInfoView extends FrameLayout {
         disabledEditText(vklink);
         disabledEditText(facebooklink);
         disabledEditText(linkedinProfile);
-        
+
         if (card == null || !card.hasAvatar()) {
             avatar.setImageResource(R.drawable.ic_avatar);
         }
