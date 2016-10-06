@@ -208,11 +208,6 @@ public class CardInfoView extends FrameLayout {
         getContext().startActivity(intent);
     }
 
-    @OnClick(R.id.linkedin_icon)
-    public void clickLinkedinIcon() {
-        clickLinkedInURL();
-    }
-
     public void setAvatar(String avatarPath) {
         card.setAvatarPath(avatarPath);
         if (card.hasAvatar()) {
