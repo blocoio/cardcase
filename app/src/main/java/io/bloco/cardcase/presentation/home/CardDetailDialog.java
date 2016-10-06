@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.Animation;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -49,6 +50,10 @@ public class CardDetailDialog {
         this.dialog.setContentView(R.layout.card_detail_dialog);
         this.database = database;
         ButterKnife.bind(this, dialog);
+
+        //Add animation to the CardDialog
+        dialog.getWindow()
+                .getAttributes().windowAnimations = R.style.DialogAnimation;
     }
 
     public void show(Card card) {
@@ -73,20 +78,4 @@ public class CardDetailDialog {
             homeContract.showCards(database.getReceivedCards());
     }
 
-    private void animateExchangeOverlay() {
-        int cx = (int) deleteCard.getX() + deleteCard.getWidth() / 2;
-        int cy = (int) deleteCard.getY() + deleteCard.getHeight() / 2;
-
-        View rootView = findViewById(android.R.id.content);
-        float finalRadius = Math.max(rootView.getWidth(), rootView.getHeight());
-
-        // create the animator for this view (the start radius is zero)
-        Animator circularReveal =
-                ViewAnimationUtils.createCircularReveal(transitionOverlay, cx, cy, 0, finalRadius);
-        circularReveal.setDuration(getResources().getInteger(R.integer.animation_duration));
-
-        // make the view visible and start the animation
-        transitionOverlay.setVisibility(View.VISIBLE);
-        circularReveal.start();
-    }
 }
