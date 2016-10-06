@@ -61,7 +61,8 @@ public class CardInfoView extends FrameLayout {
     ImageView linkedinIcon;
     @Bind(R.id.card_vk)
     EditText vklink;
-
+    @Bind(R.id.facebook_link)
+    EditText facebooklink;
 
 
     @Bind(R.id.instagramLink)
@@ -91,6 +92,7 @@ public class CardInfoView extends FrameLayout {
         email.addTextChangedListener(fieldTextWatcher);
         phone.addTextChangedListener(fieldTextWatcher);
         vklink.addTextChangedListener(fieldTextWatcher);
+        facebooklink.addTextChangedListener(fieldTextWatcher);
         linkedinProfile.addTextChangedListener(fieldTextWatcher);
         instagramProfile.addTextChangedListener(fieldTextWatcher);
 
@@ -135,6 +137,15 @@ public class CardInfoView extends FrameLayout {
 
 
     }
+    @OnClick(R.id.facebook_link)
+    public void clickFacebookLink() {
+        if (editMode) {
+            return;
+        }
+        Uri webpage = Uri.parse("https://www.facebook.com/" + card.getFacebookLink());
+        Intent intent = new Intent(Intent.ACTION_VIEW, webpage);
+        getContext().startActivity(intent);
+    }
 
     @OnClick(R.id.vk_icon)
     public void clickVkIcon() {
@@ -155,6 +166,11 @@ public class CardInfoView extends FrameLayout {
 
         Intent chooser = Intent.createChooser(intent, getResources().getString(R.string.send_email));
         getContext().startActivity(chooser);
+    }
+
+    @OnClick(R.id.facebook_icon)
+    public void clickFacebookIcon() {
+        clickFacebookLink();
     }
 
     @OnClick(R.id.card_phone)
@@ -192,6 +208,11 @@ public class CardInfoView extends FrameLayout {
         getContext().startActivity(intent);
     }
 
+    @OnClick(R.id.linkedin_icon)
+    public void clickLinkedinIcon() {
+        clickLinkedInURL();
+    }
+
     public void setAvatar(String avatarPath) {
         card.setAvatarPath(avatarPath);
         if (card.hasAvatar()) {
@@ -212,6 +233,7 @@ public class CardInfoView extends FrameLayout {
         card.setEmail(email.getText().toString().trim());
         card.setPhone(phone.getText().toString().trim());
         card.setVklink(vklink.getText().toString().trim());
+        card.setFacebookLink(facebooklink.getText().toString().trim());
 
         List<String> urlParts = Arrays.asList(linkedinProfile.toString().trim().split("/"));
         card.setLinkedinURL(urlParts.get(urlParts.size() - 1));
@@ -244,6 +266,7 @@ public class CardInfoView extends FrameLayout {
         email.setText(card.getEmail());
         phone.setText(card.getPhone());
         vklink.setText(card.getVklink());
+        facebooklink.setText(card.getFacebookLink());
         linkedinProfile.setText(card.getLinkedinURL());
         instagramProfile.setText(card.getInstagramURL());
 
@@ -284,6 +307,7 @@ public class CardInfoView extends FrameLayout {
         enableEditText(phone);
         enableEditText(linkedinProfile);
         enableEditText(vklink);
+        enableEditText(facebooklink);
 
         if (card == null || !card.hasAvatar()) {
             avatar.setImageResource(R.drawable.avatar_edit);
@@ -309,6 +333,7 @@ public class CardInfoView extends FrameLayout {
         disabledEditText(email);
         disabledEditText(phone);
         disabledEditText(vklink);
+        disabledEditText(facebooklink);
         disabledEditText(linkedinProfile);
         disabledEditText(instagramProfile);
 
@@ -343,6 +368,8 @@ public class CardInfoView extends FrameLayout {
             disabledEditText(field);
         }
     }
+
+
 
     // Private
 
