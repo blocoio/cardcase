@@ -2,6 +2,7 @@ package io.bloco.cardcase.presentation.common;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.text.format.DateUtils;
 import android.util.AttributeSet;
@@ -58,6 +59,10 @@ public class CardInfoView extends FrameLayout {
     EditText linkedinProfile;
     @Bind(R.id.linkedin_icon)
     ImageView linkedinIcon;
+    @Bind(R.id.card_vk)
+    EditText vklink;
+
+
 
     @Bind(R.id.instagramLink)
     EditText instagramProfile;
@@ -85,6 +90,7 @@ public class CardInfoView extends FrameLayout {
         position.addTextChangedListener(fieldTextWatcher);
         email.addTextChangedListener(fieldTextWatcher);
         phone.addTextChangedListener(fieldTextWatcher);
+        vklink.addTextChangedListener(fieldTextWatcher);
         linkedinProfile.addTextChangedListener(fieldTextWatcher);
         instagramProfile.addTextChangedListener(fieldTextWatcher);
 
@@ -104,6 +110,35 @@ public class CardInfoView extends FrameLayout {
 
         Intent chooser = Intent.createChooser(intent, getResources().getString(R.string.send_email));
         getContext().startActivity(chooser);
+    }
+
+    @OnClick(R.id.card_vk)
+    public void clickVkLink() {
+        if (editMode) {
+            return;
+        }
+        Uri webpage = Uri.parse("https://www.vk.com/" + card.getVklink());
+        Intent intent = new Intent(Intent.ACTION_VIEW, webpage);
+
+        List<ResolveInfo> resInfo = getContext().getPackageManager().queryIntentActivities(intent, 0);
+
+        if (resInfo.isEmpty()) return;
+
+        for (ResolveInfo info : resInfo) {
+            if (info.activityInfo == null) continue;
+            if ("com.vkontakte.android".equals(info.activityInfo.packageName)) {
+                intent.setPackage(info.activityInfo.packageName);
+                break;
+            }
+        }
+        getContext().startActivity(intent);
+
+
+    }
+
+    @OnClick(R.id.vk_icon)
+    public void clickVkIcon() {
+        clickVkLink();
     }
 
     @OnClick(R.id.instagramIcon)
@@ -141,6 +176,22 @@ public class CardInfoView extends FrameLayout {
         }
     }
 
+    @OnClick(R.id.linkedinLink)
+    public void clickLinkedInURL() {
+        if (editMode) {
+            return;
+        }
+
+        Uri webpage = Uri.parse("https://www.linkedin.com/in/" + card.getLinkedinURL());
+        Intent intent = new Intent(Intent.ACTION_VIEW, webpage);
+        getContext().startActivity(intent);
+    }
+
+    @OnClick(R.id.linkedin_icon)
+    public void clickLinkedinIcon() {
+        clickLinkedInURL();
+    }
+
     public void setAvatar(String avatarPath) {
         card.setAvatarPath(avatarPath);
         if (card.hasAvatar()) {
@@ -160,6 +211,7 @@ public class CardInfoView extends FrameLayout {
         card.setPosition(position.getText().toString().trim());
         card.setEmail(email.getText().toString().trim());
         card.setPhone(phone.getText().toString().trim());
+        card.setVklink(vklink.getText().toString().trim());
 
         List<String> urlParts = Arrays.asList(linkedinProfile.toString().trim().split("/"));
         card.setLinkedinURL(urlParts.get(urlParts.size() - 1));
@@ -191,6 +243,7 @@ public class CardInfoView extends FrameLayout {
         position.setText(card.getPosition());
         email.setText(card.getEmail());
         phone.setText(card.getPhone());
+        vklink.setText(card.getVklink());
         linkedinProfile.setText(card.getLinkedinURL());
         instagramProfile.setText(card.getInstagramURL());
 
@@ -230,6 +283,7 @@ public class CardInfoView extends FrameLayout {
         enableEditText(email);
         enableEditText(phone);
         enableEditText(linkedinProfile);
+        enableEditText(vklink);
 
         if (card == null || !card.hasAvatar()) {
             avatar.setImageResource(R.drawable.avatar_edit);
@@ -254,6 +308,7 @@ public class CardInfoView extends FrameLayout {
         disabledEditText(position);
         disabledEditText(email);
         disabledEditText(phone);
+        disabledEditText(vklink);
         disabledEditText(linkedinProfile);
         disabledEditText(instagramProfile);
 

@@ -35,6 +35,9 @@ public class Card {
     private String linkedinURL;
     @DatabaseField
     private String instagramURL;
+    @DatabaseField
+    private String vklink;
+
 
     @DatabaseField(dataType = DataType.SERIALIZABLE)
     private ArrayList<String> fields;
@@ -79,6 +82,7 @@ public class Card {
         card.website = website;
         card.email = email;
         card.phone = phone;
+        card.vklink = vklink;
         card.avatarPath = avatarPath;
         card.fields = new ArrayList<>(getFields());
         card.createdAt = createdAt;
@@ -88,6 +92,14 @@ public class Card {
         card.linkedinURL = linkedinURL;
         card.instagramURL = instagramURL;
         return card;
+    }
+
+    public void setVklink(String link){
+        this.vklink = link;
+    }
+
+    public String getVklink(){
+        return vklink;
     }
 
     public UUID getId() {
@@ -248,6 +260,7 @@ public class Card {
         fieldsToMatch.add(website);
         fieldsToMatch.add(email);
         fieldsToMatch.add(phone);
+        fieldsToMatch.add(vklink);
         fieldsToMatch.add(linkedinURL);
         fieldsToMatch.add(instagramURL);
 

@@ -9,9 +9,10 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="464dp"
+        android:layout_height="530dp"
         android:layout_margin="@dimen/margin_double"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:weightSum="1">
 
         <FrameLayout
             android:layout_width="@dimen/card_avatar"
@@ -111,6 +112,34 @@
 
         </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/vk_fields"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/vk_icon"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="@dimen/margin_tiny"
+                android:contentDescription="@string/vk"
+                android:background="@drawable/ic_vk_social_network_logo"
+                android:scaleType="centerInside" />
+
+
+            <EditText
+                android:id="@+id/card_vk"
+                style="@style/card_field"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:inputType="textPersonName"
+                android:layout_marginTop="4dp"
+                android:hint="vk.com"
+                />
+
+        </LinearLayout>
+
 
         <LinearLayout
             android:id="@+id/instagram_fields"
@@ -156,7 +185,8 @@
             android:layout_marginTop="@dimen/margin_tiny"
             android:hint="@string/phone"
             android:inputType="phone"
-            android:nextFocusDown="@+id/card_fields" />
+            android:nextFocusDown="@+id/card_fields"
+            android:layout_weight="6.56" />
 
 
         <LinearLayout
