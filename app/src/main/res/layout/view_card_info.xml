@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     style="@style/card"
     android:layout_width="match_parent"
@@ -176,7 +175,7 @@
                 android:layout_height="30dp"
                 android:layout_marginTop="@dimen/margin_tiny"
                 android:contentDescription="@string/instagram"
-                android:background="@drawable/ic_instagram"
+                android:background="@drawable/instagram"
                 android:scaleType="centerInside" />
 
             <EditText
