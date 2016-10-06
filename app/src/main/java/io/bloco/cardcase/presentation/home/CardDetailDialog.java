@@ -29,6 +29,8 @@ public class CardDetailDialog {
     private final Database database;
     private HomeContract.View homeContract;
 
+    @Bind(R.id.card_detail_dialog_id)
+    View overlay;
     @Bind(R.id.card_dialog_info)
     CardInfoView cardInfoView;
     @Bind(R.id.buttonDeleteCard)
@@ -52,17 +54,18 @@ public class CardDetailDialog {
         ButterKnife.bind(this, dialog);
 
         //Add animation to the CardDialog
-        dialog.getWindow()
-                .getAttributes().windowAnimations = R.style.DialogAnimation;
+        dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
     }
 
     public void show(Card card) {
         fillCardInfoInDialog(card);
         dialog.show();
+
         Window window = dialog.getWindow();
         window.setLayout(
                 WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
-
+        transitionOverlay.setVisibility(View.GONE);
+        overlay.setVisibility(View.VISIBLE);
     }
 
     private void fillCardInfoInDialog(Card card) {
@@ -73,9 +76,36 @@ public class CardDetailDialog {
     @OnClick(R.id.buttonDeleteCard)
     public void onClickedDelete() {
         database.deleteCard(cardInfoView.getCard());
-        dialog.dismiss();
+        closeActivityWithAnimation();
+        //dialog.dismiss();
         if (homeContract != null)
             homeContract.showCards(database.getReceivedCards());
+    }
+
+    private void closeActivityWithAnimation() {
+
+        int cx = (int) deleteCard.getX() + deleteCard.getWidth() / 2;
+        int cy = (int) deleteCard.getY() + deleteCard.getHeight() / 2;
+
+        View rootView = dialog.findViewById(android.R.id.content);
+        float finalRadius = Math.max(rootView.getWidth(), rootView.getHeight());
+
+        // create the animator for this view (the start radius is zero)
+        Animator circularReveal =
+                ViewAnimationUtils.createCircularReveal(transitionOverlay, cx, cy, 0, finalRadius);
+        circularReveal.setDuration(600);
+
+        // make the view visible and start the animation
+        transitionOverlay.setVisibility(View.VISIBLE);
+        circularReveal.start();
+
+        overlay.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                overlay.setVisibility(View.GONE);
+                dialog.dismiss();
+            }
+        }, 600);
     }
 
 }

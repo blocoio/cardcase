@@ -3,7 +3,8 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true">
+    android:fillViewport="true"
+    android:id="@+id/card_detail_dialog_id">
 
     <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -29,7 +30,7 @@
             android:id="@+id/card_dialog_transition_overlay"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/secondary"
+            android:background="@color/cardview_light_background"
             android:visibility="gone" />
     </FrameLayout>
 </ScrollView>
