@@ -176,6 +176,11 @@ public class CardInfoView extends FrameLayout {
         }
     }
 
+    @OnClick(R.id.linkedin_icon)
+    public void clickLinkedinIcon() {
+        clickLinkedInURL();
+    }
+
     @OnClick(R.id.linkedinLink)
     public void clickLinkedInURL() {
         if (editMode) {
@@ -185,11 +190,6 @@ public class CardInfoView extends FrameLayout {
         Uri webpage = Uri.parse("https://www.linkedin.com/in/" + card.getLinkedinURL());
         Intent intent = new Intent(Intent.ACTION_VIEW, webpage);
         getContext().startActivity(intent);
-    }
-
-    @OnClick(R.id.linkedin_icon)
-    public void clickLinkedinIcon() {
-        clickLinkedInURL();
     }
 
     public void setAvatar(String avatarPath) {
@@ -342,22 +342,6 @@ public class CardInfoView extends FrameLayout {
         if (!editMode) {
             disabledEditText(field);
         }
-    }
-
-    @OnClick(R.id.linkedinLink)
-    public void clickLinkedInURL() {
-        if (editMode) {
-            return;
-        }
-
-        Uri webpage = Uri.parse("https://www.linkedin.com/in/" + card.getLinkedinURL());
-        Intent intent = new Intent(Intent.ACTION_VIEW, webpage);
-        getContext().startActivity(intent);
-    }
-
-    @OnClick(R.id.linkedin_icon)
-    public void clickLinkedinIcon() {
-       clickLinkedInURL();
     }
 
     // Private
