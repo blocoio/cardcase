@@ -19,4 +19,11 @@
         android:id="@+id/card_dialog_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+
+    <View
+        android:id="@+id/card_dialog_transition_overlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/secondary"
+        android:visibility="gone" />
 </FrameLayout>

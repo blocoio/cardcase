@@ -1,8 +1,11 @@
 package io.bloco.cardcase.presentation.home;
 
+import android.animation.Animator;
 import android.app.Activity;
 import android.app.Dialog;
 import android.support.design.widget.FloatingActionButton;
+import android.view.View;
+import android.view.ViewAnimationUtils;
 import android.view.Window;
 import android.view.WindowManager;
 
@@ -29,6 +32,8 @@ public class CardDetailDialog {
     CardInfoView cardInfoView;
     @Bind(R.id.buttonDeleteCard)
     FloatingActionButton deleteCard;
+    @Bind(R.id.card_dialog_transition_overlay)
+    View transitionOverlay;
 
     // TODO: Inject only the activity context?
     @Inject
@@ -66,5 +71,22 @@ public class CardDetailDialog {
         dialog.dismiss();
         if (homeContract != null)
             homeContract.showCards(database.getReceivedCards());
+    }
+
+    private void animateExchangeOverlay() {
+        int cx = (int) deleteCard.getX() + deleteCard.getWidth() / 2;
+        int cy = (int) deleteCard.getY() + deleteCard.getHeight() / 2;
+
+        View rootView = findViewById(android.R.id.content);
+        float finalRadius = Math.max(rootView.getWidth(), rootView.getHeight());
+
+        // create the animator for this view (the start radius is zero)
+        Animator circularReveal =
+                ViewAnimationUtils.createCircularReveal(transitionOverlay, cx, cy, 0, finalRadius);
+        circularReveal.setDuration(getResources().getInteger(R.integer.animation_duration));
+
+        // make the view visible and start the animation
+        transitionOverlay.setVisibility(View.VISIBLE);
+        circularReveal.start();
     }
 }

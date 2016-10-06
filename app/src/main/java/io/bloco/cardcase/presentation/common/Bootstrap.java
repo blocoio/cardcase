@@ -72,7 +72,7 @@ public class Bootstrap {
 
     private String getName() {
         Random r = new Random();
-        List<String> names = Arrays.asList("Работа", "Конференции", "Друзья", "Всякие там", "Кто все эти люди");
+        List<String> names = Arrays.asList("Work", "Conference", "Friends", "Others", "Random");
         return names.get(r.nextInt(4));
     }
 
