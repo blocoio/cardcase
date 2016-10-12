@@ -250,8 +250,6 @@ public class HomeActivity extends BaseActivity
                     }
                 });
 
-
-
 //        categoriesView.animate()
 //                .translationY(-categoriesView.getHeight())
 //                .alpha(0.0f)
