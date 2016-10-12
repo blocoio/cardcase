@@ -1,9 +1,14 @@
 package io.bloco.cardcase.presentation.home;
 
+import android.support.design.widget.CoordinatorLayout;
+import android.text.Layout;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import io.bloco.cardcase.R;
+import io.bloco.cardcase.presentation.common.Toolbar;
 
 /**
  * Created by liana on 10/12/16.
@@ -12,7 +17,7 @@ import android.widget.TextView;
 public class Theme {
 
 
-    enum ThemeTypes {Red, Green}
+    enum ThemeTypes {DefaultTheme, Red, Green}
 
     /**
      * Created by liana on 10/12/16.
@@ -25,7 +30,7 @@ public class Theme {
 
 
 
-        static ThemeTypes currentTheme = ThemeTypes.Red; /// default Green
+        static ThemeTypes currentTheme = ThemeTypes.DefaultTheme; /// default Green
 
         int setTheme() {
             switch (currentTheme) {
@@ -56,16 +61,24 @@ public class Theme {
         }
 
 
+    static public void setTypeTheme(){
+        currentTheme = ThemeTypes.Red;
+    }
 
-        public View viewEditor(View view){
+        public View viewEditor(View view, CoordinatorLayout lay){
+//            currentTheme = ThemeTypes.Red;
             setTheme();
-            view.setBackgroundColor(this.getViewBackgroundColor());
+            //view.setBackgroundColor(this.getViewBackgroundColor());
+            lay.setBackgroundResource(R.drawable.black_theme);
+//view.getLayoutParams().l/
+//            CoordinatorLayout ll = (CoordinatorLayout)findViewById(R.id.coord);
+//            ll.setBackgroundColor(0xffff7f00);
 
             if (view instanceof ViewGroup){
                 ViewGroup vg = (ViewGroup) view;
                 for (int i = 0; i < vg.getChildCount(); i++  ){
                     View child = vg.getChildAt(i);
-                    viewEditor(child);
+                    viewEditor(child, lay);
                 }
             }
             else if (view instanceof TextView){
@@ -73,6 +86,10 @@ public class Theme {
             }
             else if (view instanceof Button){
                 ;
+            }
+            else if (view instanceof CoordinatorLayout){
+//                view.setVisibility(View.VISIBLE);
+                view.setBackgroundResource(R.drawable.black_theme);
             }
             return view;
         }
