@@ -1,6 +1,7 @@
 package io.bloco.cardcase.presentation.home;
 
 import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -66,6 +67,8 @@ public class HomeActivity extends BaseActivity
     @Bind(R.id.home_transition_overlay)
     View transitionOverlay;
 
+    private static int duration = 200;
+
     public static class Factory {
         public static Intent getIntent(Context context) {
             return new Intent(context, HomeActivity.class);
@@ -113,6 +116,12 @@ public class HomeActivity extends BaseActivity
     public void onBackPressed() {
         if (searchToolbar.getVisibility() == View.VISIBLE) {
             presenter.clickedCloseSearch();
+        }
+//        if (categoriesView.getAlpha() == 0.0f) {
+//            resumeCategories();
+        if (categoriesView.getVisibility() == View.GONE) {
+            resumeCategories();
+
         } else {
             finish();
         }
@@ -144,9 +153,11 @@ public class HomeActivity extends BaseActivity
         RecyclerView.LayoutManager layoutManager =
                 new LinearLayoutManager(HomeActivity.this, LinearLayoutManager.VERTICAL, false);
         cardsView.setLayoutManager(layoutManager);
-        cardsView.setVisibility(View.VISIBLE);
+        //cardsView.setVisibility(View.VISIBLE);
         homeEmpty.setVisibility(View.GONE);
-
+        cardsView.animate()
+                .translationY(cardsView.getHeight())
+                .setDuration(0);
         // Show Search
         toolbar.setEndButton(R.drawable.ic_search, R.string.search, new View.OnClickListener() {
             @Override
@@ -163,10 +174,115 @@ public class HomeActivity extends BaseActivity
         RecyclerView.LayoutManager layoutManager =
                 new LinearLayoutManager(HomeActivity.this, LinearLayoutManager.VERTICAL, false);
         categoriesView.setLayoutManager(layoutManager);
-        categoriesView.setVisibility(View.VISIBLE);
+        resumeCategories();
         homeEmpty.setVisibility(View.GONE);
     }
 
+    @Override
+    public void resumeCategories() {
+        categoriesView.setVisibility(View.VISIBLE);
+        cardsView.setVisibility(View.GONE);
+        categoriesView.animate()
+                .translationY(0)
+                .alpha(1.0f)
+                .setDuration(duration)
+                .setListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        super.onAnimationEnd(animation);
+
+                    }
+                });
+
+
+//        categoriesView.animate()
+//                .translationY(0)
+//                .alpha(1.0f)
+//                .setDuration(600)
+//                .setListener(new AnimatorListenerAdapter() {
+//
+//                    @Override
+//                    public void onAnimationStart(Animator animation) {
+//                        super.onAnimationStart(animation);
+//                        cardsView.animate()
+//                                .translationY(cardsView.getHeight())
+//                                .setDuration(600)
+//                                .alpha(0.0f)
+//                                .setListener(new AnimatorListenerAdapter() {
+//                                    @Override
+//                                    public void onAnimationEnd(Animator animation) {
+//                                        super.onAnimationEnd(animation);
+//                                    }
+//                                });
+//                    }
+//                });
+
+    }
+
+    @Override
+    public void hideCategories() {
+
+        categoriesView.animate()
+                .translationY(-categoriesView.getHeight() - 200)
+                .alpha(0.0f)
+                .setDuration(duration / 2)
+                .setListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        super.onAnimationEnd(animation);
+                        categoriesView.setVisibility(View.GONE);
+
+                        cardsView.setAlpha(0.0f);
+                        cardsView.setVisibility(View.VISIBLE);
+                        cardsView.animate()
+                                .translationY(cardsView.getHeight())
+                                .setDuration(0)
+                                .setListener(new AnimatorListenerAdapter() {
+                                    @Override
+                                    public void onAnimationEnd(Animator animation) {
+                                        super.onAnimationEnd(animation);
+                                        cardsView.animate()
+                                                .translationY(150)
+                                                .setDuration(duration)
+                                                .alpha(1.0f);
+                                    }
+                                });
+                    }
+                });
+
+
+
+//        categoriesView.animate()
+//                .translationY(-categoriesView.getHeight())
+//                .alpha(0.0f)
+//                .setDuration(600)
+//                .setListener(new AnimatorListenerAdapter() {
+//                    @Override
+//                    public void onAnimationStart(Animator animation) {
+//                        super.onAnimationStart(animation);
+//
+//                    }
+//                    @Override
+//                    public void onAnimationEnd(Animator animation) {
+//                        super.onAnimationEnd(animation);
+//
+//                        cardsView.animate()
+//                                .translationY(-categoriesView.getHeight())
+//                                .setDuration(600)
+//                                .alpha(1.0f)
+//                                .setListener(new AnimatorListenerAdapter() {
+//                                    @Override
+//                                    public void onAnimationEnd(Animator animation) {
+//                                        super.onAnimationEnd(animation);
+//                                        cardsView.animate()
+//                                                .translationY(100)
+//                                                .setDuration(200);
+//                                    }
+//                                });
+//                    }
+//                });
+
+    }
 
     @Override
     public void hideEmptySearchResult() {
