@@ -6,6 +6,7 @@ import io.bloco.cardcase.data.models.Category;
 import java.util.List;
 
 public class HomeContract {
+
     public interface View {
         void showEmpty();
 
@@ -26,6 +27,9 @@ public class HomeContract {
         void openSearch();
 
         void closeSearch();
+
+        void openSettings();
+
     }
 
     public interface Presenter {
@@ -38,6 +42,8 @@ public class HomeContract {
         void searchEntered(String query);
 
         void clickedUser();
+
+        void clickedChangeTheme();
 
         void clickedExchange();
     }

@@ -66,6 +66,9 @@ public class HomeActivity extends BaseActivity
     @Bind(R.id.home_transition_overlay)
     View transitionOverlay;
 
+    @Bind(R.id.change_theme)
+        FloatingActionButton changeThemeButton;
+
     public static class Factory {
         public static Intent getIntent(Context context) {
             return new Intent(context, HomeActivity.class);
@@ -105,6 +108,14 @@ public class HomeActivity extends BaseActivity
     @Override
     protected void onStart() {
         super.onStart();
+        Theme currentTheme = new Theme();
+        View view = this.getWindow().getDecorView();
+        //view.setBackgroundColor(currentTheme.getViewBackgroundColor());
+
+        //here magic happens
+        //view = currentTheme.viewEditor(view);
+
+
         transitionOverlay.setVisibility(View.GONE);
         presenter.start(this);
     }
@@ -123,6 +134,18 @@ public class HomeActivity extends BaseActivity
         presenter.clickedExchange();
     }
 
+    @OnClick(R.id.change_theme)
+    public void onClickedChangeTheme() {
+        presenter.clickedChangeTheme();
+    }
+
+    @Override
+    public void openSettings() {
+        //        animateExchangeOverlay();
+        Intent intent = SettingsActivity.getIntent(this);
+        startActivityWithAnimation(intent);
+    }
+
     @OnClick(R.id.add_user_card)
     void onClickStart() {
         Intent intent = UserActivity.Factory.getOnboardingIntent(this);
@@ -136,6 +159,7 @@ public class HomeActivity extends BaseActivity
         cardsView.setVisibility(View.GONE);
         toolbar.removeEndButton(); // Hide Search
     }
+
 
     @Override
     public void showCards(final List<Card> cards) {

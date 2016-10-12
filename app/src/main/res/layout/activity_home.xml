@@ -88,13 +88,20 @@
             android:scaleType="center"
             android:src="@drawable/ic_exchange" />
 
-      <android.support.design.widget.FloatingActionButton
+        <android.support.design.widget.FloatingActionButton
+                android:id="@+id/change_theme"
+                style="@style/change_theme_button_style"
+                android:scaleType="center"
+                android:src="@android:drawable/ic_menu_preferences"/>
+
+        <android.support.design.widget.FloatingActionButton
           android:id="@+id/add_user_card"
           style="@style/test"
           app:fabSize="normal"
-          android:src="@drawable/ic_content_add" />
+          android:src="@drawable/ic_content_add"
+          android:visibility="invisible" />
 
-  </android.support.design.widget.CoordinatorLayout>
+    </android.support.design.widget.CoordinatorLayout>
 
     <View
         android:id="@+id/home_transition_overlay"

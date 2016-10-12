@@ -106,6 +106,10 @@ public class HomePresenter
         view.openExchange();
     }
 
+     public void clickedChangeTheme() {
+            view.openSettings();
+    }
+
     @Override
     public void onGetUserCard(Card userCard) {
         if (userCard == null) {
