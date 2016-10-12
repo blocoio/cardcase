@@ -127,7 +127,7 @@ public class HomeActivity extends BaseActivity
     void onClickStart() {
         Intent intent = UserActivity.Factory.getOnboardingIntent(this);
         startActivity(intent);
-        finishWithAnimation();
+//        finishWithAnimation();
     }
 
     @Override

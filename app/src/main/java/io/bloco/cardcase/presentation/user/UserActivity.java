@@ -1,16 +1,20 @@
 package io.bloco.cardcase.presentation.user;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AlertDialog;
 import android.transition.Transition;
 import android.transition.TransitionInflater;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.TextView;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -45,13 +49,11 @@ public class UserActivity extends BaseActivity
     ViewGroup rootLayout;
     @Bind(R.id.user_card)
     CardInfoView cardView;
-    @Bind(R.id.user_edit)
-    FloatingActionButton edit;
     @Bind(R.id.user_done)
     FloatingActionButton done;
     @Bind(R.id.fab_main)
     FloatingActionButton fabMain;
-    @Bind(R.id.user_edit)
+    @Bind(R.id.user_edit_fab)
     FloatingActionButton fabEdit;
     @Bind(R.id.user_delete)
     FloatingActionButton fabDelete;
@@ -138,7 +140,7 @@ public class UserActivity extends BaseActivity
         }
     }
 
-    public void onFabClick() {
+    private void onFabClick() {
         if (isFabOpen) {
             fabMain.startAnimation(rotateBackward);
             fabEdit.startAnimation(fabClose);
@@ -150,6 +152,7 @@ public class UserActivity extends BaseActivity
             isFabOpen = false;
             Log.d("TEST", "isFabOpen");
         } else {
+            presenter.clickedCancel();
             fabMain.startAnimation(rotateForward);
             fabEdit.startAnimation(fabOpen);
             fabDelete.startAnimation(fabOpen);
@@ -162,24 +165,64 @@ public class UserActivity extends BaseActivity
         }
     }
 
+
     @OnClick(R.id.fab_main)
     public void mainFabClick() {
         onFabClick();
     }
 
-    @OnClick(R.id.fab_1)
+    @OnClick(R.id.user_delete)
     public void fab1Click() {
-
+        AlertDialog alert = getDialog().create();
+        alert.show();
     }
 
-    @OnClick(R.id.fab_2)
+    private AlertDialog.Builder getDialog() {
+        TextView title = new TextView(this);
+        title.setText("Remove the card");
+        title.setPadding(10, 10, 10, 10);
+        title.setGravity(Gravity.CENTER);
+        title.setTextSize(23);
+
+        TextView msg = new TextView(this);
+        msg.setText("Are you sure ?");
+        msg.setPadding(10, 10, 10, 10);
+        msg.setGravity(Gravity.CENTER);
+        msg.setTextSize(18);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setCustomTitle(title);
+        builder.setView(msg);
+
+        builder.setIcon(R.drawable.ic_delete_forever_white_24px);
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                onFabClick();
+                dialog.dismiss();
+                //todo delete the card.
+            }
+        });
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                onFabClick();
+                dialog.dismiss();
+            }
+        });
+
+        return builder;
+    }
+
+    @OnClick(R.id.user_create)
     public void fab2Click() {
-
+        Intent intent = UserActivity.Factory.getOnboardingIntent(this);
+        startActivity(intent);
+        Log.d("TEST", "user create clicked");
     }
 
-    @OnClick(R.id.user_edit)
+    @OnClick(R.id.user_edit_fab)
     public void onEditClicked() {
         presenter.clickedEdit();
+        onFabClick();
     }
 
     @OnClick(R.id.user_done)
@@ -224,12 +267,12 @@ public class UserActivity extends BaseActivity
 
     @Override
     public void showEditButton() {
-        edit.setVisibility(View.VISIBLE);
+//        edit.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void hideEditButton() {
-        edit.setVisibility(View.GONE);
+//        edit.setVisibility(View.GONE);
     }
 
     @Override
