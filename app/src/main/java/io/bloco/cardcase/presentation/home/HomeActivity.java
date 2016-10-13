@@ -158,7 +158,7 @@ public class HomeActivity extends BaseActivity
         View view = this.getWindow().getDecorView();
 //
         CoordinatorLayout ll = (CoordinatorLayout)findViewById(R.id.coord);
-        Theme.setTypeTheme();
+        Theme.setTypeTheme(ll);
         view = currentTheme.viewEditor(view, ll);
 //        AppBarLayout toolbarLayout = (AppBarLayout)findViewById(R.id.toolbarLay);
 

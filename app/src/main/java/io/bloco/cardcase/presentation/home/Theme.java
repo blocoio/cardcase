@@ -36,11 +36,21 @@ public class Theme {
             switch (currentTheme) {
                 case Red: {
                     this.backgroundColor = 0xff0080ff;
-                    this.textColor = 0xffff7f00;
-                    this.textSize = "12sp";
+                    this.textColor = 0xff004242;
+                    this.textSize = "15sp";
                     this.buttonColor = 0xffff7f00;
+                    break;
                 }
-                case Green:
+                case Green:{
+                    break;
+                }
+                case DefaultTheme: {
+//                    this.backgroundColor = 0xff607D8B;
+                    this.textColor = 0xf000000;
+//                    this.backgroundColor = 0xf607D8B;
+
+                    break;
+                }
                     //                return 0xf00ff000;
             }
             return 0;
@@ -59,17 +69,29 @@ public class Theme {
             return textColor;
             //        return 0xffff7f00;
         }
+//
+//    static void setThemeNow(){
+//        setTheme();
+//    }
 
+    static public void setTypeTheme(CoordinatorLayout lay){
+        if (currentTheme == ThemeTypes.Red){
+            currentTheme = ThemeTypes.DefaultTheme;
+            lay.setBackgroundResource(0);
 
-    static public void setTypeTheme(){
-        currentTheme = ThemeTypes.Red;
+        }
+        else {
+            currentTheme = ThemeTypes.Red;
+            lay.setBackgroundResource(R.drawable.black_theme);
+
+        }
     }
 
         public View viewEditor(View view, CoordinatorLayout lay){
 //            currentTheme = ThemeTypes.Red;
             setTheme();
             //view.setBackgroundColor(this.getViewBackgroundColor());
-            lay.setBackgroundResource(R.drawable.black_theme);
+//            lay.setBackgroundResource(R.drawable.black_theme);
 //view.getLayoutParams().l/
 //            CoordinatorLayout ll = (CoordinatorLayout)findViewById(R.id.coord);
 //            ll.setBackgroundColor(0xffff7f00);
