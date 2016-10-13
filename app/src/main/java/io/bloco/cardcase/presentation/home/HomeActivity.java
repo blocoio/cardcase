@@ -4,14 +4,19 @@ import android.animation.Animator;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Layout;
 import android.transition.Transition;
 import android.transition.TransitionInflater;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
+
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -66,6 +71,9 @@ public class HomeActivity extends BaseActivity
     @Bind(R.id.home_transition_overlay)
     View transitionOverlay;
 
+    @Bind(R.id.change_theme)
+        FloatingActionButton changeThemeButton;
+
     public static class Factory {
         public static Intent getIntent(Context context) {
             return new Intent(context, HomeActivity.class);
@@ -79,6 +87,9 @@ public class HomeActivity extends BaseActivity
 
         initializeInjectors();
 
+
+
+
         bindToolbar();
         toolbar.setTitle(R.string.cards_received);
         toolbar.setStartButton(R.drawable.ic_user, R.string.user_card, new View.OnClickListener() {
@@ -90,6 +101,8 @@ public class HomeActivity extends BaseActivity
 
         Transition slideEnd = TransitionInflater.from(this).inflateTransition(R.transition.slide_end);
         getWindow().setEnterTransition(slideEnd);
+
+
     }
 
     private void initializeInjectors() {
@@ -104,7 +117,21 @@ public class HomeActivity extends BaseActivity
 
     @Override
     protected void onStart() {
+        //super.onStart();
+//        Theme currentTheme = new Theme();
+//        View view = this.getWindow().getDecorView();
+//        //view.setBackgroundColor(currentTheme.getViewBackgroundColor());
+//
+//        //here magic happens
+//        view = currentTheme.viewEditor(view);
+
         super.onStart();
+//        Theme currentTheme = new Theme();
+//        View view = this.getWindow().getDecorView();
+//
+//        CoordinatorLayout ll = (CoordinatorLayout)findViewById(R.id.coord);
+//
+//        view = currentTheme.viewEditor(view, ll);
         transitionOverlay.setVisibility(View.GONE);
         presenter.start(this);
     }
@@ -123,6 +150,35 @@ public class HomeActivity extends BaseActivity
         presenter.clickedExchange();
     }
 
+    @OnClick(R.id.change_theme)
+    public void onClickedChangeTheme() {
+        presenter.clickedChangeTheme();
+
+        Theme currentTheme = new Theme();
+        View view = this.getWindow().getDecorView();
+//
+        CoordinatorLayout ll = (CoordinatorLayout)findViewById(R.id.coord);
+        Theme.setTypeTheme();
+        view = currentTheme.viewEditor(view, ll);
+//        AppBarLayout toolbarLayout = (AppBarLayout)findViewById(R.id.toolbarLay);
+
+
+//        RelativeLayout toolbarLayout = (RelativeLayout)findViewById(R.id.toolbar);
+//        currentTheme
+//        toolbarLayout.setBackgroundColor(0xffff7f00);
+//        toolbarLay
+
+        //here magic happens
+
+    }
+
+    @Override
+    public void openSettings() {
+        //        animateExchangeOverlay();
+        Intent intent = SettingsActivity.getIntent(this);
+        startActivityWithAnimation(intent);
+    }
+
     @OnClick(R.id.add_user_card)
     void onClickStart() {
         Intent intent = UserActivity.Factory.getOnboardingIntent(this);
@@ -136,6 +192,7 @@ public class HomeActivity extends BaseActivity
         cardsView.setVisibility(View.GONE);
         toolbar.removeEndButton(); // Hide Search
     }
+
 
     @Override
     public void showCards(final List<Card> cards) {
