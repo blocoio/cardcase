@@ -96,6 +96,15 @@ public class UserPresenter
     }
 
     @Override
+    public void clickRemoveUserCard() {
+        database.deleteCard(userCard);
+        userCard = new Card();
+//            userCard.setId(UUID.randomUUID());
+        view.showUser(userCard);
+        view.enableEditMode();
+    }
+
+    @Override
     public void onGetUserCard(Card userCard) {
         this.userCard = userCard;
         view.showUser(this.userCard);

@@ -200,6 +200,9 @@ public class UserActivity extends BaseActivity
                 onFabClick();
                 dialog.dismiss();
                 //todo delete the card.
+                presenter.clickRemoveUserCard();
+                showDoneButton();
+                fabMain.setVisibility(View.GONE);
             }
         });
         builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -228,11 +231,15 @@ public class UserActivity extends BaseActivity
     @OnClick(R.id.user_done)
     public void onDoneClicked() {
         presenter.clickedDone(cardView.getCard());
+        fabMain.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void showUser(Card userCard) {
         cardView.setCard(userCard);
+        /*if (cardView.isInEditMode()) {
+            fabMain.setVisibility(View.GONE);
+        }*/
     }
 
     @Override
@@ -313,6 +320,7 @@ public class UserActivity extends BaseActivity
 
     @Override
     public void onChange(Card updatedCard) {
+        fabMain.setVisibility(View.GONE);
         presenter.onCardChanged(updatedCard);
     }
 }
