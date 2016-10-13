@@ -69,7 +69,7 @@
       android:visibility="invisible"
       android:layout_gravity="bottom|end"
       app:elevation="6dp"
-      app:srcCompat="@android:drawable/ic_menu_close_clear_cancel"
+      app:srcCompat="@drawable/ic_add_white_24px"
       />
 
 </android.support.design.widget.CoordinatorLayout>
