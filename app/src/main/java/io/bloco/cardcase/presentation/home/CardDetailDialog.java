@@ -41,6 +41,8 @@ public class CardDetailDialog {
     FloatingActionButton deleteCard;
     @Bind(R.id.card_dialog_transition_overlay)
     View transitionOverlay;
+    @Bind(R.id.buttonShareCard)
+    FloatingActionButton shareCard;
 
     // TODO: Inject only the activity context?
     @Inject
@@ -84,19 +86,19 @@ public class CardDetailDialog {
     }
 
     private AlertDialog.Builder getDialog() {
-        TextView title = new TextView((Activity)homeContract);
+        TextView title = new TextView((Activity) homeContract);
         title.setText("Remove the card");
         title.setPadding(10, 10, 10, 10);
         title.setGravity(Gravity.CENTER);
         title.setTextSize(23);
 
-        TextView msg = new TextView((Activity)homeContract);
+        TextView msg = new TextView((Activity) homeContract);
         msg.setText("Are you sure ?");
         msg.setPadding(10, 10, 10, 10);
         msg.setGravity(Gravity.CENTER);
         msg.setTextSize(18);
 
-        AlertDialog.Builder builder = new AlertDialog.Builder((Activity)homeContract);
+        AlertDialog.Builder builder = new AlertDialog.Builder((Activity) homeContract);
         builder.setCustomTitle(title);
         builder.setView(msg);
 
@@ -117,6 +119,11 @@ public class CardDetailDialog {
         });
 
         return builder;
+    }
+
+    @OnClick(R.id.buttonShareCard)
+    public void onClickedShare() {
+
     }
 
     private void closeActivityWithAnimation() {

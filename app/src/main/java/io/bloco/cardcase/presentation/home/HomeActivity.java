@@ -140,8 +140,7 @@ public class HomeActivity extends BaseActivity
         if (searchToolbar.getVisibility() == View.VISIBLE) {
             presenter.clickedCloseSearch();
         }
-//        if (categoriesView.getAlpha() == 0.0f) {
-//            resumeCategories();
+
         if (categoriesView.getVisibility() == View.GONE) {
             resumeCategories();
 

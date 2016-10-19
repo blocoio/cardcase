@@ -22,6 +22,7 @@
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
     <string name="delete">Delete</string>
+    <string name="share">Share</string>
 
     <string name="avatar_edit">Change avatar</string>
     <string name="avatar_picker">Where from?</string>
