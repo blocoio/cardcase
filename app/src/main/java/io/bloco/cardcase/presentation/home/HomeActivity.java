@@ -15,6 +15,7 @@ import android.transition.TransitionInflater;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 
@@ -72,7 +73,7 @@ public class HomeActivity extends BaseActivity
     View transitionOverlay;
 
     @Bind(R.id.change_theme)
-        FloatingActionButton changeThemeButton;
+    FloatingActionButton changeThemeButton;
 
     public static class Factory {
         public static Intent getIntent(Context context) {
@@ -86,8 +87,6 @@ public class HomeActivity extends BaseActivity
         setContentView(R.layout.activity_home);
 
         initializeInjectors();
-
-
 
 
         bindToolbar();
@@ -117,23 +116,17 @@ public class HomeActivity extends BaseActivity
 
     @Override
     protected void onStart() {
-        //super.onStart();
-//        Theme currentTheme = new Theme();
-//        View view = this.getWindow().getDecorView();
-//        //view.setBackgroundColor(currentTheme.getViewBackgroundColor());
-//
-//        //here magic happens
-//        view = currentTheme.viewEditor(view);
 
         super.onStart();
-//        Theme currentTheme = new Theme();
-//        View view = this.getWindow().getDecorView();
-//
-//        CoordinatorLayout ll = (CoordinatorLayout)findViewById(R.id.coord);
-//
-//        view = currentTheme.viewEditor(view, ll);
+
         transitionOverlay.setVisibility(View.GONE);
+
         presenter.start(this);
+//        Theme currentTheme = new Theme();
+        View view = this.getWindow().getDecorView();
+        CoordinatorLayout ll = (CoordinatorLayout) findViewById(R.id.coord);
+
+        Theme.viewLayTheme(view, ll);
     }
 
     @Override
@@ -153,22 +146,19 @@ public class HomeActivity extends BaseActivity
     @OnClick(R.id.change_theme)
     public void onClickedChangeTheme() {
         presenter.clickedChangeTheme();
+        Theme.setTypeTheme();
+        onStart();
 
-        Theme currentTheme = new Theme();
-        View view = this.getWindow().getDecorView();
-//
-        CoordinatorLayout ll = (CoordinatorLayout)findViewById(R.id.coord);
-        Theme.setTypeTheme(ll);
-        view = currentTheme.viewEditor(view, ll);
+
+//        LinearLayout l = (LinearLayout) ll;
+//        CoordinatorLayout ll = (CoordinatorLayout)findViewById(R.id.coord);
+
+//        view = currentTheme.viewEditor(view);
 //        AppBarLayout toolbarLayout = (AppBarLayout)findViewById(R.id.toolbarLay);
 
 
 //        RelativeLayout toolbarLayout = (RelativeLayout)findViewById(R.id.toolbar);
-//        currentTheme
 //        toolbarLayout.setBackgroundColor(0xffff7f00);
-//        toolbarLay
-
-        //here magic happens
 
     }
 

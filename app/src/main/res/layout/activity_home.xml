@@ -5,6 +5,13 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <View
+        android:id="@+id/home_transition_overlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/secondary"
+        android:visibility="gone" />
+
     <android.support.design.widget.CoordinatorLayout
         style="@style/layout"
         tools:context=".presentation.home.HomeActivity"
@@ -103,12 +110,5 @@
         </LinearLayout>
 
     </android.support.design.widget.CoordinatorLayout>
-
-    <View
-        android:id="@+id/home_transition_overlay"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/secondary"
-        android:visibility="gone" />
 
 </FrameLayout>
