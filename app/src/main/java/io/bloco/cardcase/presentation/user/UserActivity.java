@@ -197,14 +197,13 @@ public class UserActivity extends BaseActivity
         builder.setIcon(R.drawable.ic_delete_forever_white_24px);
         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-                onFabClick();
                 dialog.dismiss();
-                //todo delete the card.
                 presenter.clickRemoveUserCard();
-                showDoneButton();
+                enableEditMode();
                 fabMain.setVisibility(View.GONE);
             }
         });
+
         builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 onFabClick();
@@ -225,21 +224,39 @@ public class UserActivity extends BaseActivity
     @OnClick(R.id.user_edit_fab)
     public void onEditClicked() {
         presenter.clickedEdit();
-        onFabClick();
+        fabInvisible();
+    }
+
+    private void fabInvisible() {
+        fabCreate.setVisibility(View.GONE);
+        fabDelete.setVisibility(View.GONE);
+        fabEdit.setVisibility(View.GONE);
+        fabMain.setVisibility(View.INVISIBLE);
+    }
+
+    private void fabVisible() {
+        fabCreate.setVisibility(View.INVISIBLE);
+        fabDelete.setVisibility(View.INVISIBLE);
+        fabEdit.setVisibility(View.INVISIBLE);
+        fabMain.setVisibility(View.VISIBLE);
+        fabMain.startAnimation(rotateBackward);
     }
 
     @OnClick(R.id.user_done)
     public void onDoneClicked() {
         presenter.clickedDone(cardView.getCard());
-        fabMain.setVisibility(View.VISIBLE);
+        fabVisible();
+        this.finish();
+        startActivity(getIntent());
+
+        System.out.println(fabMain.isClickable());
+        System.out.println(fabMain.isEnabled());
+        System.out.println(fabMain.isFocusable());
     }
 
     @Override
     public void showUser(Card userCard) {
         cardView.setCard(userCard);
-        /*if (cardView.isInEditMode()) {
-            fabMain.setVisibility(View.GONE);
-        }*/
     }
 
     @Override
@@ -274,12 +291,10 @@ public class UserActivity extends BaseActivity
 
     @Override
     public void showEditButton() {
-//        edit.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void hideEditButton() {
-//        edit.setVisibility(View.GONE);
     }
 
     @Override
@@ -320,7 +335,6 @@ public class UserActivity extends BaseActivity
 
     @Override
     public void onChange(Card updatedCard) {
-        fabMain.setVisibility(View.GONE);
         presenter.onCardChanged(updatedCard);
     }
 }

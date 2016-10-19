@@ -102,6 +102,12 @@ public class UserPresenter
 //            userCard.setId(UUID.randomUUID());
         view.showUser(userCard);
         view.enableEditMode();
+        view.showDoneButton();
+    }
+
+    @Override
+    public void showDone() {
+//        showDone();
     }
 
     @Override

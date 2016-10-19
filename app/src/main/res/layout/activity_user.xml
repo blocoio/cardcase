@@ -23,15 +23,9 @@
       android:id="@+id/user_done"
       android:contentDescription="@string/done"
       android:src="@drawable/ic_done"
-      android:visibility="gone"
+      android:clickable="true"
       tools:visibility="visible"
       style="@style/fab"/>
-
-  <android.support.design.widget.FloatingActionButton
-      android:id="@+id/fab_main"
-      app:elevation="6dp"
-      android:src="@drawable/ic_close_white_24px"
-      style="@style/fab" />
 
   <android.support.design.widget.FloatingActionButton
       android:id="@+id/user_delete"
@@ -72,4 +66,9 @@
       app:srcCompat="@drawable/ic_add_white_24px"
       />
 
+  <android.support.design.widget.FloatingActionButton
+      android:id="@+id/fab_main"
+      app:elevation="6dp"
+      android:src="@drawable/ic_close_white_24px"
+      style="@style/fab" />
 </android.support.design.widget.CoordinatorLayout>
