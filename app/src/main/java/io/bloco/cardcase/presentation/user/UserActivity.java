@@ -1,13 +1,21 @@
 package io.bloco.cardcase.presentation.user;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AlertDialog;
 import android.transition.Transition;
 import android.transition.TransitionInflater;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.TextView;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -20,165 +28,299 @@ import io.bloco.cardcase.presentation.common.CardInfoView;
 import io.bloco.cardcase.presentation.common.ErrorDisplayer;
 import io.bloco.cardcase.presentation.common.ImageLoader;
 import io.bloco.cardcase.presentation.home.HomeActivity;
+
 import java.io.File;
+
 import javax.inject.Inject;
 
 public class UserActivity extends BaseActivity
-    implements UserContract.View, CardInfoView.CardEditListener {
+        implements UserContract.View, CardInfoView.CardEditListener {
 
-  @Inject UserContract.Presenter presenter;
-  @Inject ImageLoader imageLoader;
-  @Inject AvatarPicker avatarPicker;
-  @Inject ErrorDisplayer errorDisplayer;
+    @Inject
+    UserContract.Presenter presenter;
+    @Inject
+    ImageLoader imageLoader;
+    @Inject
+    AvatarPicker avatarPicker;
+    @Inject
+    ErrorDisplayer errorDisplayer;
 
-  @Bind(R.id.user_layout) ViewGroup rootLayout;
-  @Bind(R.id.user_card) CardInfoView cardView;
-  @Bind(R.id.user_edit) FloatingActionButton edit;
-  @Bind(R.id.user_done) FloatingActionButton done;
+    @Bind(R.id.user_layout)
+    ViewGroup rootLayout;
+    @Bind(R.id.user_card)
+    CardInfoView cardView;
+    @Bind(R.id.user_done)
+    FloatingActionButton done;
+    @Bind(R.id.fab_main)
+    FloatingActionButton fabMain;
+    @Bind(R.id.user_edit_fab)
+    FloatingActionButton fabEdit;
+    @Bind(R.id.user_delete)
+    FloatingActionButton fabDelete;
+    @Bind(R.id.user_create)
+    FloatingActionButton fabCreate;
 
-  public static class Factory {
-    public static class BundleArgs {
-      private static final String ONBOARDING = "onboarding";
+    private Animation fabOpen, fabClose, rotateBackward, rotateForward;
+
+    private boolean isFabOpen = false;
+
+    public static class Factory {
+        public static class BundleArgs {
+            private static final String ONBOARDING = "onboarding";
+        }
+
+        public static Intent getIntent(Context context) {
+            return new Intent(context, UserActivity.class);
+        }
+
+        public static Intent getOnboardingIntent(Context context) {
+            Intent intent = getIntent(context);
+            intent.putExtra(BundleArgs.ONBOARDING, true);
+            return intent;
+        }
     }
 
-    public static Intent getIntent(Context context) {
-      return new Intent(context, UserActivity.class);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_user);
+
+        initializeInjectors();
+
+        bindToolbar();
+        toolbar.setTitle(R.string.user_card);
+
+        Intent intent = getIntent();
+        boolean onboarding = intent.getBooleanExtra(Factory.BundleArgs.ONBOARDING, false);
+
+        cardView.setEditListener(this);
+
+        presenter.start(this, onboarding);
+
+        Transition slideEnd = TransitionInflater.from(this).inflateTransition(R.transition.slide_end);
+        Transition slideStart =
+                TransitionInflater.from(this).inflateTransition(R.transition.slide_start);
+        getWindow().setEnterTransition(slideStart);
+        getWindow().setExitTransition(slideEnd);
+
+        fabOpen = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_open);
+        fabClose = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_close);
+        rotateBackward = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.rotate_backward);
+        rotateForward = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.rotate_forward);
     }
 
-    public static Intent getOnboardingIntent(Context context) {
-      Intent intent = getIntent(context);
-      intent.putExtra(BundleArgs.ONBOARDING, true);
-      return intent;
-    }
-  }
+    private void initializeInjectors() {
+        ActivityComponent component = DaggerActivityComponent.builder()
+                .applicationComponent(getApplicationComponent())
+                .activityModule(getActivityModule())
+                .build();
+        component.inject(this);
 
-  @Override protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_user);
-
-    initializeInjectors();
-
-    bindToolbar();
-    toolbar.setTitle(R.string.user_card);
-
-    Intent intent = getIntent();
-    boolean onboarding = intent.getBooleanExtra(Factory.BundleArgs.ONBOARDING, false);
-
-    cardView.setEditListener(this);
-
-    presenter.start(this, onboarding);
-
-    Transition slideEnd = TransitionInflater.from(this).inflateTransition(R.transition.slide_end);
-    Transition slideStart =
-        TransitionInflater.from(this).inflateTransition(R.transition.slide_start);
-    getWindow().setEnterTransition(slideStart);
-    getWindow().setExitTransition(slideEnd);
-  }
-
-  private void initializeInjectors() {
-    ActivityComponent component = DaggerActivityComponent.builder()
-        .applicationComponent(getApplicationComponent())
-        .activityModule(getActivityModule())
-        .build();
-    component.inject(this);
-
-    ButterKnife.bind(this);
-  }
-
-  @Override protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-    super.onActivityResult(requestCode, resultCode, data);
-    File avatarFile;
-
-    try {
-      avatarFile = avatarPicker.processActivityResult(requestCode, resultCode, data, this);
-    } catch (AvatarPicker.ReceivingError avatarReceivingError) {
-      errorDisplayer.show(rootLayout, R.string.error_avatar_receiving);
-      return;
-    } catch (AvatarPicker.ResizeError resizeError) {
-      errorDisplayer.show(rootLayout, R.string.error_avatar_resize);
-      return;
+        ButterKnife.bind(this);
     }
 
-    if (avatarFile != null) {
-      cardView.setAvatar(avatarFile.getAbsolutePath());
-      presenter.onCardChanged(cardView.getCard());
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        File avatarFile;
+
+        try {
+            avatarFile = avatarPicker.processActivityResult(requestCode, resultCode, data, this);
+        } catch (AvatarPicker.ReceivingError avatarReceivingError) {
+            errorDisplayer.show(rootLayout, R.string.error_avatar_receiving);
+            return;
+        } catch (AvatarPicker.ResizeError resizeError) {
+            errorDisplayer.show(rootLayout, R.string.error_avatar_resize);
+            return;
+        }
+
+        if (avatarFile != null) {
+            cardView.setAvatar(avatarFile.getAbsolutePath());
+            presenter.onCardChanged(cardView.getCard());
+        }
     }
-  }
 
-  @OnClick(R.id.user_edit) public void onEditClicked() {
-    presenter.clickedEdit();
-  }
+    private void onFabClick() {
+        if (isFabOpen) {
+            fabMain.startAnimation(rotateBackward);
+            fabEdit.startAnimation(fabClose);
+            fabDelete.startAnimation(fabClose);
+            fabCreate.startAnimation(fabClose);
+            fabEdit.setClickable(false);
+            fabCreate.setClickable(false);
+            fabDelete.setClickable(false);
+            isFabOpen = false;
+            Log.d("TEST", "isFabOpen");
+        } else {
+            presenter.clickedCancel();
+            fabMain.startAnimation(rotateForward);
+            fabEdit.startAnimation(fabOpen);
+            fabDelete.startAnimation(fabOpen);
+            fabCreate.startAnimation(fabOpen);
+            fabEdit.setClickable(true);
+            fabDelete.setClickable(true);
+            fabCreate.setClickable(true);
+            isFabOpen = true;
+            Log.d("TEST", "!isFabOpen");
+        }
+    }
 
-  @OnClick(R.id.user_done) public void onDoneClicked() {
-    presenter.clickedDone(cardView.getCard());
-  }
 
-  @Override public void showUser(Card userCard) {
-    cardView.setCard(userCard);
-  }
+    @OnClick(R.id.fab_main)
+    public void mainFabClick() {
+        onFabClick();
+    }
 
-  @Override public void showBack() {
-    toolbar.setEndButton(R.drawable.ic_back_right, R.string.back, new View.OnClickListener() {
-      @Override public void onClick(View v) {
-        presenter.clickedBack();
-      }
-    });
-  }
+    @OnClick(R.id.user_delete)
+    public void fab1Click() {
+        AlertDialog alert = getDialog().create();
+        alert.show();
+    }
 
-  @Override public void hideBack() {
-    toolbar.removeEndButton();
-  }
+    private AlertDialog.Builder getDialog() {
+        TextView title = new TextView(this);
+        title.setText("Remove the card");
+        title.setPadding(10, 10, 10, 10);
+        title.setGravity(Gravity.CENTER);
+        title.setTextSize(23);
 
-  @Override public void showCancel() {
-    toolbar.setStartButton(R.drawable.ic_close, R.string.back, new View.OnClickListener() {
-      @Override public void onClick(View v) {
-        presenter.clickedCancel();
-      }
-    });
-  }
+        TextView msg = new TextView(this);
+        msg.setText("Are you sure ?");
+        msg.setPadding(10, 10, 10, 10);
+        msg.setGravity(Gravity.CENTER);
+        msg.setTextSize(18);
 
-  @Override public void hideCancel() {
-    toolbar.removeStartButton();
-  }
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setCustomTitle(title);
+        builder.setView(msg);
 
-  @Override public void showEditButton() {
-    edit.setVisibility(View.VISIBLE);
-  }
+        builder.setIcon(R.drawable.ic_delete_forever_white_24px);
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                onFabClick();
+                dialog.dismiss();
+                //todo delete the card.
+                presenter.clickRemoveUserCard();
+                showDoneButton();
+                fabMain.setVisibility(View.GONE);
+            }
+        });
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                onFabClick();
+                dialog.dismiss();
+            }
+        });
 
-  @Override public void hideEditButton() {
-    edit.setVisibility(View.GONE);
-  }
+        return builder;
+    }
 
-  @Override public void showDoneButton() {
-    done.setVisibility(View.VISIBLE);
-  }
+    @OnClick(R.id.user_create)
+    public void fab2Click() {
+        Intent intent = UserActivity.Factory.getOnboardingIntent(this);
+        startActivity(intent);
+        Log.d("TEST", "user create clicked");
+    }
 
-  @Override public void hideDoneButton() {
-    done.setVisibility(View.GONE);
-  }
+    @OnClick(R.id.user_edit_fab)
+    public void onEditClicked() {
+        presenter.clickedEdit();
+        onFabClick();
+    }
 
-  @Override public void enableEditMode() {
-    cardView.enableEditMode();
-  }
+    @OnClick(R.id.user_done)
+    public void onDoneClicked() {
+        presenter.clickedDone(cardView.getCard());
+        fabMain.setVisibility(View.VISIBLE);
+    }
 
-  @Override public void disabledEditMode() {
-    cardView.disabledEditMode();
-  }
+    @Override
+    public void showUser(Card userCard) {
+        cardView.setCard(userCard);
+        /*if (cardView.isInEditMode()) {
+            fabMain.setVisibility(View.GONE);
+        }*/
+    }
 
-  @Override public void openHome() {
-    Intent intent = HomeActivity.Factory.getIntent(this);
-    startActivityWithAnimation(intent);
-  }
+    @Override
+    public void showBack() {
+        toolbar.setEndButton(R.drawable.ic_back_right, R.string.back, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.clickedBack();
+            }
+        });
+    }
 
-  @Override public void close() {
-    finishWithAnimation();
-  }
+    @Override
+    public void hideBack() {
+        toolbar.removeEndButton();
+    }
 
-  @Override public void onPickAvatar() {
-    avatarPicker.startPicker(this);
-  }
+    @Override
+    public void showCancel() {
+        toolbar.setStartButton(R.drawable.ic_close, R.string.back, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.clickedCancel();
+            }
+        });
+    }
 
-  @Override public void onChange(Card updatedCard) {
-    presenter.onCardChanged(updatedCard);
-  }
+    @Override
+    public void hideCancel() {
+        toolbar.removeStartButton();
+    }
+
+    @Override
+    public void showEditButton() {
+//        edit.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideEditButton() {
+//        edit.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void showDoneButton() {
+        done.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideDoneButton() {
+        done.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void enableEditMode() {
+        cardView.enableEditMode();
+    }
+
+    @Override
+    public void disabledEditMode() {
+        cardView.disabledEditMode();
+    }
+
+    @Override
+    public void openHome() {
+        Intent intent = HomeActivity.Factory.getIntent(this);
+        startActivityWithAnimation(intent);
+    }
+
+    @Override
+    public void close() {
+        finishWithAnimation();
+    }
+
+    @Override
+    public void onPickAvatar() {
+        avatarPicker.startPicker(this);
+    }
+
+    @Override
+    public void onChange(Card updatedCard) {
+        fabMain.setVisibility(View.GONE);
+        presenter.onCardChanged(updatedCard);
+    }
 }

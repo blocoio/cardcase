@@ -79,6 +79,21 @@
         <item name="android:layout_margin">@dimen/fab_margin</item>
     </style>
 
+    <style name="fab_left">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">bottom|start</item>
+        <item name="android:layout_margin">@dimen/fab_margin</item>
+    </style>
+
+    <style name="change_theme_button_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">bottom|start</item>
+        <item name="android:layout_margin">@dimen/fab_margin</item>
+    </style>
+
+
     <style name="card">
         <item name="cardCornerRadius">0dp</item>
         <item name="android:background">@color/background_card</item>
