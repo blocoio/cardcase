@@ -9,6 +9,7 @@ import com.google.android.gms.common.api.Status;
 import io.bloco.cardcase.R;
 import io.bloco.cardcase.common.analytics.AnalyticsService;
 import io.bloco.cardcase.common.di.PerActivity;
+import io.bloco.cardcase.data.Database;
 import io.bloco.cardcase.data.models.Card;
 import io.bloco.cardcase.domain.GetUserCard;
 import io.bloco.cardcase.domain.SaveReceivedCards;
@@ -34,16 +35,18 @@ public class ExchangePresenter
     private List<Card> receivedCards;
     private boolean permissionRequested;
     private boolean errorState;
+    private Database database;
 
     @Inject
     public ExchangePresenter(NearbyManager nearbyManager, CardSerializer cardSerializer,
                              GetUserCard getUserCard, SaveReceivedCards saveReceivedCards,
-                             AnalyticsService analyticsService) {
+                             AnalyticsService analyticsService, Database database) {
         this.nearbyManager = nearbyManager;
         this.cardSerializer = cardSerializer;
         this.getUserCard = getUserCard;
         this.saveReceivedCards = saveReceivedCards;
         this.analyticsService = analyticsService;
+        this.database = database;
     }
 
     @Override
@@ -66,8 +69,8 @@ public class ExchangePresenter
 
     @Override
     public void onGetUserCard(Card userCard) {
-        Log.d("TEST", "SHARING " + userCard.getName());
-        nearbyManager.start(cardSerializer.serialize(userCard), this); //TODO
+        Log.d("TEST", "SHARING " + userCard.getName()); //TODO remove log.d
+        nearbyManager.start(cardSerializer.serialize(userCard), this);
     }
 
     @Override
@@ -92,6 +95,9 @@ public class ExchangePresenter
 
     @Override
     public void clickedClose() {
+        //If card shared is not a userCard, then change its field user to false
+        database.changeSharedCardBack();
+
         if (receivedCards.isEmpty()) {
             view.close();
         } else {

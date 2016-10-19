@@ -57,6 +57,14 @@ public class Database {
         }
     }
 
+    public List<Card> getUserCards() {
+        try {
+            return getCardQuery().eq("isUser", true).query();
+        } catch (SQLException exception) {
+            throw new RuntimeException(exception);
+        }
+    }
+
     public List<Card> getReceivedCards() {
         try {
             return getCardQuery().eq("isUser", false).query();
@@ -88,7 +96,9 @@ public class Database {
         cardDao.update(card);
     }
 
-    public void changeSharedCardBack(Card card) {
+    public void changeSharedCardBack() {
+        Card card = getUserCards().get(0);
+        Log.d("TEST", card.getName() + " is no longer is being user card"); //TODO remove log.d
         card.setIsUser(false);
         cardDao.update(card);
     }
