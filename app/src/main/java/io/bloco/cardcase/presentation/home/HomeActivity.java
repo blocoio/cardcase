@@ -15,6 +15,7 @@ import android.transition.TransitionInflater;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
@@ -124,7 +125,7 @@ public class HomeActivity extends BaseActivity
         presenter.start(this);
 //        Theme currentTheme = new Theme();
         View view = this.getWindow().getDecorView();
-        CoordinatorLayout ll = (CoordinatorLayout) findViewById(R.id.coord);
+        FrameLayout ll = (FrameLayout) findViewById(R.id.frame);
 
         Theme.viewLayTheme(view, ll);
     }
@@ -147,7 +148,11 @@ public class HomeActivity extends BaseActivity
     public void onClickedChangeTheme() {
         presenter.clickedChangeTheme();
         Theme.setTypeTheme();
-        onStart();
+
+        View view = this.getWindow().getDecorView();
+        FrameLayout ll = (FrameLayout) findViewById(R.id.frame);
+
+        Theme.viewLayTheme(view, ll);
 
 
 //        LinearLayout l = (LinearLayout) ll;

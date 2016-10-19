@@ -5,6 +5,7 @@ import android.text.Layout;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -39,7 +40,7 @@ public class Theme {
         switch (currentTheme) {
             case Red: {
                 backgroundColor = 0xff0080ff;
-                textColor = 0xff004242;
+                textColor = 0xff00ff00;
 //                textSize = "15sp";
                 backImage = R.drawable.black_theme;
                 break;
@@ -49,7 +50,7 @@ public class Theme {
             }
             case DefaultTheme: {
                 backgroundColor = 0xffe70f0f;
-                textColor = 0xf607D8B;
+                textColor = 0xff000000;
                 backgroundColor = 0xf607D8B;
                 backImage = 0;
                 break;
@@ -77,7 +78,7 @@ public class Theme {
     }
 
 
-    static public void viewLayTheme(View myView, CoordinatorLayout lay) {
+    static public void viewLayTheme(View myView, FrameLayout lay) {
         setTheme();
         lay.setBackgroundResource(getBackImage());
         viewEditor(myView);
@@ -105,7 +106,7 @@ public class Theme {
         } else if (view instanceof TextView) {
             ((TextView) view).setTextColor(getViewTextColor());
         } else if (view instanceof Button) {
-            ;
+
         } else if (view instanceof CoordinatorLayout) {
         }
         return view;
