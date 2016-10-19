@@ -86,7 +86,7 @@
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/home_categories"
                 style="@style/layout_inner"
-
+                android:animateLayoutChanges="true"
                 android:visibility="gone"
                 tools:visibility="visible"
 

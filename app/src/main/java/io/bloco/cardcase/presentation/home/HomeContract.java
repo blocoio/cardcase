@@ -14,6 +14,10 @@ public class HomeContract {
 
         void showCategories(List<Category> categories);
 
+        void hideCategories();
+
+        void resumeCategories();
+
         void showEmptySearchResult();
 
         void hideEmptySearchResult();

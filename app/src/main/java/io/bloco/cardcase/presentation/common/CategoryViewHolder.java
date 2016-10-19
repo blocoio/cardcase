@@ -60,9 +60,7 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder implements View.
                 cardsByCategory.add(card);
             }
         }
-
-
-
+        homeContract.hideCategories();
         homeContract.showCards(cardsByCategory);
     }
 }

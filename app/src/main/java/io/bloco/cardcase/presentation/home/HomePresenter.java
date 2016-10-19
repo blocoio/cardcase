@@ -134,11 +134,19 @@ public class HomePresenter
     }
 
     private void showCategories() {
-        if(this.categories.isEmpty()) {
+        if (this.categories.isEmpty()) {
             view.showEmpty();
         } else {
             view.showCategories(this.categories);
         }
+    }
+
+    private void hideCategories() {
+        view.hideCategories();
+    }
+
+    private void resumeCategories() {
+        view.resumeCategories();
     }
 
     @Override
