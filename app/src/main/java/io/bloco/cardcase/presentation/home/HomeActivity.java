@@ -123,6 +123,7 @@ public class HomeActivity extends BaseActivity
 
         presenter.start(this);
 //        Theme currentTheme = new Theme();
+
         View view = this.getWindow().getDecorView();
         CoordinatorLayout ll = (CoordinatorLayout) findViewById(R.id.coord);
 
@@ -149,6 +150,7 @@ public class HomeActivity extends BaseActivity
         Theme.setTypeTheme();
         onStart();
 
+//        onStart();
 
 //        LinearLayout l = (LinearLayout) ll;
 //        CoordinatorLayout ll = (CoordinatorLayout)findViewById(R.id.coord);
