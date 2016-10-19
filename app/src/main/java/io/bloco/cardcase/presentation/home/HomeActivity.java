@@ -72,10 +72,11 @@ public class HomeActivity extends BaseActivity
     @Bind(R.id.home_transition_overlay)
     View transitionOverlay;
 
+    private static int duration = 200;
+
     @Bind(R.id.change_theme)
     FloatingActionButton changeThemeButton;
 
-    private static int duration = 200;
 
     public static class Factory {
         public static Intent getIntent(Context context) {
