@@ -65,7 +65,6 @@ public class CardViewHolder extends RecyclerView.ViewHolder implements View.OnCl
 
     @Override
     public void onClick(View view) {
-        Log.d("TEST", "CLICKED CARD");
         cardDetailDialog.show(card);
     }
 }

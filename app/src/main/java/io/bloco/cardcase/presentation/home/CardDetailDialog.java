@@ -6,6 +6,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewAnimationUtils;
@@ -123,7 +124,10 @@ public class CardDetailDialog {
 
     @OnClick(R.id.buttonShareCard)
     public void onClickedShare() {
-
+        database.prepareCardSharing(cardInfoView.getCard());
+        database.getUserCard();
+        Log.d("TEST", "isUser: " + cardInfoView.getCard().isUser());
+        homeContract.openExchange();
     }
 
     private void closeActivityWithAnimation() {

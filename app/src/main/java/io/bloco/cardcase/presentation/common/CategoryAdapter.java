@@ -10,9 +10,7 @@ import android.view.ViewGroup;
 import io.bloco.cardcase.R;
 import io.bloco.cardcase.common.di.PerActivity;
 import io.bloco.cardcase.data.Database;
-import io.bloco.cardcase.data.models.Card;
 import io.bloco.cardcase.data.models.Category;
-import io.bloco.cardcase.presentation.home.CardDetailDialog;
 import io.bloco.cardcase.presentation.home.HomeContract;
 
 import java.util.ArrayList;
