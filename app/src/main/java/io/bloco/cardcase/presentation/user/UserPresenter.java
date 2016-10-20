@@ -1,5 +1,7 @@
 package io.bloco.cardcase.presentation.user;
 
+import android.app.Activity;
+
 import io.bloco.cardcase.common.analytics.AnalyticsService;
 import io.bloco.cardcase.common.di.PerActivity;
 import io.bloco.cardcase.data.Database;
@@ -44,6 +46,7 @@ public class UserPresenter
 //            userCard.setId(UUID.randomUUID());
             view.showUser(userCard);
             view.enableEditMode();
+            showDone();
             analyticsService.trackEvent("Onboarding Screen");
         } else {
             getUserCard.get(this);
@@ -84,6 +87,10 @@ public class UserPresenter
         this.userCard = updatedCard;
         saveUserCard.save(userCard, this);
         analyticsService.trackEvent("User Card Save");
+        if (onboarding) {
+            ((Activity)view).finish();
+            this.start(view, false);
+        }
     }
 
     @Override

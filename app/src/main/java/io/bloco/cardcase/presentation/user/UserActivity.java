@@ -200,7 +200,7 @@ public class UserActivity extends BaseActivity
                 dialog.dismiss();
                 presenter.clickRemoveUserCard();
                 enableEditMode();
-                fabMain.setVisibility(View.GONE);
+                fabInvisible();
             }
         });
 
@@ -216,9 +216,17 @@ public class UserActivity extends BaseActivity
 
     @OnClick(R.id.user_create)
     public void fab2Click() {
+        //todo adding a new user card. It works, but it's too buggy.
+        /*onFabClick();
+        this.finish();
         Intent intent = UserActivity.Factory.getOnboardingIntent(this);
         startActivity(intent);
-        Log.d("TEST", "user create clicked");
+        Log.d("TEST", "user create clicked");*/
+
+        //workaround for the next demo.
+        presenter.clickRemoveUserCard();
+        enableEditMode();
+        fabInvisible();
     }
 
     @OnClick(R.id.user_edit_fab)
