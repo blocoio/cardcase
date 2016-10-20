@@ -1,5 +1,7 @@
 package io.bloco.cardcase.data;
 
+import android.util.Log;
+
 import com.j256.ormlite.dao.RuntimeExceptionDao;
 import com.j256.ormlite.stmt.Where;
 import com.j256.ormlite.table.TableUtils;
@@ -48,7 +50,16 @@ public class Database {
 
     public Card getUserCard() {
         try {
-            return getCardQuery().eq("isUser", true).queryForFirst();
+            List<Card> cards = getCardQuery().eq("isUser", true).query();
+            return cards.get(0);
+        } catch (SQLException exception) {
+            throw new RuntimeException(exception);
+        }
+    }
+
+    public List<Card> getUserCards() {
+        try {
+            return getCardQuery().eq("isUser", true).query();
         } catch (SQLException exception) {
             throw new RuntimeException(exception);
         }
@@ -78,6 +89,18 @@ public class Database {
 
     public void deleteCard(Card card) {
         cardDao.deleteById(card.getId());
+    }
+
+    public void prepareCardSharing(Card card) {
+        card.setIsUser(true);
+        cardDao.update(card);
+    }
+
+    public void changeSharedCardBack() {
+        Card card = getUserCards().get(0);
+        Log.d("TEST", card.getName() + " is no longer is being user card"); //TODO remove log.d
+        card.setIsUser(false);
+        cardDao.update(card);
     }
 
     public Card getCard(UUID id) {

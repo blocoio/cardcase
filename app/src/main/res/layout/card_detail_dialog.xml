@@ -21,6 +21,16 @@
             android:src="@drawable/ic_delete_forever_white_24px"
             app:backgroundTint="@color/red" />
 
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/buttonShareCard"
+            style="@style/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:contentDescription="@string/share"
+            android:src="@drawable/ic_exchange"
+            app:backgroundTint="@color/secondary" />
+
         <io.bloco.cardcase.presentation.common.CardInfoView
             android:id="@+id/card_dialog_info"
             android:layout_width="match_parent"

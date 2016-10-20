@@ -140,8 +140,7 @@ public class HomeActivity extends BaseActivity
         if (searchToolbar.getVisibility() == View.VISIBLE) {
             presenter.clickedCloseSearch();
         }
-//        if (categoriesView.getAlpha() == 0.0f) {
-//            resumeCategories();
+
         if (categoriesView.getVisibility() == View.GONE) {
             resumeCategories();
 
@@ -294,7 +293,7 @@ public class HomeActivity extends BaseActivity
                                     public void onAnimationEnd(Animator animation) {
                                         super.onAnimationEnd(animation);
                                         cardsView.animate()
-                                                .translationY(150)
+                                                .translationY(56)
                                                 .setDuration(duration)
                                                 .alpha(1.0f);
                                     }
