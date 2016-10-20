@@ -5,19 +5,15 @@ import android.animation.AnimatorListenerAdapter;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.Layout;
 import android.transition.Transition;
 import android.transition.TransitionInflater;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
-import android.widget.RelativeLayout;
-
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -204,7 +200,6 @@ public class HomeActivity extends BaseActivity
         RecyclerView.LayoutManager layoutManager =
                 new LinearLayoutManager(HomeActivity.this, LinearLayoutManager.VERTICAL, false);
         cardsView.setLayoutManager(layoutManager);
-        //cardsView.setVisibility(View.VISIBLE);
         homeEmpty.setVisibility(View.GONE);
         cardsView.animate()
                 .translationY(cardsView.getHeight())
@@ -244,30 +239,6 @@ public class HomeActivity extends BaseActivity
 
                     }
                 });
-
-
-//        categoriesView.animate()
-//                .translationY(0)
-//                .alpha(1.0f)
-//                .setDuration(600)
-//                .setListener(new AnimatorListenerAdapter() {
-//
-//                    @Override
-//                    public void onAnimationStart(Animator animation) {
-//                        super.onAnimationStart(animation);
-//                        cardsView.animate()
-//                                .translationY(cardsView.getHeight())
-//                                .setDuration(600)
-//                                .alpha(0.0f)
-//                                .setListener(new AnimatorListenerAdapter() {
-//                                    @Override
-//                                    public void onAnimationEnd(Animator animation) {
-//                                        super.onAnimationEnd(animation);
-//                                    }
-//                                });
-//                    }
-//                });
-
     }
 
     @Override
@@ -300,37 +271,6 @@ public class HomeActivity extends BaseActivity
                                 });
                     }
                 });
-
-//        categoriesView.animate()
-//                .translationY(-categoriesView.getHeight())
-//                .alpha(0.0f)
-//                .setDuration(600)
-//                .setListener(new AnimatorListenerAdapter() {
-//                    @Override
-//                    public void onAnimationStart(Animator animation) {
-//                        super.onAnimationStart(animation);
-//
-//                    }
-//                    @Override
-//                    public void onAnimationEnd(Animator animation) {
-//                        super.onAnimationEnd(animation);
-//
-//                        cardsView.animate()
-//                                .translationY(-categoriesView.getHeight())
-//                                .setDuration(600)
-//                                .alpha(1.0f)
-//                                .setListener(new AnimatorListenerAdapter() {
-//                                    @Override
-//                                    public void onAnimationEnd(Animator animation) {
-//                                        super.onAnimationEnd(animation);
-//                                        cardsView.animate()
-//                                                .translationY(100)
-//                                                .setDuration(200);
-//                                    }
-//                                });
-//                    }
-//                });
-
     }
 
     @Override
