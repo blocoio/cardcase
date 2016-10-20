@@ -82,6 +82,12 @@ public class Theme {
         lay.setBackgroundResource(getBackImage());
         viewEditor(myView);
     }
+    static public void viewFrameLayTheme(View myView, CoordinatorLayout lay) {
+        setTheme();
+        lay.setBackgroundResource(getBackImage());
+        viewEditor(myView);
+    }
+
     static public void viewFrameLayTheme(View myView, FrameLayout lay, String str) {
         if (str == "exchange"){
             textColor = 0xffe9e1f4;
