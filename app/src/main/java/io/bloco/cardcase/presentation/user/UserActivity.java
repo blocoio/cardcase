@@ -8,6 +8,8 @@ import android.transition.Transition;
 import android.transition.TransitionInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -20,6 +22,8 @@ import io.bloco.cardcase.presentation.common.CardInfoView;
 import io.bloco.cardcase.presentation.common.ErrorDisplayer;
 import io.bloco.cardcase.presentation.common.ImageLoader;
 import io.bloco.cardcase.presentation.home.HomeActivity;
+import io.bloco.cardcase.presentation.home.Theme;
+
 import java.io.File;
 import javax.inject.Inject;
 
@@ -73,6 +77,9 @@ public class UserActivity extends BaseActivity
         TransitionInflater.from(this).inflateTransition(R.transition.slide_start);
     getWindow().setEnterTransition(slideStart);
     getWindow().setExitTransition(slideEnd);
+
+
+
   }
 
   private void initializeInjectors() {
@@ -179,6 +186,7 @@ public class UserActivity extends BaseActivity
   }
 
   @Override public void onChange(Card updatedCard) {
+    
     presenter.onCardChanged(updatedCard);
   }
 }

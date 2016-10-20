@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.FrameLayout;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -31,6 +32,7 @@ import io.bloco.cardcase.common.di.DaggerActivityComponent;
 import io.bloco.cardcase.data.models.Card;
 import io.bloco.cardcase.presentation.BaseActivity;
 import io.bloco.cardcase.presentation.common.CardAdapter;
+import io.bloco.cardcase.presentation.home.Theme;
 
 import java.util.List;
 
@@ -103,6 +105,10 @@ public class ExchangeActivity extends BaseActivity implements ExchangeContract.V
     @Override
     protected void onStart() {
         super.onStart();
+        View view = this.getWindow().getDecorView();
+        FrameLayout ll = (FrameLayout) findViewById(R.id.exchange_container);
+        Theme.viewFrameLayTheme(view, ll, "exchange");
+
         presenter.start(this);
     }
 

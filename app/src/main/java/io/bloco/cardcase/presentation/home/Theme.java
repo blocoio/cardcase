@@ -5,7 +5,9 @@ import android.text.Layout;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.LinearLayout;
+import android.widget.FrameLayout;
+//import android.widget.App;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import io.bloco.cardcase.R;
@@ -39,7 +41,7 @@ public class Theme {
         switch (currentTheme) {
             case Red: {
                 backgroundColor = 0xff0080ff;
-                textColor = 0xff004242;
+                textColor = 0xff55377a;
 //                textSize = "15sp";
                 backImage = R.drawable.black_theme;
                 break;
@@ -49,7 +51,7 @@ public class Theme {
             }
             case DefaultTheme: {
                 backgroundColor = 0xffe70f0f;
-                textColor = 0xf607D8B;
+                textColor = 0xff999999;
                 backgroundColor = 0xf607D8B;
                 backImage = 0;
                 break;
@@ -64,12 +66,10 @@ public class Theme {
 
     public int getViewBackgroundColor() {
         return backgroundColor;
-        //        return 0xffff7f00;
     }
 
     public String getViewFontSize() {
         return textSize;
-        //        return "12sp";
     }
 
     static public int getViewTextColor() {
@@ -77,11 +77,25 @@ public class Theme {
     }
 
 
-    static public void viewLayTheme(View myView, CoordinatorLayout lay) {
+    static public void viewFrameLayTheme(View myView, FrameLayout lay) {
         setTheme();
         lay.setBackgroundResource(getBackImage());
         viewEditor(myView);
     }
+    static public void viewFrameLayTheme(View myView, FrameLayout lay, String str) {
+        if (str == "exchange"){
+            textColor = 0xffe9e1f4;
+            setTheme();
+            lay.setBackgroundResource(getBackImage());
+            viewEditor(myView);
+        }
+    }
+    static public void viewRelativeLayTheme(View myView, RelativeLayout lay) {
+        setTheme();
+        lay.setBackgroundResource(getBackImage());
+        viewEditor(myView);
+    }
+
 
     static public void setTypeTheme() {
         //CoordinatorLayout lay
@@ -105,8 +119,9 @@ public class Theme {
         } else if (view instanceof TextView) {
             ((TextView) view).setTextColor(getViewTextColor());
         } else if (view instanceof Button) {
-            ;
-        } else if (view instanceof CoordinatorLayout) {
+
+        } else if (view instanceof Toolbar) {
+            ((TextView) view).setTextColor(0xfFAFAFA);
         }
         return view;
     }

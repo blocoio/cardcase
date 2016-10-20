@@ -11,6 +11,8 @@ import android.content.Intent;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
+import android.widget.FrameLayout;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 import android.view.View;
@@ -25,6 +27,7 @@ public class SettingsActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
@@ -52,6 +55,18 @@ public class SettingsActivity extends Activity {
             public void onNothingSelected(AdapterView<?> arg0) {
             }
         });
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+//        Theme currentTheme = new Theme();
+        View view = this.getWindow().getDecorView();
+        RelativeLayout ll = (RelativeLayout) findViewById(R.id.activity_settings);
+
+//        Theme.viewRelativeLayTheme(view, ll);
+
 
     }
 }

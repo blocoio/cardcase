@@ -122,7 +122,7 @@ public class HomePresenter
     @Override
     public void onGetReceivedCards(List<Card> receivedCards) {
         this.receivedCards = receivedCards;
-        //showReceivedCards();
+        showReceivedCards();
     }
 
     public void showReceivedCards() {
