@@ -51,6 +51,9 @@ public class Database {
     public Card getUserCard() {
         try {
             List<Card> cards = getCardQuery().eq("isUser", true).query();
+            if (cards.isEmpty()) {
+                return null;
+            }
             return cards.get(0);
         } catch (SQLException exception) {
             throw new RuntimeException(exception);

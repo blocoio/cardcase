@@ -95,9 +95,6 @@ public class ExchangePresenter
 
     @Override
     public void clickedClose() {
-        //If card shared is not a userCard, then change its field user to false
-        database.changeSharedCardBack();
-
         if (receivedCards.isEmpty()) {
             view.close();
         } else {
