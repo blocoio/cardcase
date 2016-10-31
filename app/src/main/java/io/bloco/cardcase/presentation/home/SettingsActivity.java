@@ -1,23 +1,32 @@
 package io.bloco.cardcase.presentation.home;
 
-import android.app.Activity;
-import android.os.Bundle;
-
-import io.bloco.cardcase.R;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.RelativeLayout;
 
+import butterknife.Bind;
+import butterknife.OnClick;
+import io.bloco.cardcase.R;
+import io.bloco.cardcase.presentation.BaseActivity;
+
+import android.app.Activity;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
-import android.widget.FrameLayout;
-import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
-import android.view.View;
+import android.widget.ImageButton;
 
-public class SettingsActivity extends Activity {
+import static android.widget.Toast.*;
+
+public class SettingsActivity extends BaseActivity implements OnItemSelectedListener {
+
+    @Bind(R.id.toolbar_settings_close)
+    ImageButton settingsClose;
 
     String[] data = {"Red", "DefaultTheme", "Green"};
 
@@ -37,36 +46,38 @@ public class SettingsActivity extends Activity {
 
         Spinner spinner = (Spinner) findViewById(R.id.spinner);
         spinner.setAdapter(adapter);
-        // заголовок
         spinner.setPrompt("Choose Theme");
-        // выделяем элемент
-        spinner.setSelection(2);
+        spinner.setOnItemSelectedListener(this);
 
+    }
 
-        spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view,
-                                       int position, long id) {
-                // показываем позиция нажатого элемента
-//                Toast.makeText(getBaseContext(), "Theme = " + spinner.getitgetItemAtPosition(position), Toast.LENGTH_SHORT + " is selected").show();
-            }
+    public void onItemSelected(AdapterView<?> parent, View view,
+                               int position, long id) {
+        Log.d("SAL", "HIHI");
+        Log.d("SAL", String.valueOf(position));
 
-            @Override
-            public void onNothingSelected(AdapterView<?> arg0) {
-            }
-        });
+        // показываем позиция нажатого элемента
+        makeText(getBaseContext(), "Theme = " + parent.getItemAtPosition(position).toString() + " is selected", LENGTH_SHORT).show();
+    }
 
+    public void onNothingSelected(AdapterView<?> arg0) {
+        Log.d("SAL", "BYEBYE");
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-//        Theme currentTheme = new Theme();
-        View view = this.getWindow().getDecorView();
-        RelativeLayout ll = (RelativeLayout) findViewById(R.id.activity_settings);
+////        Theme currentTheme = new Theme();
+//        View view = this.getWindow().getDecorView();
+//        RelativeLayout ll = (RelativeLayout) findViewById(R.id.activity_settings);
 
 //        Theme.viewRelativeLayTheme(view, ll);
 
+    }
 
+    @OnClick(R.id.toolbar_settings_close)
+    public void onClickedBack() {
+        Intent intent = HomeActivity.getIntent(this);
+        startActivityWithAnimation(intent);
     }
 }

@@ -115,7 +115,9 @@ public class ExchangeActivity extends BaseActivity implements ExchangeContract.V
     @Override
     protected void onStop() {
         super.onStop();
+
         presenter.stop();
+
     }
 
     @Override

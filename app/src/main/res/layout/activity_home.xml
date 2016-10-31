@@ -99,6 +99,7 @@
                 tools:visibility="visible"
 
                 />
+
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/home_cards"
                 style="@style/bottom_layout"

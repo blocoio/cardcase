@@ -82,6 +82,10 @@ public class HomeActivity extends BaseActivity
         }
     }
 
+    public static Intent getIntent(Context context) {
+        return new Intent(context, HomeActivity.class);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -120,15 +124,10 @@ public class HomeActivity extends BaseActivity
 
         super.onStart();
 
-        transitionOverlay.setVisibility(View.GONE);
-
-        presenter.start(this);
-//        Theme currentTheme = new Theme();
-
         View view = this.getWindow().getDecorView();
         FrameLayout ll = (FrameLayout) findViewById(R.id.frame);
         Theme.viewFrameLayTheme(view, ll);
-
+        presenter.start(this);
     }
 
     @Override

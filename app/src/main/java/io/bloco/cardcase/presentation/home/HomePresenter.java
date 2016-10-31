@@ -107,7 +107,7 @@ public class HomePresenter
     }
 
      public void clickedChangeTheme() {
-//            view.openSettings();
+            view.openSettings();
     }
 
     @Override

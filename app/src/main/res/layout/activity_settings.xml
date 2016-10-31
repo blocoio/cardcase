@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_settings"
     android:layout_width="match_parent"
@@ -13,7 +14,46 @@
     <Spinner
         android:id="@+id/spinner"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_alignParentStart="true"
+        android:background="#FFFFFF">
     </Spinner>
+
+    <Button
+        android:text="Save"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/spinner"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="51dp"
+        android:id="@+id/button2" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView"
+        android:layout_marginTop="83dp"
+        app:srcCompat="@drawable/ic_avatar"
+        android:scaleType="center"
+        android:layout_below="@+id/toolbar_settings_close"
+        android:layout_centerHorizontal="true" />
+
+    <ImageButton
+        android:id="@+id/toolbar_settings_close"
+        android:contentDescription="@string/close"
+        android:src="@drawable/ic_back_left"
+        style="@style/toolbar_icon"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:text="Choose your theme for app"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView"
+        android:layout_centerInParent="false"
+        android:layout_alignBottom="@+id/spinner"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>
