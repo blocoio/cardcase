@@ -105,11 +105,13 @@ public class ExchangeActivity extends BaseActivity implements ExchangeContract.V
     @Override
     protected void onStart() {
         super.onStart();
-        View view = this.getWindow().getDecorView();
-        FrameLayout ll = (FrameLayout) findViewById(R.id.exchange_container);
-        Theme.viewFrameLayTheme(view, ll, "exchange");
-
         presenter.start(this);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Theme.applyThemeFor(this.getWindow().getDecorView(), getApplicationContext());
     }
 
     @Override

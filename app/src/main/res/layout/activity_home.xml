@@ -83,7 +83,8 @@
           style="@style/test"
           app:fabSize="normal"
           android:src="@drawable/ic_content_add"
-          android:visibility="invisible" />
+            android:tint="#FFFFFF"
+            android:visibility="invisible" />
 
         <LinearLayout
             android:layout_width="match_parent"

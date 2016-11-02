@@ -24,6 +24,7 @@
       android:contentDescription="@string/edit"
       android:src="@drawable/ic_edit"
       android:visibility="gone"
+      android:tint="#FFFFFF"
       app:backgroundTint="@color/background_card"
       style="@style/fab"/>
 

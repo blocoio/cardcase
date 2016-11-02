@@ -18,6 +18,8 @@ import io.bloco.cardcase.common.Preconditions;
 import io.bloco.cardcase.common.di.ActivityComponent;
 import io.bloco.cardcase.common.di.DaggerActivityComponent;
 import io.bloco.cardcase.presentation.BaseActivity;
+import io.bloco.cardcase.presentation.home.Theme;
+
 import java.io.File;
 import java.util.concurrent.ExecutionException;
 import javax.inject.Inject;

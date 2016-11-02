@@ -121,13 +121,14 @@ public class HomeActivity extends BaseActivity
 
     @Override
     protected void onStart() {
-
         super.onStart();
-
-        View view = this.getWindow().getDecorView();
-        FrameLayout ll = (FrameLayout) findViewById(R.id.frame);
-        Theme.viewFrameLayTheme(view, ll);
         presenter.start(this);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Theme.applyThemeFor(this.getWindow().getDecorView(), getApplicationContext());
     }
 
     @Override
@@ -147,30 +148,10 @@ public class HomeActivity extends BaseActivity
     @OnClick(R.id.change_theme)
     public void onClickedChangeTheme() {
         presenter.clickedChangeTheme();
-        Theme.setTypeTheme();
-
-        View view = this.getWindow().getDecorView();
-        FrameLayout ll = (FrameLayout) findViewById(R.id.frame);
-
-        Theme.viewFrameLayTheme(view, ll);
-
-//        onStart();
-
-//        LinearLayout l = (LinearLayout) ll;
-//        CoordinatorLayout ll = (CoordinatorLayout)findViewById(R.id.coord);
-
-//        view = currentTheme.viewEditor(view);
-//        AppBarLayout toolbarLayout = (AppBarLayout)findViewById(R.id.toolbarLay);
-
-
-//        RelativeLayout toolbarLayout = (RelativeLayout)findViewById(R.id.toolbar);
-//        toolbarLayout.setBackgroundColor(0xffff7f00);
-
     }
 
     @Override
     public void openSettings() {
-        //        animateExchangeOverlay();
         Intent intent = SettingsActivity.getIntent(this);
         startActivityWithAnimation(intent);
     }

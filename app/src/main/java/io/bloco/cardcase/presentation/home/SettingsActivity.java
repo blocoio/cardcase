@@ -6,12 +6,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.RelativeLayout;
 
 import butterknife.Bind;
 import butterknife.OnClick;
 import io.bloco.cardcase.R;
 import io.bloco.cardcase.presentation.BaseActivity;
+import io.bloco.cardcase.presentation.Preferences;
 
 import android.app.Activity;
 import android.widget.AdapterView;
@@ -21,6 +23,8 @@ import android.widget.Spinner;
 import android.widget.Toast;
 import android.widget.ImageButton;
 
+import java.util.Arrays;
+
 import static android.widget.Toast.*;
 
 public class SettingsActivity extends BaseActivity implements OnItemSelectedListener {
@@ -28,7 +32,11 @@ public class SettingsActivity extends BaseActivity implements OnItemSelectedList
     @Bind(R.id.toolbar_settings_close)
     ImageButton settingsClose;
 
-    String[] data = {"Red", "DefaultTheme", "Green"};
+    @Bind(R.id.save_button)
+    Button saveButton;
+
+    Theme.ThemeType selectedTheme;
+    Theme.ThemeType oldTheme;
 
     public static Intent getIntent(Context context) {
         return new Intent(context, SettingsActivity.class);
@@ -40,8 +48,9 @@ public class SettingsActivity extends BaseActivity implements OnItemSelectedList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
-        // адаптер
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, data);
+        String[] data = Theme.ThemeType.names();
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, data);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         Spinner spinner = (Spinner) findViewById(R.id.spinner);
@@ -49,35 +58,38 @@ public class SettingsActivity extends BaseActivity implements OnItemSelectedList
         spinner.setPrompt("Choose Theme");
         spinner.setOnItemSelectedListener(this);
 
+        String themeStr = Preferences.getStringForKeyInContext(Preferences.THEME_KEY, getApplicationContext());
+        int index = Arrays.asList(data).indexOf(themeStr);
+        spinner.setSelection(index);
+
+        oldTheme = Theme.ThemeType.fromInt(index);
     }
 
-    public void onItemSelected(AdapterView<?> parent, View view,
-                               int position, long id) {
-        Log.d("SAL", "HIHI");
-        Log.d("SAL", String.valueOf(position));
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-        // показываем позиция нажатого элемента
-        makeText(getBaseContext(), "Theme = " + parent.getItemAtPosition(position).toString() + " is selected", LENGTH_SHORT).show();
-    }
+        makeText(getBaseContext(), "" + parent.getItemAtPosition(position).toString() + " theme is selected", LENGTH_SHORT).show();
 
-    public void onNothingSelected(AdapterView<?> arg0) {
-        Log.d("SAL", "BYEBYE");
-    }
+        selectedTheme = Theme.ThemeType.fromInt(position);
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-////        Theme currentTheme = new Theme();
-//        View view = this.getWindow().getDecorView();
-//        RelativeLayout ll = (RelativeLayout) findViewById(R.id.activity_settings);
+        Preferences.setStringForKeyInContext(selectedTheme.toString(), Preferences.THEME_KEY, getApplicationContext());
 
-//        Theme.viewRelativeLayTheme(view, ll);
-
+        Theme.setCurrentTheme(selectedTheme);
+        Theme.applyThemeFor(this.getWindow().getDecorView(), getApplicationContext());
     }
 
     @OnClick(R.id.toolbar_settings_close)
-    public void onClickedBack() {
-        Intent intent = HomeActivity.getIntent(this);
-        startActivityWithAnimation(intent);
+    public void onClickedBack(View view) {
+        Preferences.setStringForKeyInContext(oldTheme.toString(), Preferences.THEME_KEY, getApplicationContext());
+        super.onBackPressed();
     }
+
+    @OnClick(R.id.save_button)
+    public void saveButtonClicked(View view) {
+        super.onBackPressed();
+    }
+
+    public void onNothingSelected(AdapterView<?> arg0) {
+
+    }
+
 }

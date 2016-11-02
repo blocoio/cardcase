@@ -92,6 +92,12 @@ public class UserActivity extends BaseActivity
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Theme.applyThemeFor(this.getWindow().getDecorView(), getApplicationContext());
+    }
+
     private void initializeInjectors() {
         ActivityComponent component = DaggerActivityComponent.builder()
                 .applicationComponent(getApplicationComponent())
@@ -218,13 +224,5 @@ public class UserActivity extends BaseActivity
     public void onChange(Card updatedCard) {
 
         presenter.onCardChanged(updatedCard);
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        View view = this.getWindow().getDecorView();
-        CoordinatorLayout ll = (CoordinatorLayout) findViewById(R.id.user_layout);
-        Theme.viewFrameLayTheme(view, ll);
     }
 }
