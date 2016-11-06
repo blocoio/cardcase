@@ -23,9 +23,9 @@ public class Theme {
         switch (currentTheme) {
             case Default:
                 currentBackgroundColor = 0xff617d8a;
-                accentColor = 0xffd6d7d7;
+                accentColor = 0xff00BFA5;
                 primaryTextColor = 0xff1c1c1c;
-                textIconColor = 0xff1c1c1c;
+                textIconColor = 0xffFFFFFF;
                 darkPrimaryColor = 0xff3a4b53;
                 break;
             case Red:
