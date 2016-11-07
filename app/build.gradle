@@ -19,6 +19,10 @@ repositories {
 android {
   compileSdkVersion 23
   buildToolsVersion '23.0.3'
+  lintOptions{
+    abortOnError false
+  }
+
   defaultConfig {
     applicationId "io.bloco.cardcase"
     minSdkVersion 21
