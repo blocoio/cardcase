@@ -95,7 +95,7 @@ public class Bootstrap {
         card.setUpdatedAt(card.getCreatedAt());
         card.setAvatarPath(avatarPath);
         card.setLinkedinURL("alexey-merzlikin");
-        card.setInstagramURL(faker.internet.freeEmail());
+        card.setInstagramURL("pilotmaria");
 
         card.setCategoryId(category.getId());
         database.saveCard(card);

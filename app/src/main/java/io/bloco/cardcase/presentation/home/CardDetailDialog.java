@@ -3,12 +3,17 @@ package io.bloco.cardcase.presentation.home;
 import android.animation.Animator;
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AlertDialog;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.Animation;
+import android.widget.TextView;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -37,6 +42,8 @@ public class CardDetailDialog {
     FloatingActionButton deleteCard;
     @Bind(R.id.card_dialog_transition_overlay)
     View transitionOverlay;
+    @Bind(R.id.buttonShareCard)
+    FloatingActionButton shareCard;
 
     // TODO: Inject only the activity context?
     @Inject
@@ -75,11 +82,52 @@ public class CardDetailDialog {
 
     @OnClick(R.id.buttonDeleteCard)
     public void onClickedDelete() {
-        database.deleteCard(cardInfoView.getCard());
-        closeActivityWithAnimation();
-        //dialog.dismiss();
-        if (homeContract != null)
-            homeContract.showCards(database.getReceivedCards());
+        AlertDialog alert = getDialog().create();
+        alert.show();
+    }
+
+    private AlertDialog.Builder getDialog() {
+        TextView title = new TextView((Activity) homeContract);
+        title.setText("Remove the card");
+        title.setPadding(10, 10, 10, 10);
+        title.setGravity(Gravity.CENTER);
+        title.setTextSize(23);
+
+        TextView msg = new TextView((Activity) homeContract);
+        msg.setText("Are you sure ?");
+        msg.setPadding(10, 10, 10, 10);
+        msg.setGravity(Gravity.CENTER);
+        msg.setTextSize(18);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder((Activity) homeContract);
+        builder.setCustomTitle(title);
+        builder.setView(msg);
+
+        builder.setIcon(R.drawable.ic_delete_forever_white_24px);
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.dismiss();
+                database.deleteCard(cardInfoView.getCard());
+                closeActivityWithAnimation();
+                if (homeContract != null)
+                    homeContract.showCards(database.getReceivedCards());
+            }
+        });
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.dismiss();
+            }
+        });
+
+        return builder;
+    }
+
+    @OnClick(R.id.buttonShareCard)
+    public void onClickedShare() {
+        database.prepareCardSharing(cardInfoView.getCard());
+        database.getUserCard();
+        Log.d("TEST", "isUser: " + cardInfoView.getCard().isUser());
+        homeContract.openExchange();
     }
 
     private void closeActivityWithAnimation() {

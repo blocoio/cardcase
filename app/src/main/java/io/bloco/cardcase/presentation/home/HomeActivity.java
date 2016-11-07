@@ -1,6 +1,7 @@
 package io.bloco.cardcase.presentation.home;
 
 import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,8 +16,6 @@ import android.transition.TransitionInflater;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 
@@ -73,6 +72,8 @@ public class HomeActivity extends BaseActivity
     @Bind(R.id.home_transition_overlay)
     View transitionOverlay;
 
+    private static int duration = 200;
+
     @Bind(R.id.change_theme)
     FloatingActionButton changeThemeButton;
 
@@ -93,7 +94,6 @@ public class HomeActivity extends BaseActivity
 
         initializeInjectors();
 
-
         bindToolbar();
         toolbar.setTitle(R.string.cards_received);
         toolbar.setStartButton(R.drawable.ic_user, R.string.user_card, new View.OnClickListener() {
@@ -105,8 +105,6 @@ public class HomeActivity extends BaseActivity
 
         Transition slideEnd = TransitionInflater.from(this).inflateTransition(R.transition.slide_end);
         getWindow().setEnterTransition(slideEnd);
-
-
     }
 
     private void initializeInjectors() {
@@ -135,6 +133,11 @@ public class HomeActivity extends BaseActivity
     public void onBackPressed() {
         if (searchToolbar.getVisibility() == View.VISIBLE) {
             presenter.clickedCloseSearch();
+        }
+
+        if (categoriesView.getVisibility() == View.GONE) {
+            resumeCategories();
+
         } else {
             finish();
         }
@@ -160,7 +163,7 @@ public class HomeActivity extends BaseActivity
     void onClickStart() {
         Intent intent = UserActivity.Factory.getOnboardingIntent(this);
         startActivity(intent);
-        finishWithAnimation();
+//        finishWithAnimation();
     }
 
     @Override
@@ -170,7 +173,6 @@ public class HomeActivity extends BaseActivity
         toolbar.removeEndButton(); // Hide Search
     }
 
-
     @Override
     public void showCards(final List<Card> cards) {
         cardAdapter.setCards(cards);
@@ -178,9 +180,10 @@ public class HomeActivity extends BaseActivity
         RecyclerView.LayoutManager layoutManager =
                 new LinearLayoutManager(HomeActivity.this, LinearLayoutManager.VERTICAL, false);
         cardsView.setLayoutManager(layoutManager);
-        cardsView.setVisibility(View.VISIBLE);
         homeEmpty.setVisibility(View.GONE);
-
+        cardsView.animate()
+                .translationY(cardsView.getHeight())
+                .setDuration(0);
         // Show Search
         toolbar.setEndButton(R.drawable.ic_search, R.string.search, new View.OnClickListener() {
             @Override
@@ -197,10 +200,58 @@ public class HomeActivity extends BaseActivity
         RecyclerView.LayoutManager layoutManager =
                 new LinearLayoutManager(HomeActivity.this, LinearLayoutManager.VERTICAL, false);
         categoriesView.setLayoutManager(layoutManager);
-        categoriesView.setVisibility(View.VISIBLE);
+        resumeCategories();
         homeEmpty.setVisibility(View.GONE);
     }
 
+    @Override
+    public void resumeCategories() {
+        categoriesView.setVisibility(View.VISIBLE);
+        cardsView.setVisibility(View.GONE);
+        categoriesView.animate()
+                .translationY(0)
+                .alpha(1.0f)
+                .setDuration(duration)
+                .setListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        super.onAnimationEnd(animation);
+
+                    }
+                });
+    }
+
+    @Override
+    public void hideCategories() {
+
+        categoriesView.animate()
+                .translationY(-categoriesView.getHeight() - 200)
+                .alpha(0.0f)
+                .setDuration(duration / 2)
+                .setListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        super.onAnimationEnd(animation);
+                        categoriesView.setVisibility(View.GONE);
+
+                        cardsView.setAlpha(0.0f);
+                        cardsView.setVisibility(View.VISIBLE);
+                        cardsView.animate()
+                                .translationY(cardsView.getHeight())
+                                .setDuration(0)
+                                .setListener(new AnimatorListenerAdapter() {
+                                    @Override
+                                    public void onAnimationEnd(Animator animation) {
+                                        super.onAnimationEnd(animation);
+                                        cardsView.animate()
+                                                .translationY(56)
+                                                .setDuration(duration)
+                                                .alpha(1.0f);
+                                    }
+                                });
+                    }
+                });
+    }
 
     @Override
     public void hideEmptySearchResult() {

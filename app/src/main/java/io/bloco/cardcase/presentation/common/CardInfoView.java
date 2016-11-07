@@ -153,19 +153,18 @@ public class CardInfoView extends FrameLayout {
     }
 
     @OnClick(R.id.instagramIcon)
+    public void clickInstagramIcon(){
+        instagramClick();
+    }
+
+    @OnClick(R.id.instagramLink)
     public void instagramClick() {
-       /* Uri uri = Uri.parse(card.getInstagramURL());
-        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-        intent.setPackage("com.instagram.android");
-        getContext().startActivity(intent);*/
-
-        String uri = card.getInstagramURL();
-        Intent intent = new Intent(Intent.ACTION_VIEW);
-        intent.setType("text/plain");
-        intent.setData(Uri.parse(uri));
-
-        Intent chooser = Intent.createChooser(intent, getResources().getString(R.string.send_email));
-        getContext().startActivity(chooser);
+        if (editMode) {
+            return;
+        }
+        Uri webpage = Uri.parse("https://www.instagram.com/" + card.getInstagramURL());
+        Intent intent = new Intent(Intent.ACTION_VIEW, webpage);
+        getContext().startActivity(intent);
     }
 
     @OnClick(R.id.facebook_icon)

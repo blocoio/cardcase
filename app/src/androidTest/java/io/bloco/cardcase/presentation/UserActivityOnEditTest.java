@@ -126,7 +126,7 @@ import static org.hamcrest.CoreMatchers.not;
   }
 
   private ViewInteraction onEditButton() {
-    return onView(withId(R.id.user_edit));
+    return onView(withId(R.id.user_edit_fab));
   }
 
   private ViewInteraction onCancelButton() {

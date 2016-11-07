@@ -43,5 +43,9 @@ public class UserContract {
     void clickedDone(Card updatedCard);
 
     void onCardChanged(Card updatedCard);
+
+    void clickRemoveUserCard();
+
+    void showDone();
   }
 }
