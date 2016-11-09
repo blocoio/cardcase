@@ -56,7 +56,8 @@ public class CardViewHolder extends RecyclerView.ViewHolder implements View.OnCl
         CharSequence timeStr = dateTimeFormat.getRelativeTimeSpanString(card.getUpdatedAt());
         time.setText(timeStr);
 
-        cardCategory.setText(database.getCategory(card.getCategoryId()).getName());
+        //TODO set category when received card
+        //cardCategory.setText(database.getCategory(card.getCategoryId()).getName());
 
         if (card.hasAvatar()) {
             imageLoader.loadAvatar(avatar, card.getAvatarPath());
