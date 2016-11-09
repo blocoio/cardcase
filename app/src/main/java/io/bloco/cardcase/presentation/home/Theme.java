@@ -42,13 +42,20 @@ public class Theme {
                 textIconColor = 0xffFFFFFF;
                 darkPrimaryColor = 0xff303F9F;
                 break;
+            case Light:
+                currentBackgroundColor = 0xffFFCAD4;
+                accentColor = 0xffC08497;
+                primaryTextColor = 0xff212121;
+                textIconColor = 0xffFFFFFF;
+                darkPrimaryColor = 0xffF7AF9D;
         }
     }
 
     public enum ThemeType {
         Default,
         Red,
-        Blue;
+        Blue,
+        Light;
 
         public static ThemeType fromInt(int num) {
             if (num == 0) {
@@ -57,6 +64,8 @@ public class Theme {
                 return Red;
             } else if (num == 2) {
                 return Blue;
+            }else if (num == 3) {
+                return Light;
             }
             return Default;
         }
