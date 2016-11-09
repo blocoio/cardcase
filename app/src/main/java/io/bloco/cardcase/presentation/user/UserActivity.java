@@ -144,6 +144,11 @@ public class UserActivity extends BaseActivity
             presenter.onCardChanged(cardView.getCard());
         }
     }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Theme.applyThemeFor(this.getWindow().getDecorView(), getApplicationContext());
+    }
 
     private void onFabClick() {
         if (isFabOpen) {
