@@ -1,6 +1,5 @@
 package io.bloco.cardcase.presentation;
 
-import android.support.test.annotation.UiThreadTest;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.support.test.uiautomator.UiDevice;
@@ -25,17 +24,15 @@ import org.junit.runner.RunWith;
 import javax.inject.Inject;
 
 import static android.support.test.InstrumentationRegistry.getInstrumentation;
-import static android.support.test.espresso.Espresso.onData;
 import static android.support.test.espresso.Espresso.onView;
+import static android.support.test.espresso.Espresso.pressBack;
 import static android.support.test.espresso.action.ViewActions.click;
-import static android.support.test.espresso.action.ViewActions.scrollTo;
 import static android.support.test.espresso.assertion.ViewAssertions.doesNotExist;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static io.bloco.cardcase.helpers.AssertCurrentActivity.assertCurrentActivity;
-import static org.hamcrest.Matchers.not;
 import static org.hamcrest.core.StringStartsWith.startsWith;
 
 @RunWith(AndroidJUnit4.class)
@@ -44,14 +41,17 @@ public class HomeActivityTest {
     @Inject
     Database database;
 
+    private UiDevice mDevice;
+
     @Rule
     public ActivityTestRule<HomeActivity> activityTestRule =
             new ActivityTestRule<>(HomeActivity.class);
     private CardFactory cardFactory;
 
     @Before
-    public void setupFactory() {
+    public void setup() {
         cardFactory = new CardFactory(activityTestRule);
+        mDevice = UiDevice.getInstance(getInstrumentation());
     }
 
     @Test
@@ -93,9 +93,32 @@ public class HomeActivityTest {
     }
 
     @Test
-    public void testViewCardDetails() throws Exception {
+    public void testDeleteCard() throws Exception {
         Card card = createReceivedCard();
         Category category = cardFactory.buildCategory("test cat");
+        card.setCategoryId(category.getId());
+        card.setName("to be deleted");
+        cardFactory.updateCard(card);
+
+        createUserCard();
+        launchApp();
+
+        UiObject categoryObject = mDevice.findObject(new UiSelector().text(category.getName()));
+        categoryObject.click();
+
+        mDevice.findObject(new UiSelector().text(card.getName())).click();
+        mDevice.findObject(new UiSelector().descriptionStartsWith("Delete")).click();
+        mDevice.findObject(new UiSelector().textStartsWith("Yes")).click();
+
+        mDevice.pressBack();
+        mDevice.findObject(new UiSelector().text(category.getName())).click();
+        onView(withText(card.getName())).check(doesNotExist());
+    }
+
+    @Test
+    public void testViewCardDetails() throws Exception {
+        Card card = createReceivedCard();
+        Category category = cardFactory.buildCategory("new cat");
         card.setCategoryId(category.getId());
         cardFactory.updateCard(card);
 
@@ -103,36 +126,20 @@ public class HomeActivityTest {
         launchApp();
 
         onView(withText(category.getName())).perform(click());
-        onView(withText(card.getName())).check(matches(isDisplayed()));
-
-        UiDevice mDevice = UiDevice.getInstance(getInstrumentation());
-
         UiObject cardObject = mDevice.findObject(new UiSelector().text(card.getName()));
         cardObject.click();
-//        onData(withText(card.getName())).perform(click());
-
-        /*getInstrumentation().runOnMainSync(new Runnable() {
-            @Override
-            public void run() {
-                CardDetailDialog dialog = new CardDetailDialog(activityTestRule.getActivity(), database);
-                dialog.show(card);
-                dialog.onClickedDelete();
-                onView(withText("Yes")).perform(click());
-            }
-        });*/
-
-/*        onView(withText(card.getName())).perform(click());
 
         onView(withId(R.id.card_avatar)).check(matches(isDisplayed()));
         onView(withId(R.id.card_name)).check(matches(withText(card.getName())));
         onView(withId(R.id.card_email)).check(matches(withText(card.getEmail())));
         onView(withId(R.id.card_phone)).check(matches(withText(card.getPhone())));
-        onView(withId(R.id.card_time)).check(matches(withText(startsWith("Added"))));*/
+        onView(withId(R.id.card_time)).check(matches(withText(startsWith("Added"))));
     }
 
     @After
     public void cleanUp() {
         cardFactory.clear();
+        cardFactory.clearCategories();
     }
 
     private void launchApp() {

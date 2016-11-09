@@ -98,6 +98,14 @@ public class CardFactory {
         return category;
     }
 
+    public void clearCategories() {
+        try {
+            TableUtils.clearTable(categoryDao.getConnectionSource(), Category.class);
+        } catch (SQLException exception) {
+            throw new RuntimeException(exception);
+        }
+    }
+
     public void clear() {
         try {
             TableUtils.clearTable(cardDao.getConnectionSource(), Card.class);
