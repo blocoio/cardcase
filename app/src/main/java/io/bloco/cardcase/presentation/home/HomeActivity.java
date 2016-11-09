@@ -220,7 +220,7 @@ public class HomeActivity extends BaseActivity
     public void hideCategories() {
 
         categoriesView.animate()
-                .translationY(-categoriesView.getHeight() - 200)
+                .translationY(-categoriesView.getHeight() * 2)
                 .alpha(0.0f)
                 .setDuration(duration / 2)
                 .setListener(new AnimatorListenerAdapter() {
