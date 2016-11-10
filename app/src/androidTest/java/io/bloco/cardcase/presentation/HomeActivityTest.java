@@ -5,13 +5,14 @@ import android.support.test.runner.AndroidJUnit4;
 import android.support.test.uiautomator.UiDevice;
 import android.support.test.uiautomator.UiObject;
 import android.support.test.uiautomator.UiSelector;
+import android.util.Log;
 
 import io.bloco.cardcase.R;
 import io.bloco.cardcase.data.Database;
 import io.bloco.cardcase.data.models.Card;
 import io.bloco.cardcase.data.models.Category;
 import io.bloco.cardcase.helpers.CardFactory;
-import io.bloco.cardcase.presentation.home.CardDetailDialog;
+import io.bloco.cardcase.presentation.exchange.ExchangeActivity;
 import io.bloco.cardcase.presentation.home.HomeActivity;
 import io.bloco.cardcase.presentation.welcome.WelcomeActivity;
 
@@ -25,7 +26,6 @@ import javax.inject.Inject;
 
 import static android.support.test.InstrumentationRegistry.getInstrumentation;
 import static android.support.test.espresso.Espresso.onView;
-import static android.support.test.espresso.Espresso.pressBack;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.assertion.ViewAssertions.doesNotExist;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
@@ -66,17 +66,6 @@ public class HomeActivityTest {
         assertCurrentActivity(HomeActivity.class);
     }
 
-/*  @Test public void testReceivedCards() throws Exception {
-    Card card1 = createReceivedCard();
-    Card card2 = createReceivedCard();
-
-    createUserCard();
-    launchApp();
-
-    onView(withText(card1.getName())).check(matches(isDisplayed()));
-    onView(withText(card2.getName())).check(matches(isDisplayed()));
-  }*/
-
     @Test
     public void testCategories() throws Exception {
         Card card = createReceivedCard();
@@ -110,7 +99,8 @@ public class HomeActivityTest {
         mDevice.findObject(new UiSelector().descriptionStartsWith("Delete")).click();
         mDevice.findObject(new UiSelector().textStartsWith("Yes")).click();
 
-        mDevice.pressBack();
+
+        while (!mDevice.pressBack()) ;
         mDevice.findObject(new UiSelector().text(category.getName())).click();
         onView(withText(card.getName())).check(doesNotExist());
     }
@@ -134,6 +124,30 @@ public class HomeActivityTest {
         onView(withId(R.id.card_email)).check(matches(withText(card.getEmail())));
         onView(withId(R.id.card_phone)).check(matches(withText(card.getPhone())));
         onView(withId(R.id.card_time)).check(matches(withText(startsWith("Added"))));
+    }
+
+    @Test
+    public void testExchangeClicked() throws Exception {
+        Card card = createReceivedCard();
+        Category category = cardFactory.buildCategory("test category");
+        card.setCategoryId(category.getId());
+        cardFactory.updateCard(card);
+
+        createUserCard();
+        launchApp();
+
+        UiObject categoryObject = mDevice.findObject(new UiSelector().text(category.getName()));
+        categoryObject.click();
+
+        mDevice.findObject(new UiSelector().text(card.getName())).click();
+        mDevice.findObject(new UiSelector().descriptionStartsWith("Share")).click();
+
+        //// FIXME: 10.11.16 some magic:/
+//        assertCurrentActivity(ExchangeActivity.class);
+
+        while (!mDevice.pressBack());
+        assertCurrentActivity(ExchangeActivity.class);
+
     }
 
     @After
