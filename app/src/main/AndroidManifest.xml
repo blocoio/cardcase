@@ -62,7 +62,7 @@
 
         <meta-data
             android:name="io.fabric.ApiKey"
-            android:value="5015efb948303a329c02ac82e309f017ad4a9d20" />
+            android:value="776cf45457ec459f9525ddd0617f22bc97a283f5" />
 
         <activity android:name=".presentation.home.SettingsActivity">
             <intent-filter>
