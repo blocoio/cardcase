@@ -1,10 +1,13 @@
 package io.bloco.cardcase.presentation.common;
 
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
+import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.EditText;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +28,9 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder implements View.
     @Bind(R.id.category_name)
     TextView name;
 
+    @Bind(R.id.name_text_edit)
+    EditText nameEditText;
+
     private HomeContract.View homeContract;
     private Database database;
 
@@ -41,6 +47,9 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder implements View.
         this.homeContract = homeContract;
         this.database = database;
         ButterKnife.bind(this, view);
+
+        nameEditText.setInputType(InputType.TYPE_NULL);
+        nameEditText.setBackgroundColor(Color.TRANSPARENT);
     }
 
     public void bind(Category category) {

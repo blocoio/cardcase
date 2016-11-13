@@ -30,6 +30,15 @@
             android:textSize="@dimen/text_large"
             tools:text="Business"
             />
+
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:text="Name"
+            android:ems="10"
+            android:id="@+id/name_text_edit"
+            android:layout_weight="1" />
     </LinearLayout>
 
 </android.support.v7.widget.CardView>
