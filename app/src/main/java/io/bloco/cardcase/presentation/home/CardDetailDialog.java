@@ -40,10 +40,10 @@ public class CardDetailDialog {
     CardInfoView cardInfoView;
     @Bind(R.id.buttonDeleteCard)
     FloatingActionButton deleteCard;
-    @Bind(R.id.card_dialog_transition_overlay)
-    View transitionOverlay;
     @Bind(R.id.buttonShareCard)
     FloatingActionButton shareCard;
+    @Bind(R.id.card_dialog_transition_overlay)
+    View transitionOverlay;
 
     // TODO: Inject only the activity context?
     @Inject
@@ -60,11 +60,25 @@ public class CardDetailDialog {
         this.database = database;
         ButterKnife.bind(this, dialog);
 
+        if (activity instanceof ExchangeActivity) {
+            deleteCard.setVisibility(View.GONE);
+            shareCard.setVisibility(View.GONE);
+        } else {
+            deleteCard.setVisibility(View.VISIBLE);
+            shareCard.setVisibility(View.VISIBLE);
+        }
+
         //Add animation to the CardDialog
         dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
     }
 
     public void show(Card card) {
+//        if (!(dialog.getOwnerActivity() instanceof ExchangeActivity)) {
+//            homeContract = (HomeContract.View) activity;
+//        } else {
+//            homeContract = null;
+//        }
+
         fillCardInfoInDialog(card);
         dialog.show();
 
