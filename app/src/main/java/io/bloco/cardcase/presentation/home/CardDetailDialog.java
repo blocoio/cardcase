@@ -13,7 +13,15 @@ import android.view.ViewAnimationUtils;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.Animation;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -22,13 +30,14 @@ import io.bloco.cardcase.R;
 import io.bloco.cardcase.common.di.PerActivity;
 import io.bloco.cardcase.data.Database;
 import io.bloco.cardcase.data.models.Card;
+import io.bloco.cardcase.data.models.Category;
 import io.bloco.cardcase.presentation.common.CardInfoView;
 import io.bloco.cardcase.presentation.exchange.ExchangeActivity;
 
 import javax.inject.Inject;
 
 @PerActivity
-public class CardDetailDialog {
+public class CardDetailDialog implements AdapterView.OnItemSelectedListener {
 
     private final Dialog dialog;
     private final Database database;
@@ -38,12 +47,16 @@ public class CardDetailDialog {
     View overlay;
     @Bind(R.id.card_dialog_info)
     CardInfoView cardInfoView;
-    @Bind(R.id.buttonDeleteCard)
-    FloatingActionButton deleteCard;
-    @Bind(R.id.buttonShareCard)
-    FloatingActionButton shareCard;
+    @Bind(R.id.card_dialog_toolbar)
+    LinearLayout dialogToolbar;
+    @Bind(R.id.card_dialog_delete)
+    ImageButton deleteCard;
+    @Bind(R.id.card_dialog_share)
+    ImageButton shareCard;
     @Bind(R.id.card_dialog_transition_overlay)
     View transitionOverlay;
+    @Bind(R.id.card_dialog_category_spinner)
+    Spinner spinner;
 
     // TODO: Inject only the activity context?
     @Inject
@@ -61,12 +74,14 @@ public class CardDetailDialog {
         ButterKnife.bind(this, dialog);
 
         if (activity instanceof ExchangeActivity) {
-            deleteCard.setVisibility(View.GONE);
-            shareCard.setVisibility(View.GONE);
+            dialogToolbar.setVisibility(View.GONE);
         } else {
-            deleteCard.setVisibility(View.VISIBLE);
-            shareCard.setVisibility(View.VISIBLE);
+            dialogToolbar.setVisibility(View.VISIBLE);
         }
+
+        spinner.setOnItemSelectedListener(this);
+
+        //setSpinnerValues();
 
         //Add animation to the CardDialog
         dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
@@ -81,6 +96,7 @@ public class CardDetailDialog {
 
         fillCardInfoInDialog(card);
         dialog.show();
+        setSpinnerValues();
 
         Window window = dialog.getWindow();
         window.setLayout(
@@ -94,10 +110,27 @@ public class CardDetailDialog {
         cardInfoView.showTime();
     }
 
-    @OnClick(R.id.buttonDeleteCard)
+    @OnClick(R.id.card_dialog_delete)
     public void onClickedDelete() {
         AlertDialog alert = getDialog().create();
         alert.show();
+    }
+
+    private void setSpinnerValues() {
+        final List<String> categoriesNames = new ArrayList<>();
+        final List<Category> categories;
+        categories = database.getCategories();
+        for (Category c : categories) {
+            categoriesNames.add(c.getName());
+        }
+        // Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this.getDialog().getContext(), android.R.layout.simple_spinner_item, categoriesNames);
+        // Specify the layout to use when the list of choices appears
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Apply the adapter to the spinner
+        spinner.setAdapter(adapter);
+        spinner.setSelection(adapter.getPosition(database.getCategory(cardInfoView.getCard().getCategoryId()).getName()));
+
     }
 
     private AlertDialog.Builder getDialog() {
@@ -136,7 +169,7 @@ public class CardDetailDialog {
         return builder;
     }
 
-    @OnClick(R.id.buttonShareCard)
+    @OnClick(R.id.card_dialog_share)
     public void onClickedShare() {
         database.prepareCardSharing(cardInfoView.getCard());
         database.getUserCard();
@@ -155,7 +188,7 @@ public class CardDetailDialog {
         // create the animator for this view (the start radius is zero)
         Animator circularReveal =
                 ViewAnimationUtils.createCircularReveal(transitionOverlay, cx, cy, 0, finalRadius);
-        circularReveal.setDuration(600);
+        circularReveal.setDuration(300);
 
         // make the view visible and start the animation
         transitionOverlay.setVisibility(View.VISIBLE);
@@ -167,7 +200,16 @@ public class CardDetailDialog {
                 overlay.setVisibility(View.GONE);
                 dialog.dismiss();
             }
-        }, 600);
+        }, 400);
     }
 
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        //TODO change category
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
+    }
 }
