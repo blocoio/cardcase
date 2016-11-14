@@ -23,7 +23,7 @@ import io.bloco.cardcase.data.models.Card;
 import io.bloco.cardcase.data.models.Category;
 import io.bloco.cardcase.presentation.home.HomeContract;
 
-public class CategoryViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+public class CategoryViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
 
     @Bind(R.id.category_name)
     TextView name;
@@ -40,7 +40,7 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder implements View.
     public CategoryViewHolder(View view, HomeContract.View homeContract, Database database) {
         super(view);
         view.setOnClickListener(this);
-
+        view.setOnLongClickListener(this);
         ((AndroidApplication) view.getContext().getApplicationContext()).getApplicationComponent()
                 .inject(this);
 
@@ -59,17 +59,21 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder implements View.
 
     @Override
     public void onClick(View view) {
-        Log.d("TEST", "CLICKED " + category.getName() + " " + category.getId());
         List<Card> cards = database.getReceivedCards();
         List<Card> cardsByCategory = new ArrayList<>();
         for (Card card : cards) {
-            Log.d("TEST", "check " + card.getCategoryId().toString() + "::" + category.getId().toString());
             if (card.getCategoryId().equals(category.getId())) {
-                Log.d("TEST", "Add " + card.getCategoryId().toString());
                 cardsByCategory.add(card);
             }
         }
         homeContract.hideCategories();
         homeContract.showCards(cardsByCategory);
+    }
+
+    @Override
+    public boolean onLongClick(View v) {
+        Log.d("TEST", "Long click ");
+
+        return false;
     }
 }

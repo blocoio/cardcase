@@ -17,7 +17,7 @@ import io.bloco.cardcase.presentation.home.CardDetailDialog;
 
 import javax.inject.Inject;
 
-public class CardViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+public class CardViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
 
     @Inject
     DateTimeFormat dateTimeFormat;
@@ -41,6 +41,7 @@ public class CardViewHolder extends RecyclerView.ViewHolder implements View.OnCl
     public CardViewHolder(View view, CardDetailDialog cardDetailDialog, Database database) {
         super(view);
         view.setOnClickListener(this);
+        view.setOnLongClickListener(this);
         this.cardDetailDialog = cardDetailDialog;
         this.database = database;
 
@@ -67,5 +68,12 @@ public class CardViewHolder extends RecyclerView.ViewHolder implements View.OnCl
     @Override
     public void onClick(View view) {
         cardDetailDialog.show(card);
+    }
+
+    @Override
+    public boolean onLongClick(View v) {
+        Log.d("TEST", "Long click ");
+
+        return false;
     }
 }
