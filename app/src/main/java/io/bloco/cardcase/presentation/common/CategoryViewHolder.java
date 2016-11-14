@@ -1,6 +1,7 @@
 package io.bloco.cardcase.presentation.common;
 
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.text.InputType;
 import android.util.Log;
@@ -9,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.EditText;
 
+import butterknife.OnTextChanged;
+import io.bloco.cardcase.presentation.home.HomeActivity;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,6 +25,7 @@ import io.bloco.cardcase.data.Database;
 import io.bloco.cardcase.data.models.Card;
 import io.bloco.cardcase.data.models.Category;
 import io.bloco.cardcase.presentation.home.HomeContract;
+import io.bloco.cardcase.presentation.home.HomePresenter;
 
 public class CategoryViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
 
@@ -70,10 +74,34 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder implements View.
         homeContract.showCards(cardsByCategory);
     }
 
+
+
     @Override
     public boolean onLongClick(View v) {
         Log.d("TEST", "Long click ");
+//        TextView categoryView = (TextView) v;
+//        String categoryText = categoryView.getText().toString();
+        String s = category.getName();
+        enableCategoryText();
+        Log.d("category", category.getName());
 
-        return false;
+        return true;
+    }
+
+    public void enableCategoryText(){
+        nameEditText.setCursorVisible(true);
+        nameEditText.setFocusableInTouchMode(true);
+        nameEditText.setInputType(InputType.TYPE_CLASS_TEXT);
+        nameEditText.requestFocus();
+        nameEditText.setText("");
+//        nameEditText.setbac
+//        nameEditText.setBackgroundColor(0xFF00FF00);
+    }
+
+    @OnTextChanged(R.id.name_text_edit)
+    public void afterTextChanged (CharSequence text) {
+        // text changed
+        Log.d("editText", text.toString());
+        category.setName(text.toString());
     }
 }
