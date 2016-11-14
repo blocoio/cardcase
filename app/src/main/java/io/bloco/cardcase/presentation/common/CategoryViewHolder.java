@@ -80,13 +80,13 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder implements View.
     public boolean onLongClick(View v) {
         nameEditText.setText(category.getName());
         nameEditText.activate();
+        Log.d("test", category.getName());
         return true;
     }
 
     @OnTextChanged(R.id.name_text_edit)
     public void afterTextChanged (CharSequence text) {
         if (text == null || text.length() == 0) { return; }
-
         category.setName(text.toString());
         database.saveCategory(category);
     }
