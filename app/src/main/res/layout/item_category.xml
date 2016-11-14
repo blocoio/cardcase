@@ -20,18 +20,7 @@
         android:paddingTop="@dimen/margin_small"
         >
 
-        <TextView
-            android:id="@+id/category_name"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:paddingEnd="@dimen/margin_default"
-            android:paddingStart="@dimen/margin_default"
-            android:textSize="@dimen/text_large"
-            tools:text="Business"
-            />
-
-        <EditText
+        <io.bloco.cardcase.presentation.common.MyEditText
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:inputType="textPersonName"

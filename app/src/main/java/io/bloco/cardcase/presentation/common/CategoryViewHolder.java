@@ -5,6 +5,7 @@ import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.text.InputType;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -29,11 +30,8 @@ import io.bloco.cardcase.presentation.home.HomePresenter;
 
 public class CategoryViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
 
-    @Bind(R.id.category_name)
-    TextView name;
-
     @Bind(R.id.name_text_edit)
-    EditText nameEditText;
+    MyEditText nameEditText;
 
     private HomeContract.View homeContract;
     private Database database;
@@ -54,15 +52,19 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder implements View.
 
         nameEditText.setInputType(InputType.TYPE_NULL);
         nameEditText.setBackgroundColor(Color.TRANSPARENT);
+        nameEditText.setOnLongClickListener(this);
+        nameEditText.setOnClickListener(this);
     }
 
     public void bind(Category category) {
         this.category = category;
-        name.setText(category.getName());
+        nameEditText.setText(category.getName());
     }
 
     @Override
     public void onClick(View view) {
+        if (nameEditText.getInputType() == InputType.TYPE_CLASS_TEXT) { return; }
+
         List<Card> cards = database.getReceivedCards();
         List<Card> cardsByCategory = new ArrayList<>();
         for (Card card : cards) {
@@ -74,34 +76,19 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder implements View.
         homeContract.showCards(cardsByCategory);
     }
 
-
-
     @Override
     public boolean onLongClick(View v) {
-        Log.d("TEST", "Long click ");
-//        TextView categoryView = (TextView) v;
-//        String categoryText = categoryView.getText().toString();
-        String s = category.getName();
-        enableCategoryText();
-        Log.d("category", category.getName());
-
+        nameEditText.setText(category.getName());
+        nameEditText.activate();
         return true;
-    }
-
-    public void enableCategoryText(){
-        nameEditText.setCursorVisible(true);
-        nameEditText.setFocusableInTouchMode(true);
-        nameEditText.setInputType(InputType.TYPE_CLASS_TEXT);
-        nameEditText.requestFocus();
-        nameEditText.setText("");
-//        nameEditText.setbac
-//        nameEditText.setBackgroundColor(0xFF00FF00);
     }
 
     @OnTextChanged(R.id.name_text_edit)
     public void afterTextChanged (CharSequence text) {
-        // text changed
-        Log.d("editText", text.toString());
+        if (text == null || text.length() == 0) { return; }
+
         category.setName(text.toString());
+        database.saveCategory(category);
     }
+
 }
