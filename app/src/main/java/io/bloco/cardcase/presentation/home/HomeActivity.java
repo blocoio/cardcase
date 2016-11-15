@@ -218,7 +218,6 @@ public class HomeActivity extends BaseActivity
 
     @Override
     public void hideCategories() {
-
         categoriesView.animate()
                 .translationY(-categoriesView.getHeight() * 2)
                 .alpha(0.0f)
@@ -239,17 +238,13 @@ public class HomeActivity extends BaseActivity
                                     public void onAnimationEnd(Animator animation) {
                                         super.onAnimationEnd(animation);
                                         cardsView.animate()
-                                                .translationY(dpToPx(56))
+                                                .translationY(0)
                                                 .setDuration(duration)
                                                 .alpha(1.0f);
                                     }
                                 });
                     }
                 });
-    }
-
-    public static int dpToPx(int dp) {
-        return (int) (dp * Resources.getSystem().getDisplayMetrics().density);
     }
 
     @Override
