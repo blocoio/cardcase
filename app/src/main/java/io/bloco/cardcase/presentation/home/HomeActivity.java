@@ -4,20 +4,20 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
-import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.Layout;
 import android.transition.Transition;
 import android.transition.TransitionInflater;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
-import android.widget.RelativeLayout;
 
+import java.util.List;
+
+import javax.inject.Inject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -34,11 +34,6 @@ import io.bloco.cardcase.presentation.common.SearchToolbar;
 import io.bloco.cardcase.presentation.exchange.ExchangeActivity;
 import io.bloco.cardcase.presentation.user.UserActivity;
 import io.bloco.cardcase.presentation.welcome.WelcomeActivity;
-
-import java.util.List;
-
-import javax.inject.Inject;
-
 import timber.log.Timber;
 
 public class HomeActivity extends BaseActivity
@@ -225,7 +220,7 @@ public class HomeActivity extends BaseActivity
     public void hideCategories() {
 
         categoriesView.animate()
-                .translationY(-categoriesView.getHeight() - 200)
+                .translationY(-categoriesView.getHeight() * 2)
                 .alpha(0.0f)
                 .setDuration(duration / 2)
                 .setListener(new AnimatorListenerAdapter() {
@@ -244,13 +239,17 @@ public class HomeActivity extends BaseActivity
                                     public void onAnimationEnd(Animator animation) {
                                         super.onAnimationEnd(animation);
                                         cardsView.animate()
-                                                .translationY(56)
+                                                .translationY(dpToPx(56))
                                                 .setDuration(duration)
                                                 .alpha(1.0f);
                                     }
                                 });
                     }
                 });
+    }
+
+    public static int dpToPx(int dp) {
+        return (int) (dp * Resources.getSystem().getDisplayMetrics().density);
     }
 
     @Override

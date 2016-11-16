@@ -1,7 +1,6 @@
 package io.bloco.cardcase.presentation.common;
 
 import android.content.Context;
-import android.util.Log;
 
 import io.bloco.cardcase.data.Database;
 import io.bloco.cardcase.data.models.Card;
@@ -13,11 +12,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
-import java.util.UUID;
 
 import javax.inject.Inject;
 
@@ -58,16 +55,14 @@ public class Bootstrap {
 
         for (int i = 0; i < NUM_CARDS; i++) {
             Card card = buildFakeCard();
-            Log.d("CREATE", "id:" + card.getId());
         }
     }
 
     private Category buildFakeCategory() {
         Category category = new Category();
-
-        category.setName(getName());
+        String name = getName();
+        category.setName(name);
         database.saveCategory(category);
-        Log.d("CREATE", "SAVED, categoryId: " + category.getId() + " " + category.getName());
         return category;
     }
 
@@ -107,7 +102,6 @@ public class Bootstrap {
         }
 
         database.saveCard(card);
-        Log.d("CREATE", "SAVED, id:" + card.getId());
         return card;
     }
 
