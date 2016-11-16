@@ -41,6 +41,7 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder implements View.
     @Inject
     public CategoryViewHolder(View view, HomeContract.View homeContract, Database database) {
         super(view);
+//        nameEditText.setOnClickListener(this);
         view.setOnClickListener(this);
         view.setOnLongClickListener(this);
         ((AndroidApplication) view.getContext().getApplicationContext()).getApplicationComponent()
