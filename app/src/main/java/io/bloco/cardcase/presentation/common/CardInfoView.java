@@ -64,6 +64,13 @@ public class CardInfoView extends FrameLayout {
     @Bind(R.id.facebook_link)
     EditText facebooklink;
 
+    //icons
+    @Bind(R.id.facebook_icon)
+    ImageView faceIcon;
+    @Bind(R.id.vk_icon)
+    ImageView vkIcon;
+
+
 
     @Bind(R.id.instagramLink)
     EditText instagramProfile;
@@ -95,6 +102,7 @@ public class CardInfoView extends FrameLayout {
         facebooklink.addTextChangedListener(fieldTextWatcher);
         linkedinProfile.addTextChangedListener(fieldTextWatcher);
         instagramProfile.addTextChangedListener(fieldTextWatcher);
+//        faceIcon.addTextChangedListener(fieldTextWatcher);
 
         disabledEditMode();
     }
@@ -338,6 +346,22 @@ public class CardInfoView extends FrameLayout {
         for (int i = 0; i < fields.getChildCount(); i++) {
             EditText field = (EditText) fields.getChildAt(i);
             if (getEditTextValue(field).isEmpty()) {
+                if(card.getVklink().isEmpty()){
+                    vkIcon.setVisibility(View.GONE);
+                }
+                if (card.getFacebookLink().isEmpty()){
+                    faceIcon.setVisibility(View.GONE);
+                }
+                if(card.getInstagramURL().isEmpty()){
+                    instagramIcon.setVisibility(View.GONE);
+                }
+                if (card.getLinkedinURL().isEmpty()){
+                    linkedinIcon.setVisibility(View.GONE);
+                }
+
+//                if(fields.getChildAt(i).equals(vklink) || field == facebooklink || field == linkedinProfile || field == instagramProfile){
+//                    checkIcons(field);
+//                }
                 fields.removeView(field);
                 i--;
             } else {
@@ -374,6 +398,7 @@ public class CardInfoView extends FrameLayout {
     private void disabledEditText(EditText editText) {
         // Hide if empty
         if (editText.getText().length() == 0) {
+
             editText.setVisibility(View.GONE);
         } else {
             editText.setVisibility(View.VISIBLE);
@@ -429,5 +454,10 @@ public class CardInfoView extends FrameLayout {
                 }
             }
         }
+    }
+
+    private void checkIcons(EditText editText){
+
+
     }
 }
