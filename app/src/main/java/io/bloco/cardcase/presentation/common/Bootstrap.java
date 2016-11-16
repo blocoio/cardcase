@@ -28,9 +28,7 @@ public class Bootstrap {
     private final FileHelper fileHelper;
     private final Faker faker;
     private int avatarIndex = 0;
-    private Category category1;
-    private Category category2;
-    private Category category3;
+    private Category category;
 
     @Inject
     public Bootstrap(Context context, Database database, FileHelper fileHelper) {
@@ -42,9 +40,7 @@ public class Bootstrap {
 
     public void clearAndBootstrap() {
         database.clear();
-        this.category1 = buildFakeCategory();
-        this.category2 = buildFakeCategory();
-        this.category3 = buildFakeCategory();
+        this.category = buildFakeCategory();
         bootstrap();
     }
 
@@ -60,17 +56,11 @@ public class Bootstrap {
 
     private Category buildFakeCategory() {
         Category category = new Category();
-        String name = getName();
-        category.setName(name);
+        category.setName("Unsorted");
         database.saveCategory(category);
         return category;
     }
 
-    private String getName() {
-        Random r = new Random();
-        List<String> names = Arrays.asList("Work", "Conference", "Friends", "Others", "Random");
-        return names.get(r.nextInt(4));
-    }
 
     private Card buildFakeCard() {
         String avatarFilePath = "avatars/avatar" + (avatarIndex + 1) + ".jpg";
@@ -92,14 +82,8 @@ public class Bootstrap {
         card.setAvatarPath(avatarPath);
         card.setLinkedinURL("alexey-merzlikin");
         card.setInstagramURL("pilotmaria");
+        card.setCategoryId(category.getId());
 
-        if (avatarIndex % 3 == 1) {
-            card.setCategoryId(category1.getId());
-        }  if (avatarIndex % 3 == 2) {
-            card.setCategoryId(category2.getId());
-        } else {
-            card.setCategoryId(category3.getId());
-        }
 
         database.saveCard(card);
         return card;

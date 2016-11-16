@@ -137,7 +137,7 @@ public class HomePresenter
         if (this.categories.isEmpty()) {
             view.showEmpty();
         } else {
-            view.showCategories(this.categories);
+            view.showCategories(categories);
         }
     }
 

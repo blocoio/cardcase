@@ -59,7 +59,7 @@ public class HomeActivity extends BaseActivity
     RecyclerView cardsView;
 
     @Bind(R.id.home_categories)
-    RecyclerView categoriesView;
+    public RecyclerView categoriesView;
 
     @Bind(R.id.home_exchange)
     FloatingActionButton exchangeButton;
@@ -197,6 +197,7 @@ public class HomeActivity extends BaseActivity
         categoriesView.setLayoutManager(layoutManager);
         resumeCategories();
         homeEmpty.setVisibility(View.GONE);
+
     }
 
     @Override

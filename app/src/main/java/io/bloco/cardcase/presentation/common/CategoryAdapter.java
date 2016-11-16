@@ -1,7 +1,6 @@
 package io.bloco.cardcase.presentation.common;
 
 import android.app.Activity;
-import android.provider.ContactsContract;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +10,7 @@ import io.bloco.cardcase.R;
 import io.bloco.cardcase.common.di.PerActivity;
 import io.bloco.cardcase.data.Database;
 import io.bloco.cardcase.data.models.Category;
+import io.bloco.cardcase.presentation.home.HomeActivity;
 import io.bloco.cardcase.presentation.home.HomeContract;
 
 import java.util.ArrayList;
@@ -29,23 +29,17 @@ public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     private final HomeContract.View homeContract;
     private final Database database;
     private List<Category> categories;
-    private boolean showLoader;
 
     @Inject
     public CategoryAdapter(Activity activity, Database database) {
         this.categories = new ArrayList<>();
-        this.showLoader = false;
         this.homeContract = (HomeContract.View) activity;
         this.database = database;
     }
 
-    public void showLoader() {
-        this.showLoader = true;
-    }
-
     @Override
     public int getItemCount() {
-        return categories.size() + (showLoader ? 1 : 0);
+        return categories.size() + 1;
     }
 
     @Override
@@ -63,7 +57,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         switch (viewType) {
             case ViewType.FOOTER:
                 view = LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.categories_list_loader, parent, false);
+                        .inflate(R.layout.add_category, parent, false);
                 return new FooterViewHolder(view);
 
             case ViewType.NORMAL:
@@ -87,16 +81,30 @@ public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         this.categories = categories;
     }
 
-    private static class FooterViewHolder extends RecyclerView.ViewHolder {
+    protected void addCategory() {
+        Category newCategory = new Category();
+        newCategory.setName("New category");
+        categories.add(newCategory);
+        database.saveCategory(newCategory);
+        notifyItemInserted(categories.size() - 1);
+    }
+
+    private class FooterViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private final View view;
 
         public FooterViewHolder(View view) {
             super(view);
             this.view = view;
+            view.setOnClickListener(this);
         }
 
         public void start() {
+        }
+
+        @Override
+        public void onClick(View v) {
+            addCategory();
         }
     }
 }

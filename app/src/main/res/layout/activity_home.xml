@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/frame">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frame"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <View
         android:id="@+id/home_transition_overlay"
@@ -14,9 +14,9 @@
         android:visibility="gone" />
 
     <android.support.design.widget.CoordinatorLayout
+        android:id="@+id/coord"
         style="@style/layout"
-        tools:context=".presentation.home.HomeActivity"
-        android:id="@+id/coord">
+        tools:context=".presentation.home.HomeActivity">
 
         <android.support.design.widget.AppBarLayout style="@style/app_bar">
 
@@ -65,6 +65,30 @@
 
         </LinearLayout>
 
+        <RelativeLayout
+            android:id="@+id/categories_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/home_categories"
+                style="@style/layout_inner"
+                android:animateLayoutChanges="true"
+                android:layout_alignParentBottom="true"
+                android:visibility="gone"
+                tools:visibility="visible" />
+
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/home_cards"
+                style="@style/bottom_layout"
+                android:visibility="gone"
+                tools:visibility="visible" />
+
+        </RelativeLayout>
+
+
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/home_exchange"
@@ -73,44 +97,18 @@
             android:src="@drawable/ic_exchange" />
 
         <android.support.design.widget.FloatingActionButton
-                android:id="@+id/change_theme"
-                style="@style/change_theme_button_style"
-                android:scaleType="center"
-                android:src="@android:drawable/ic_menu_preferences"/>
+            android:id="@+id/change_theme"
+            style="@style/change_theme_button_style"
+            android:scaleType="center"
+            android:src="@android:drawable/ic_menu_preferences" />
 
         <android.support.design.widget.FloatingActionButton
-          android:id="@+id/add_user_card"
-          style="@style/test"
-          app:fabSize="normal"
-          android:src="@drawable/ic_content_add"
+            android:id="@+id/add_user_card"
+            style="@style/test"
+            android:src="@drawable/ic_content_add"
             android:tint="#FFFFFF"
-            android:visibility="invisible" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            >
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/home_categories"
-                style="@style/layout_inner"
-                android:animateLayoutChanges="true"
-                android:visibility="gone"
-                tools:visibility="visible"
-
-                />
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/home_cards"
-                style="@style/bottom_layout"
-                android:visibility="gone"
-                tools:visibility="visible"
-
-                />
-
-
-        </LinearLayout>
+            android:visibility="invisible"
+            app:fabSize="normal" />
 
     </android.support.design.widget.CoordinatorLayout>
 
