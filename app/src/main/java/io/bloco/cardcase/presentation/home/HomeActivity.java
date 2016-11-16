@@ -4,13 +4,13 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.transition.Transition;
 import android.transition.TransitionInflater;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
@@ -195,41 +195,58 @@ public class HomeActivity extends BaseActivity
         RecyclerView.LayoutManager layoutManager =
                 new LinearLayoutManager(HomeActivity.this, LinearLayoutManager.VERTICAL, false);
         categoriesView.setLayoutManager(layoutManager);
-        resumeCategories();
+        //resumeCategories();
         homeEmpty.setVisibility(View.GONE);
     }
 
     @Override
     public void resumeCategories() {
-        categoriesView.setVisibility(View.VISIBLE);
-        cardsView.setVisibility(View.GONE);
-        categoriesView.animate()
-                .translationY(0)
-                .alpha(1.0f)
+        Log.d("TEST", String.valueOf(categoriesView.getAlpha()));
+
+
+        Log.d("TEST", String.valueOf(categoriesView.getAlpha()));
+
+        cardsView.animate()
+                .translationY(cardsView.getHeight())
+
                 .setDuration(duration)
                 .setListener(new AnimatorListenerAdapter() {
                     @Override
-                    public void onAnimationEnd(Animator animation) {
-                        super.onAnimationEnd(animation);
+                    public void onAnimationStart(Animator animation) {
+                        super.onAnimationStart(animation);
+                        categoriesView.setVisibility(View.VISIBLE);
+                        cardsView.setVisibility(View.GONE);
 
+                        categoriesView.animate()
+                                .translationY(-categoriesView.getHeight() * 2)
+                                .setDuration(0)
+                                .setListener(new AnimatorListenerAdapter() {
+                                    @Override
+                                    public void onAnimationEnd(Animator animation) {
+                                        super.onAnimationEnd(animation);
+                                        categoriesView.animate()
+                                                .translationY(0)
+                                                .setDuration(duration);
+
+                                    }
+                                });
                     }
                 });
     }
 
     @Override
     public void hideCategories() {
+        cardsView.setVisibility(View.VISIBLE);
         categoriesView.animate()
                 .translationY(-categoriesView.getHeight() * 2)
-                .alpha(0.0f)
-                .setDuration(duration / 2)
+
+                .setDuration(duration)
                 .setListener(new AnimatorListenerAdapter() {
                     @Override
-                    public void onAnimationEnd(Animator animation) {
-                        super.onAnimationEnd(animation);
-                        categoriesView.setVisibility(View.GONE);
+                    public void onAnimationStart(Animator animation) {
+                        super.onAnimationStart(animation);
 
-                        cardsView.setAlpha(0.0f);
-                        cardsView.setVisibility(View.VISIBLE);
+
                         cardsView.animate()
                                 .translationY(cardsView.getHeight())
                                 .setDuration(0)
@@ -239,8 +256,9 @@ public class HomeActivity extends BaseActivity
                                         super.onAnimationEnd(animation);
                                         cardsView.animate()
                                                 .translationY(0)
-                                                .setDuration(duration)
-                                                .alpha(1.0f);
+                                                .setDuration(duration);
+                                        categoriesView.setVisibility(View.GONE);
+
                                     }
                                 });
                     }
