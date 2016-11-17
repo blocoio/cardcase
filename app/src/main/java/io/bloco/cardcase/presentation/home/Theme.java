@@ -136,6 +136,12 @@ public class Theme {
             editText.setBackgroundColor(textIconColor);
             editText.getBackground().setColorFilter(textIconColor, PorterDuff.Mode.SRC_ATOP);
         }
+        // Text fields on Category
+        for (EditText editText : getViewsFromViewGroup(view.findViewById(R.id.home_categories), EditText.class)) {
+            editText.setBackgroundColor(textIconColor);
+            editText.getBackground().setColorFilter(textIconColor, PorterDuff.Mode.SRC_ATOP);
+        }
+
 
         // Transition overlay view on Home screen
         if (view.findViewById(R.id.home_transition_overlay) != null) {

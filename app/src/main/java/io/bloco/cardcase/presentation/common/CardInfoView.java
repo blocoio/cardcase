@@ -6,6 +6,7 @@ import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.text.format.DateUtils;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
@@ -64,6 +65,13 @@ public class CardInfoView extends FrameLayout {
     @Bind(R.id.facebook_link)
     EditText facebooklink;
 
+    //icons
+    @Bind(R.id.facebook_icon)
+    ImageView faceIcon;
+    @Bind(R.id.vk_icon)
+    ImageView vkIcon;
+
+
 
     @Bind(R.id.instagramLink)
     EditText instagramProfile;
@@ -95,6 +103,7 @@ public class CardInfoView extends FrameLayout {
         facebooklink.addTextChangedListener(fieldTextWatcher);
         linkedinProfile.addTextChangedListener(fieldTextWatcher);
         instagramProfile.addTextChangedListener(fieldTextWatcher);
+//        faceIcon.addTextChangedListener(fieldTextWatcher);
 
         disabledEditMode();
     }
@@ -229,11 +238,11 @@ public class CardInfoView extends FrameLayout {
         card.setVklink(vklink.getText().toString().trim());
         card.setFacebookLink(facebooklink.getText().toString().trim());
 
-        List<String> urlParts = Arrays.asList(linkedinProfile.toString().trim().split("/"));
-        card.setLinkedinURL(urlParts.get(urlParts.size() - 1));
 
-        urlParts = Arrays.asList(instagramProfile.toString().trim().split("/"));
-        card.setInstagramURL(urlParts.get(urlParts.size() - 1));
+        card.setLinkedinURL(linkedinProfile.getText().toString().trim());
+
+
+        card.setInstagramURL(instagramProfile.getText().toString().trim());
 
         int fieldsCount = fields.getChildCount();
         ArrayList<String> fieldValues = new ArrayList<>(fieldsCount);
@@ -276,6 +285,19 @@ public class CardInfoView extends FrameLayout {
             String timeCaption = DateUtils.getRelativeTimeSpanString(timestamp).toString();
             String timePhrase = getResources().getString(R.string.card_time, timeCaption);
             time.setText(timePhrase);
+        }
+
+        if(card.getVklink().isEmpty()){
+            vkIcon.setVisibility(View.GONE);
+        }
+        if (card.getFacebookLink().isEmpty()){
+            faceIcon.setVisibility(View.GONE);
+        }
+        if(card.getInstagramURL().isEmpty()){
+            instagramIcon.setVisibility(View.GONE);
+        }
+        if (card.getLinkedinURL().isEmpty()){
+            linkedinIcon.setVisibility(View.GONE);
         }
 
         if (editMode) {
@@ -338,6 +360,22 @@ public class CardInfoView extends FrameLayout {
         for (int i = 0; i < fields.getChildCount(); i++) {
             EditText field = (EditText) fields.getChildAt(i);
             if (getEditTextValue(field).isEmpty()) {
+                if(card.getVklink().isEmpty()){
+                    vkIcon.setVisibility(View.GONE);
+                }
+                if (card.getFacebookLink().isEmpty()){
+                    faceIcon.setVisibility(View.GONE);
+                }
+                if(card.getInstagramURL().isEmpty()){
+                    instagramIcon.setVisibility(View.GONE);
+                }
+                if (card.getLinkedinURL().isEmpty()){
+                    linkedinIcon.setVisibility(View.GONE);
+                }
+
+//                if(fields.getChildAt(i).equals(vklink) || field == facebooklink || field == linkedinProfile || field == instagramProfile){
+//                    checkIcons(field);
+//                }
                 fields.removeView(field);
                 i--;
             } else {
@@ -374,6 +412,7 @@ public class CardInfoView extends FrameLayout {
     private void disabledEditText(EditText editText) {
         // Hide if empty
         if (editText.getText().length() == 0) {
+
             editText.setVisibility(View.GONE);
         } else {
             editText.setVisibility(View.VISIBLE);
@@ -406,6 +445,7 @@ public class CardInfoView extends FrameLayout {
         for (int i = 0, count = fields.getChildCount(); i < count; i++) {
             EditText field = (EditText) fields.getChildAt(i);
             if (getEditTextValue(field).isEmpty()) {
+
                 return false;
             }
         }
@@ -429,5 +469,10 @@ public class CardInfoView extends FrameLayout {
                 }
             }
         }
+    }
+
+    private void checkIcons(EditText editText){
+
+
     }
 }

@@ -76,6 +76,18 @@ public class Database {
         }
     }
 
+    public List<Card> getCardsByCategory(Category category) {
+        try {
+            return getCardQuery().eq("categoryId", category.getId()).query();
+        } catch (SQLException exception) {
+            throw new RuntimeException(exception);
+        }
+    }
+
+    public void deleteCards(List<Card> cards) {
+        cardDao.delete(cards);
+    }
+
     public void saveCard(final Card card) {
         card.setUpdatedAt(now());
         if (card.getCreatedAt() == null) {
@@ -92,6 +104,10 @@ public class Database {
 
     public void deleteCard(Card card) {
         cardDao.deleteById(card.getId());
+    }
+
+    public void deleteCategory(Category category) {
+        categoryDao.deleteById(category.getId());
     }
 
     public void prepareCardSharing(Card card) {
