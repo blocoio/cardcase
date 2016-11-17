@@ -41,9 +41,6 @@ public class Bootstrap {
     public void clearAndBootstrap() {
         database.clear();
         this.category = buildFakeCategory();
-        buildFakeCategory();
-        buildFakeCategory();
-        buildFakeCategory();
         bootstrap();
     }
 
@@ -59,17 +56,11 @@ public class Bootstrap {
 
     private Category buildFakeCategory() {
         Category category = new Category();
-        String name = getName();
-        category.setName(name);
+        category.setName("Unsorted");
         database.saveCategory(category);
         return category;
     }
 
-    private String getName() {
-        Random r = new Random();
-        List<String> names = Arrays.asList("Work", "Conference", "Friends", "Others", "Random");
-        return names.get(r.nextInt(4));
-    }
 
     private Card buildFakeCard() {
         String avatarFilePath = "avatars/avatar" + (avatarIndex + 1) + ".jpg";
@@ -91,8 +82,9 @@ public class Bootstrap {
         card.setAvatarPath(avatarPath);
         card.setLinkedinURL("alexey-merzlikin");
         card.setInstagramURL("pilotmaria");
-
         card.setCategoryId(category.getId());
+
+
         database.saveCard(card);
         return card;
     }

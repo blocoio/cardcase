@@ -10,10 +10,10 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.transition.Transition;
 import android.transition.TransitionInflater;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 
 import java.util.List;
 
@@ -30,14 +30,16 @@ import io.bloco.cardcase.data.models.Category;
 import io.bloco.cardcase.presentation.BaseActivity;
 import io.bloco.cardcase.presentation.common.CardAdapter;
 import io.bloco.cardcase.presentation.common.CategoryAdapter;
+import io.bloco.cardcase.presentation.common.MyEditText;
 import io.bloco.cardcase.presentation.common.SearchToolbar;
 import io.bloco.cardcase.presentation.exchange.ExchangeActivity;
 import io.bloco.cardcase.presentation.user.UserActivity;
 import io.bloco.cardcase.presentation.welcome.WelcomeActivity;
 import timber.log.Timber;
 
-public class HomeActivity extends BaseActivity
-        implements HomeContract.View, SearchToolbar.SearchListener {
+public class HomeActivity extends BaseActivity implements HomeContract.View, SearchToolbar.SearchListener {
+
+    private static final int DURATION = 200;
 
     @Inject
     HomeContract.Presenter presenter;
@@ -48,29 +50,22 @@ public class HomeActivity extends BaseActivity
 
     @Bind(R.id.toolbar_search)
     SearchToolbar searchToolbar;
-
     @Bind(R.id.home_empty)
     ViewGroup homeEmpty;
-
     @Bind(R.id.home_search_empty)
     ViewGroup homeSearchEmpty;
-
     @Bind(R.id.home_cards)
     RecyclerView cardsView;
-
     @Bind(R.id.home_categories)
     RecyclerView categoriesView;
-
     @Bind(R.id.home_exchange)
     FloatingActionButton exchangeButton;
-
     @Bind(R.id.home_transition_overlay)
     View transitionOverlay;
-
-    private static int duration = 200;
-
     @Bind(R.id.change_theme)
     FloatingActionButton changeThemeButton;
+    @Bind(R.id.category_done)
+    FloatingActionButton done;
 
     public static class Factory {
         public static Intent getIntent(Context context) {
@@ -100,6 +95,8 @@ public class HomeActivity extends BaseActivity
 
         Transition slideEnd = TransitionInflater.from(this).inflateTransition(R.transition.slide_end);
         getWindow().setEnterTransition(slideEnd);
+
+        done.setVisibility(View.INVISIBLE);
     }
 
     private void initializeInjectors() {
@@ -158,7 +155,20 @@ public class HomeActivity extends BaseActivity
     void onClickStart() {
         Intent intent = UserActivity.Factory.getOnboardingIntent(this);
         startActivity(intent);
-//        finishWithAnimation();
+    }
+
+    @OnClick(R.id.category_done)
+    public void onDoneClicked() {
+        ((MyEditText)findViewById(R.id.name_text_edit)).deactivate();
+        hideDoneButton();
+        getCurrentFocus().clearFocus();
+
+        //close virtual keyboard
+        InputMethodManager inputManager = (InputMethodManager)
+                getSystemService(Context.INPUT_METHOD_SERVICE);
+
+        inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),
+                InputMethodManager.HIDE_NOT_ALWAYS);
     }
 
     @Override
@@ -320,6 +330,16 @@ public class HomeActivity extends BaseActivity
     public void onSearchQuery(String query) {
         Timber.i("onSearchQuery");
         presenter.searchEntered(query);
+    }
+
+    @Override
+    public void showDoneButton() {
+        done.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideDoneButton() {
+        done.setVisibility(View.GONE);
     }
 
     private void animateExchangeOverlay() {

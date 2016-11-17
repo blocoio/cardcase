@@ -130,7 +130,6 @@ public class CardDetailDialog implements AdapterView.OnItemSelectedListener {
         // Apply the adapter to the spinner
         spinner.setAdapter(adapter);
         spinner.setSelection(adapter.getPosition(database.getCategory(cardInfoView.getCard().getCategoryId()).getName()));
-
     }
 
     private AlertDialog.Builder getDialog() {
@@ -205,7 +204,11 @@ public class CardDetailDialog implements AdapterView.OnItemSelectedListener {
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        //TODO change category
+        //cardInfoView.getCard().setCategoryId();
+        final List<Category> categories;
+        categories = database.getCategories();
+        cardInfoView.getCard().setCategoryId(categories.get(position).getId());
+        database.saveCard(cardInfoView.getCard());
     }
 
     @Override

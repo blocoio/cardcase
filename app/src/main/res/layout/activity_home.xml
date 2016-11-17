@@ -63,9 +63,20 @@
                 style="@style/text_block"
                 android:layout_margin="@dimen/margin_default"
                 android:text="@string/home_search_empty_text" />
-
         </LinearLayout>
 
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/category_done"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            tools:visibility="invisible"
+            android:layout_marginRight="@dimen/fab_margin"
+            android:contentDescription="@string/done"
+            android:src="@drawable/ic_done"
+            android:clickable="true"
+            android:layout_marginBottom="90dp"
+            android:layout_gravity="bottom|end"
+            />
 
 
             <android.support.v7.widget.RecyclerView

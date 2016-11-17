@@ -34,6 +34,10 @@ public class HomeContract {
 
         void openSettings();
 
+        void showDoneButton();
+
+        void hideDoneButton();
+
     }
 
     public interface Presenter {

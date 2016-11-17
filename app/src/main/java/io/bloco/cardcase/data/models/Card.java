@@ -274,6 +274,7 @@ public class Card {
         fieldsToMatch.add(facebookLink);
         fieldsToMatch.add(linkedinURL);
         fieldsToMatch.add(instagramURL);
+        fieldsToMatch.add(categoryId.toString());
 
         for (String field : fieldsToMatch) {
             if (field != null && field.toLowerCase().contains(queryNormalized)) {
