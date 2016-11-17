@@ -38,9 +38,9 @@ public class AndroidApplication extends Application {
             .build());
 
     // Uncomment this to fill database with fake cards
-     if (BuildConfig.DEBUG) {
+     /*if (BuildConfig.DEBUG) {
        getApplicationComponent().bootstrap().clearAndBootstrap();
-     }
+     }*/
   }
 
   public ApplicationComponent getApplicationComponent() {
