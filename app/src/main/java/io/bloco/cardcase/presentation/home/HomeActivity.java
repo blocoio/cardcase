@@ -211,15 +211,13 @@ public class HomeActivity extends BaseActivity implements HomeContract.View, Sea
 
     @Override
     public void resumeCategories() {
-        Log.d("TEST", String.valueOf(categoriesView.getAlpha()));
 
 
-        Log.d("TEST", String.valueOf(categoriesView.getAlpha()));
 
         cardsView.animate()
                 .translationY(cardsView.getHeight())
 
-                .setDuration(duration)
+                .setDuration(DURATION)
                 .setListener(new AnimatorListenerAdapter() {
                     @Override
                     public void onAnimationStart(Animator animation) {
@@ -236,7 +234,7 @@ public class HomeActivity extends BaseActivity implements HomeContract.View, Sea
                                         super.onAnimationEnd(animation);
                                         categoriesView.animate()
                                                 .translationY(0)
-                                                .setDuration(duration);
+                                                .setDuration(DURATION);
 
                                     }
                                 });
@@ -250,7 +248,7 @@ public class HomeActivity extends BaseActivity implements HomeContract.View, Sea
         categoriesView.animate()
                 .translationY(-categoriesView.getHeight() * 2)
 
-                .setDuration(duration)
+                .setDuration(DURATION)
                 .setListener(new AnimatorListenerAdapter() {
                     @Override
                     public void onAnimationStart(Animator animation) {
@@ -266,7 +264,7 @@ public class HomeActivity extends BaseActivity implements HomeContract.View, Sea
                                         super.onAnimationEnd(animation);
                                         cardsView.animate()
                                                 .translationY(0)
-                                                .setDuration(duration);
+                                                .setDuration(DURATION);
                                         categoriesView.setVisibility(View.GONE);
 
                                     }
