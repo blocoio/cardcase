@@ -38,6 +38,11 @@
     <string name="welcome_title">Welcome to Card Case</string>
     <string name="welcome_text">The easiest way to exchange contacts with people nearby</string>
 
+    <string-array name="category_spinner">
+        <item>Edit</item>
+        <item>Delete</item>
+    </string-array>
+
   <string name="home_empty_text">
     Here you will see the\n
     cards you receive.\n\n

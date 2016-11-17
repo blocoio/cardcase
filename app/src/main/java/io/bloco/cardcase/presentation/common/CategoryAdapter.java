@@ -1,7 +1,6 @@
 package io.bloco.cardcase.presentation.common;
 
 import android.app.Activity;
-import android.provider.ContactsContract;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
