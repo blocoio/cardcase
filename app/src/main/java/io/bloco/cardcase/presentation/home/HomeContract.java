@@ -2,6 +2,7 @@ package io.bloco.cardcase.presentation.home;
 
 import io.bloco.cardcase.data.models.Card;
 import io.bloco.cardcase.data.models.Category;
+import io.bloco.cardcase.presentation.common.CategoryAdapter;
 
 import java.util.List;
 
@@ -38,6 +39,7 @@ public class HomeContract {
 
         void hideDoneButton();
 
+        CategoryAdapter getCategoryAdapter();
     }
 
     public interface Presenter {

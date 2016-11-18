@@ -198,6 +198,10 @@ public class HomeActivity extends BaseActivity implements HomeContract.View, Sea
         });
     }
 
+    public CategoryAdapter getCategoryAdapter() {
+        return this.categoryAdapter;
+    }
+
     @Override
     public void showCategories(List<Category> categories) {
         categoryAdapter.setCategories(categories);

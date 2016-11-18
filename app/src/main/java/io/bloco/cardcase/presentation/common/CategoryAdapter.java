@@ -10,7 +10,6 @@ import io.bloco.cardcase.R;
 import io.bloco.cardcase.common.di.PerActivity;
 import io.bloco.cardcase.data.Database;
 import io.bloco.cardcase.data.models.Category;
-import io.bloco.cardcase.presentation.home.HomeActivity;
 import io.bloco.cardcase.presentation.home.HomeContract;
 
 import java.util.ArrayList;
@@ -87,6 +86,14 @@ public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         categories.add(newCategory);
         database.saveCategory(newCategory);
         notifyItemInserted(categories.size() - 1);
+    }
+
+    public void deleteCategory(Category category) {
+        int index = categories.indexOf(category);
+        database.deleteCards(database.getCardsByCategory(category));
+        categories.remove(category);
+        database.deleteCategory(category);
+        notifyItemRemoved(index);
     }
 
     private class FooterViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {

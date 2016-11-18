@@ -27,7 +27,6 @@ import io.bloco.cardcase.R;
 import io.bloco.cardcase.data.Database;
 import io.bloco.cardcase.data.models.Card;
 import io.bloco.cardcase.data.models.Category;
-import io.bloco.cardcase.presentation.home.HomeActivity;
 import io.bloco.cardcase.presentation.home.HomeContract;
 
 public class CategoryViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -43,7 +42,6 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder implements View.
     @Inject
     public CategoryViewHolder(View view, HomeContract.View homeContract, Database database) {
         super(view);
-//        nameEditText.setOnClickListener(this);
         view.setOnClickListener(this);
         ((AndroidApplication) view.getContext().getApplicationContext()).getApplicationComponent()
                 .inject(this);
@@ -154,12 +152,10 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder implements View.
         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 dialog.dismiss();
-                deleteCategory(category);
 
                 if (homeContract != null) {
                     //// FIXME: 17.11.16 refresh categories somehow.
-                    Intent intent = HomeActivity.Factory.getIntent(((Activity) homeContract).getApplicationContext());
-                    ((Activity) homeContract).startActivity(intent);
+                    homeContract.getCategoryAdapter().deleteCategory(category);
                 }
             }
         });
@@ -170,10 +166,5 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder implements View.
         });
 
         return builder;
-    }
-
-    private void deleteCategory(Category category) {
-        database.deleteCards(database.getCardsByCategory(category));
-        database.deleteCategory(category);
     }
 }
