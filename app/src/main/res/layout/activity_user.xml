@@ -39,7 +39,7 @@
       android:id="@+id/user_delete"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_marginBottom="240dp"
+      android:layout_marginBottom="165dp"
       android:layout_marginRight="@dimen/fab_margin"
       android:visibility="invisible"
       app:backgroundTint="#F44336"
@@ -60,18 +60,6 @@
       app:backgroundTint="#2196F3"
       app:elevation="6dp"
       android:src="@drawable/ic_edit"
-      />
-
-  <android.support.design.widget.FloatingActionButton
-      android:id="@+id/user_create"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginBottom="165dp"
-      android:layout_marginRight="@dimen/fab_margin"
-      android:visibility="invisible"
-      android:layout_gravity="bottom|end"
-      app:elevation="6dp"
-      app:srcCompat="@drawable/ic_add_white_24px"
       />
 
   <android.support.design.widget.FloatingActionButton

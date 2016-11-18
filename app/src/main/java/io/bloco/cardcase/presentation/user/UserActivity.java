@@ -62,8 +62,6 @@ public class UserActivity extends BaseActivity
     FloatingActionButton fabEdit;
     @Bind(R.id.user_delete)
     FloatingActionButton fabDelete;
-    @Bind(R.id.user_create)
-    FloatingActionButton fabCreate;
 
     private Animation fabOpen, fabClose, rotateBackward, rotateForward;
 
@@ -155,9 +153,7 @@ public class UserActivity extends BaseActivity
             fabMain.startAnimation(rotateBackward);
             fabEdit.startAnimation(fabClose);
             fabDelete.startAnimation(fabClose);
-            fabCreate.startAnimation(fabClose);
             fabEdit.setClickable(false);
-            fabCreate.setClickable(false);
             fabDelete.setClickable(false);
             isFabOpen = false;
             Log.d("TEST", "isFabOpen");
@@ -166,10 +162,8 @@ public class UserActivity extends BaseActivity
             fabMain.startAnimation(rotateForward);
             fabEdit.startAnimation(fabOpen);
             fabDelete.startAnimation(fabOpen);
-            fabCreate.startAnimation(fabOpen);
             fabEdit.setClickable(true);
             fabDelete.setClickable(true);
-            fabCreate.setClickable(true);
             isFabOpen = true;
             Log.d("TEST", "!isFabOpen");
         }
@@ -223,22 +217,7 @@ public class UserActivity extends BaseActivity
 
         return builder;
     }
-
-    @OnClick(R.id.user_create)
-    public void fab2Click() {
-        //todo adding a new user card. It works, but it's too buggy.
-        /*onFabClick();
-        this.finish();
-        Intent intent = UserActivity.Factory.getOnboardingIntent(this);
-        startActivity(intent);
-        Log.d("TEST", "user create clicked");*/
-
-        //workaround for the next demo.
-        presenter.clickRemoveUserCard();
-        enableEditMode();
-        fabInvisible();
-    }
-
+    
     @OnClick(R.id.user_edit_fab)
     public void onEditClicked() {
         presenter.clickedEdit();
@@ -246,14 +225,12 @@ public class UserActivity extends BaseActivity
     }
 
     private void fabInvisible() {
-        fabCreate.setVisibility(View.GONE);
         fabDelete.setVisibility(View.GONE);
         fabEdit.setVisibility(View.GONE);
         fabMain.setVisibility(View.INVISIBLE);
     }
 
     private void fabVisible() {
-        fabCreate.setVisibility(View.INVISIBLE);
         fabDelete.setVisibility(View.INVISIBLE);
         fabEdit.setVisibility(View.INVISIBLE);
         fabMain.setVisibility(View.VISIBLE);
