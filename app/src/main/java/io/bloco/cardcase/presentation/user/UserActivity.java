@@ -241,14 +241,26 @@ public class UserActivity extends BaseActivity
         fabEdit.setVisibility(View.INVISIBLE);
         fabMain.setVisibility(View.VISIBLE);
         fabMain.startAnimation(rotateBackward);
+        Log.d("TEST", "fab visible");
+    }
+
+    private void refreshActivity() {
+        Intent intent = getIntent();
+        if (!intent.getBooleanExtra(Factory.BundleArgs.ONBOARDING, false)) {
+            overridePendingTransition(0, 0);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+            finish();
+            overridePendingTransition(0, 0);
+            startActivity(intent);
+        } else {
+            fabVisible();
+        }
     }
 
     @OnClick(R.id.user_done)
     public void onDoneClicked() {
         presenter.clickedDone(cardView.getCard());
-        fabVisible();
-        /*this.finish();
-        startActivity(getIntent());*/
+        refreshActivity();
     }
 
     @Override
