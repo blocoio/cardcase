@@ -202,6 +202,10 @@ public class HomeActivity extends BaseActivity implements HomeContract.View, Sea
         return this.categoryAdapter;
     }
 
+    public CardAdapter getCardAdapter() {
+        return this.cardAdapter;
+    }
+
     @Override
     public void showCategories(List<Category> categories) {
         categoryAdapter.setCategories(categories);

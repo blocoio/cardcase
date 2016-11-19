@@ -29,7 +29,9 @@ import com.google.android.gms.common.api.Status;
 import io.bloco.cardcase.R;
 import io.bloco.cardcase.common.di.ActivityComponent;
 import io.bloco.cardcase.common.di.DaggerActivityComponent;
+import io.bloco.cardcase.data.Database;
 import io.bloco.cardcase.data.models.Card;
+import io.bloco.cardcase.data.models.Category;
 import io.bloco.cardcase.presentation.BaseActivity;
 import io.bloco.cardcase.presentation.common.CardAdapter;
 import io.bloco.cardcase.presentation.home.Theme;
@@ -47,6 +49,8 @@ public class ExchangeActivity extends BaseActivity implements ExchangeContract.V
     ExchangeContract.Presenter presenter;
     @Inject
     CardAdapter cardAdapter;
+    @Inject
+    Database database;
 
     @Bind(R.id.exchange_container)
     View overlay;
@@ -87,6 +91,12 @@ public class ExchangeActivity extends BaseActivity implements ExchangeContract.V
             }
         });
 
+
+        if (database.getCategories().size() == 0) {
+            Category category = new Category();
+            category.setName("Unsorted");
+            database.saveCategory(category);
+        }
         //invite.setText(Html.fromHtml(getString(R.string.exchange_invite)));
 
         cardAdapter.showLoader();

@@ -4,7 +4,6 @@ import android.animation.Animator;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.Gravity;
@@ -12,7 +11,6 @@ import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.Window;
 import android.view.WindowManager;
-import android.view.animation.Animation;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
@@ -42,6 +40,7 @@ public class CardDetailDialog implements AdapterView.OnItemSelectedListener {
     private final Dialog dialog;
     private final Database database;
     private HomeContract.View homeContract;
+    private Activity activity;
 
     @Bind(R.id.card_detail_dialog_id)
     View overlay;
@@ -66,7 +65,7 @@ public class CardDetailDialog implements AdapterView.OnItemSelectedListener {
         } else {
             homeContract = null;
         }
-
+        this.activity = activity;
         this.dialog = new Dialog(activity);
         this.dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         this.dialog.setContentView(R.layout.card_detail_dialog);
@@ -88,15 +87,13 @@ public class CardDetailDialog implements AdapterView.OnItemSelectedListener {
     }
 
     public void show(Card card) {
-//        if (!(dialog.getOwnerActivity() instanceof ExchangeActivity)) {
-//            homeContract = (HomeContract.View) activity;
-//        } else {
-//            homeContract = null;
-//        }
-
         fillCardInfoInDialog(card);
         dialog.show();
-        setSpinnerValues();
+
+
+        if (!(activity instanceof ExchangeActivity)) {
+            setSpinnerValues();
+        }
 
         Window window = dialog.getWindow();
         window.setLayout(
@@ -209,6 +206,7 @@ public class CardDetailDialog implements AdapterView.OnItemSelectedListener {
         categories = database.getCategories();
         cardInfoView.getCard().setCategoryId(categories.get(position).getId());
         database.saveCard(cardInfoView.getCard());
+        homeContract.getCardAdapter().moveCard(cardInfoView.getCard());
     }
 
     @Override

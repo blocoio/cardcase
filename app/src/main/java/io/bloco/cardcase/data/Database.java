@@ -11,6 +11,7 @@ import io.bloco.cardcase.data.models.Category;
 
 import java.sql.SQLException;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -37,6 +38,16 @@ public class Database {
     public void saveCategories(List<Category> categories) {
         for (Category category : categories) {
             saveCategory(category);
+        }
+    }
+
+    public Category getCategoryByName(String name) {
+        List<Category> cat = categoryDao.queryForEq("name", name);
+        if(!cat.isEmpty()) {
+            return cat.get(0);
+        }
+        else {
+            return null;
         }
     }
 
