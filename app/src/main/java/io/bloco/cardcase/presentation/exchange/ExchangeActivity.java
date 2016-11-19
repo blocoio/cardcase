@@ -62,7 +62,8 @@ public class ExchangeActivity extends BaseActivity implements ExchangeContract.V
     RecyclerView cardsListView;
     @Bind(R.id.exchange_done)
     FloatingActionButton done;
-    //@Bind(R.id.exchange_invite) Button invite;
+    @Bind(R.id.exchange_invite)
+    Button invite;
     @Bind(R.id.exchange_loader)
     View loader;
 
@@ -154,9 +155,10 @@ public class ExchangeActivity extends BaseActivity implements ExchangeContract.V
         presenter.clickedDone();
     }
 
-//  @OnClick(R.id.exchange_invite) public void onClickedInvite() {
-//    presenter.clickedInvite();
-//  }
+    @OnClick(R.id.exchange_invite)
+    public void onClickedInvite() {
+        presenter.clickedInvite();
+    }
 
     @Override
     public void requestPermission(Status status) {
