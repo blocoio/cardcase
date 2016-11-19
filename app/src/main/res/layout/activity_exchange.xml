@@ -47,20 +47,20 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"/>
 
-        <!--<Button-->
-            <!--android:id="@+id/exchange_invite"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_margin="@dimen/margin_small"-->
-            <!--android:layout_gravity="center_horizontal"-->
-            <!--android:paddingTop="@dimen/margin_default"-->
-            <!--android:paddingBottom="@dimen/margin_default"-->
-            <!--android:paddingStart="@dimen/margin_double"-->
-            <!--android:paddingEnd="@dimen/margin_double"-->
-            <!--android:background="?attr/selectableItemBackground"-->
-            <!--android:text="@string/exchange_invite"-->
-            <!--android:textColor="@color/text_alt"-->
-            <!--android:textAllCaps="false"/>-->
+        <Button
+            android:id="@+id/exchange_invite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_small"
+            android:layout_gravity="center_horizontal"
+            android:paddingTop="@dimen/margin_default"
+            android:paddingBottom="@dimen/margin_default"
+            android:paddingStart="@dimen/margin_double"
+            android:paddingEnd="@dimen/margin_double"
+            android:background="?attr/selectableItemBackground"
+            android:text="@string/exchange_invite"
+            android:textColor="@color/text_alt"
+            android:textAllCaps="false"/>
 
       </LinearLayout>
 
