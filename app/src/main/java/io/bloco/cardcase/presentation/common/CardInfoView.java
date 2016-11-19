@@ -6,7 +6,6 @@ import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.text.format.DateUtils;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
@@ -24,7 +23,6 @@ import io.bloco.cardcase.data.models.Card;
 import io.bloco.cardcase.presentation.home.SimpleTextWatcher;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -103,7 +101,6 @@ public class CardInfoView extends FrameLayout {
         facebooklink.addTextChangedListener(fieldTextWatcher);
         linkedinProfile.addTextChangedListener(fieldTextWatcher);
         instagramProfile.addTextChangedListener(fieldTextWatcher);
-//        faceIcon.addTextChangedListener(fieldTextWatcher);
 
         disabledEditMode();
     }
@@ -125,9 +122,8 @@ public class CardInfoView extends FrameLayout {
 
     @OnClick(R.id.card_vk)
     public void clickVkLink() {
-        if (editMode) {
-            return;
-        }
+        if (editMode) return;
+
         Uri webpage = Uri.parse("https://www.vk.com/" + card.getVklink());
         Intent intent = new Intent(Intent.ACTION_VIEW, webpage);
 
@@ -143,9 +139,8 @@ public class CardInfoView extends FrameLayout {
             }
         }
         getContext().startActivity(intent);
-
-
     }
+
     @OnClick(R.id.facebook_link)
     public void clickFacebookLink() {
         if (editMode) {
@@ -237,11 +232,7 @@ public class CardInfoView extends FrameLayout {
         card.setPhone(phone.getText().toString().trim());
         card.setVklink(vklink.getText().toString().trim());
         card.setFacebookLink(facebooklink.getText().toString().trim());
-
-
         card.setLinkedinURL(linkedinProfile.getText().toString().trim());
-
-
         card.setInstagramURL(instagramProfile.getText().toString().trim());
 
         int fieldsCount = fields.getChildCount();
@@ -274,31 +265,32 @@ public class CardInfoView extends FrameLayout {
         instagramProfile.setText(card.getInstagramURL());
 
         setAvatar(card.getAvatarPath());
+        try {
+            fields.removeAllViews();
+            for (String fieldValue : card.getFields()) {
+                addNewField(fieldValue);
+            }
 
-        fields.removeAllViews();
-        for (String fieldValue : card.getFields()) {
-            addNewField(fieldValue);
-        }
+            if (card.getUpdatedAt() != null) {
+                long timestamp = card.getUpdatedAt().getTime();
+                String timeCaption = DateUtils.getRelativeTimeSpanString(timestamp).toString();
+                String timePhrase = getResources().getString(R.string.card_time, timeCaption);
+                time.setText(timePhrase);
+            }
 
-        if (card.getUpdatedAt() != null) {
-            long timestamp = card.getUpdatedAt().getTime();
-            String timeCaption = DateUtils.getRelativeTimeSpanString(timestamp).toString();
-            String timePhrase = getResources().getString(R.string.card_time, timeCaption);
-            time.setText(timePhrase);
-        }
-
-        if(card.getVklink().isEmpty()){
-            vkIcon.setVisibility(View.GONE);
-        }
-        if (card.getFacebookLink().isEmpty()){
-            faceIcon.setVisibility(View.GONE);
-        }
-        if(card.getInstagramURL().isEmpty()){
-            instagramIcon.setVisibility(View.GONE);
-        }
-        if (card.getLinkedinURL().isEmpty()){
-            linkedinIcon.setVisibility(View.GONE);
-        }
+            if (card.getVklink().isEmpty()) {
+                vkIcon.setVisibility(View.GONE);
+            }
+            if (card.getFacebookLink().isEmpty()) {
+                faceIcon.setVisibility(View.GONE);
+            }
+            if (card.getInstagramURL().isEmpty()) {
+                instagramIcon.setVisibility(View.GONE);
+            }
+            if (card.getLinkedinURL().isEmpty()) {
+                linkedinIcon.setVisibility(View.GONE);
+            }
+        } catch (NullPointerException ignored) {}
 
         if (editMode) {
             enableEditMode();
@@ -324,6 +316,7 @@ public class CardInfoView extends FrameLayout {
         enableEditText(linkedinProfile);
         enableEditText(vklink);
         enableEditText(facebooklink);
+        enableEditText(instagramProfile);
 
         if (card == null || !card.hasAvatar()) {
             avatar.setImageResource(R.drawable.avatar_edit);
@@ -373,9 +366,6 @@ public class CardInfoView extends FrameLayout {
                     linkedinIcon.setVisibility(View.GONE);
                 }
 
-//                if(fields.getChildAt(i).equals(vklink) || field == facebooklink || field == linkedinProfile || field == instagramProfile){
-//                    checkIcons(field);
-//                }
                 fields.removeView(field);
                 i--;
             } else {
@@ -401,10 +391,7 @@ public class CardInfoView extends FrameLayout {
         }
     }
 
-
-
     // Private
-
     private String getEditTextValue(EditText editText) {
         return editText.getText().toString().trim();
     }
@@ -469,10 +456,5 @@ public class CardInfoView extends FrameLayout {
                 }
             }
         }
-    }
-
-    private void checkIcons(EditText editText){
-
-
     }
 }

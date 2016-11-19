@@ -209,15 +209,11 @@ public class HomeActivity extends BaseActivity implements HomeContract.View, Sea
         RecyclerView.LayoutManager layoutManager =
                 new LinearLayoutManager(HomeActivity.this, LinearLayoutManager.VERTICAL, false);
         categoriesView.setLayoutManager(layoutManager);
-        //resumeCategories();
         homeEmpty.setVisibility(View.GONE);
     }
 
     @Override
     public void resumeCategories() {
-
-
-
         cardsView.animate()
                 .translationY(cardsView.getHeight())
 

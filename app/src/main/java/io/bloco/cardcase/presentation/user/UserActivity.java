@@ -110,6 +110,11 @@ public class UserActivity extends BaseActivity
         fabClose = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_close);
         rotateBackward = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.rotate_backward);
         rotateForward = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.rotate_forward);
+
+        if (onboarding) {
+            fabInvisible();
+            hideDoneButton();
+        }
     }
 
     private void initializeInjectors() {
@@ -142,6 +147,7 @@ public class UserActivity extends BaseActivity
             presenter.onCardChanged(cardView.getCard());
         }
     }
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -217,7 +223,7 @@ public class UserActivity extends BaseActivity
 
         return builder;
     }
-    
+
     @OnClick(R.id.user_edit_fab)
     public void onEditClicked() {
         presenter.clickedEdit();
@@ -241,12 +247,8 @@ public class UserActivity extends BaseActivity
     public void onDoneClicked() {
         presenter.clickedDone(cardView.getCard());
         fabVisible();
-        this.finish();
-        startActivity(getIntent());
-
-        System.out.println(fabMain.isClickable());
-        System.out.println(fabMain.isEnabled());
-        System.out.println(fabMain.isFocusable());
+        /*this.finish();
+        startActivity(getIntent());*/
     }
 
     @Override
