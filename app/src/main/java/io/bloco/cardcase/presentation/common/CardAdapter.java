@@ -41,6 +41,10 @@ public class CardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         this.showLoader = true;
     }
 
+    public List<Card> getCards() {
+        return this.cards;
+    }
+
     @Override
     public int getItemCount() {
         return cards.size() + (showLoader ? 1 : 0);

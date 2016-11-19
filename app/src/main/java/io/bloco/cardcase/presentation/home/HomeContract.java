@@ -4,8 +4,10 @@ import io.bloco.cardcase.data.models.Card;
 import io.bloco.cardcase.data.models.Category;
 import io.bloco.cardcase.presentation.common.CardAdapter;
 import io.bloco.cardcase.presentation.common.CategoryAdapter;
+import io.bloco.cardcase.presentation.common.SearchToolbar;
 
 import java.util.List;
+import java.util.UUID;
 
 public class HomeContract {
 
@@ -52,7 +54,7 @@ public class HomeContract {
 
         void clickedCloseSearch();
 
-        void searchEntered(String query);
+        void searchEntered(String query, UUID category);
 
         void clickedUser();
 
