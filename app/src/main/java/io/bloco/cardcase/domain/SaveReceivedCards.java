@@ -22,6 +22,7 @@ import javax.inject.Singleton;
     for (Card receivedCard : receivedCards) {
       receivedCard.setIsUser(false);
       receivedCard.setCreatedAt(null);
+      receivedCard.setCategoryId(database.getCategoryByName("Unsorted").getId());
     }
     database.saveCards(receivedCards);
     callback.onSavedReceivedCards(receivedCards);

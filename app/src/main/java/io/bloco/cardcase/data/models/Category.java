@@ -29,6 +29,9 @@ public class Category {
         this.name = name;
     }
 
+    public Category() {
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {

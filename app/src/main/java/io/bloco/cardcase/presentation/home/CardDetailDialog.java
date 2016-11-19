@@ -42,6 +42,7 @@ public class CardDetailDialog implements AdapterView.OnItemSelectedListener {
     private final Dialog dialog;
     private final Database database;
     private HomeContract.View homeContract;
+    private Activity activity;
 
     @Bind(R.id.card_detail_dialog_id)
     View overlay;
@@ -66,7 +67,7 @@ public class CardDetailDialog implements AdapterView.OnItemSelectedListener {
         } else {
             homeContract = null;
         }
-
+        this.activity = activity;
         this.dialog = new Dialog(activity);
         this.dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         this.dialog.setContentView(R.layout.card_detail_dialog);
@@ -88,15 +89,13 @@ public class CardDetailDialog implements AdapterView.OnItemSelectedListener {
     }
 
     public void show(Card card) {
-//        if (!(dialog.getOwnerActivity() instanceof ExchangeActivity)) {
-//            homeContract = (HomeContract.View) activity;
-//        } else {
-//            homeContract = null;
-//        }
-
         fillCardInfoInDialog(card);
         dialog.show();
-        setSpinnerValues();
+
+
+        if (!(activity instanceof ExchangeActivity)) {
+            setSpinnerValues();
+        }
 
         Window window = dialog.getWindow();
         window.setLayout(
