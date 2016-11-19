@@ -12,10 +12,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-
-import org.w3c.dom.Text;
-
-import butterknife.OnTextChanged;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,6 +19,7 @@ import javax.inject.Inject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnTextChanged;
 import io.bloco.cardcase.AndroidApplication;
 import io.bloco.cardcase.R;
 import io.bloco.cardcase.data.Database;
@@ -92,8 +89,12 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder implements View.
     @OnTextChanged(R.id.name_text_edit)
     public void afterTextChanged (CharSequence text) {
         if (text == null || text.length() == 0) { return; }
-        category.setName(text.toString());
-        database.saveCategory(category);
+        if (itemView.hasFocus()){
+            homeContract.showDoneButton();
+            category.setName(text.toString());
+            database.saveCategory(category);
+        }
+
     }
 
     private View.OnLongClickListener longClickListener = new View.OnLongClickListener() {
@@ -121,7 +122,6 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder implements View.
                 case 0:
                     nameTextView.setVisibility(View.GONE);
                     nameEditText.setVisibility(View.VISIBLE);
-                    homeContract.showDoneButton();
 
                     nameEditText.setText(category.getName());
                     nameEditText.activate();
