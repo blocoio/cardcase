@@ -12,8 +12,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-
-import butterknife.OnTextChanged;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,6 +19,7 @@ import javax.inject.Inject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnTextChanged;
 import io.bloco.cardcase.AndroidApplication;
 import io.bloco.cardcase.R;
 import io.bloco.cardcase.data.Database;
@@ -33,6 +32,9 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder implements View.
 
     @Bind(R.id.name_text_edit)
     MyEditText nameEditText;
+
+    @Bind(R.id.name_text_view)
+    TextView nameTextView;
 
     private final HomeContract.View homeContract;
     private final Database database;
@@ -53,6 +55,7 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder implements View.
         nameEditText.setInputType(InputType.TYPE_NULL);
         nameEditText.setBackgroundColor(Color.TRANSPARENT);
         nameEditText.setOnClickListener(this);
+        nameTextView.setOnClickListener(this);
 
         view.setOnLongClickListener(longClickListener);
         view.setOnCreateContextMenuListener(onCreateContextListener);
@@ -61,6 +64,7 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder implements View.
     public void bind(Category category) {
         this.category = category;
         nameEditText.setText(category.getName());
+        nameTextView.setText(category.getName());
     }
 
     public Category getCategory() {
@@ -86,8 +90,12 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder implements View.
     @OnTextChanged(R.id.name_text_edit)
     public void afterTextChanged (CharSequence text) {
         if (text == null || text.length() == 0) { return; }
-        category.setName(text.toString());
-        database.saveCategory(category);
+        if (itemView.hasFocus()){
+            homeContract.showDoneButton();
+            category.setName(text.toString());
+            database.saveCategory(category);
+        }
+
     }
 
     private View.OnLongClickListener longClickListener = new View.OnLongClickListener() {
@@ -113,7 +121,8 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder implements View.
 
             switch (item.getItemId()) {
                 case 0:
-                    homeContract.showDoneButton();
+                    nameTextView.setVisibility(View.GONE);
+                    nameEditText.setVisibility(View.VISIBLE);
 
                     nameEditText.setText(category.getName());
                     nameEditText.activate();

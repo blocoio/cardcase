@@ -152,8 +152,8 @@ public class CardDetailDialog implements AdapterView.OnItemSelectedListener {
                 dialog.dismiss();
                 database.deleteCard(cardInfoView.getCard());
                 closeActivityWithAnimation();
-                if (homeContract != null)
-                    homeContract.showCards(database.getReceivedCards());
+                //if (homeContract != null)
+                    //homeContract.showCards(database.getReceivedCards());
             }
         });
         builder.setNegativeButton("No", new DialogInterface.OnClickListener() {

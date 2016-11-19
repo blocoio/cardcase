@@ -91,12 +91,6 @@ public class ExchangeActivity extends BaseActivity implements ExchangeContract.V
             }
         });
 
-
-        if (database.getCategories().size() == 0) {
-            Category category = new Category();
-            category.setName("Unsorted");
-            database.saveCategory(category);
-        }
         //invite.setText(Html.fromHtml(getString(R.string.exchange_invite)));
 
         cardAdapter.showLoader();

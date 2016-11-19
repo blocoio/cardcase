@@ -11,6 +11,7 @@ import io.bloco.cardcase.common.analytics.AnalyticsService;
 import io.bloco.cardcase.common.di.PerActivity;
 import io.bloco.cardcase.data.Database;
 import io.bloco.cardcase.data.models.Card;
+import io.bloco.cardcase.data.models.Category;
 import io.bloco.cardcase.domain.GetUserCard;
 import io.bloco.cardcase.domain.SaveReceivedCards;
 
@@ -104,6 +105,11 @@ public class ExchangePresenter
 
     @Override
     public void clickedDone() {
+        if (database.getCategories().size() == 0) {
+            Category category = new Category();
+            category.setName("Unsorted");
+            database.saveCategory(category);
+        }
         saveReceivedCards.save(receivedCards, new SaveReceivedCards.Callback() {
             @Override
             public void onSavedReceivedCards(List<Card> savedCards) {

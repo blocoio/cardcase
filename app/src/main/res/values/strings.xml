@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Card Case</string>
     <string name="cards_received">Cards received</string>
+    <string name="theme_settings">Theme settings</string>
     <string name="user_card">My card</string>
     <string name="back">Back</string>
     <string name="done">Done</string>
