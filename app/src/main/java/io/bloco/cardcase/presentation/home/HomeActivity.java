@@ -98,6 +98,7 @@ public class HomeActivity extends BaseActivity implements HomeContract.View, Sea
         getWindow().setEnterTransition(slideEnd);
 
         done.setVisibility(View.INVISIBLE);
+        currentCategory = null;
     }
 
     private void initializeInjectors() {
@@ -112,10 +113,6 @@ public class HomeActivity extends BaseActivity implements HomeContract.View, Sea
 
     public void setCurrentCategory(Category currentCategory) {
         this.currentCategory = currentCategory;
-    }
-
-    public Category getCurrentCategory() {
-        return this.currentCategory;
     }
 
     @Override
@@ -142,6 +139,8 @@ public class HomeActivity extends BaseActivity implements HomeContract.View, Sea
         } else {
             finish();
         }
+        hideEmptySearchResult();
+        currentCategory = null;
     }
 
     @OnClick(R.id.home_exchange)
@@ -350,8 +349,8 @@ public class HomeActivity extends BaseActivity implements HomeContract.View, Sea
     @Override
     public void onSearchQuery(String query) {
         Timber.i("onSearchQuery");
-        Timber.i("current category:" + currentCategory.getId());
-        presenter.searchEntered(query, currentCategory.getId());
+        if (currentCategory != null) presenter.searchEntered(query, currentCategory.getId());
+        else presenter.searchEntered(query, null);
     }
 
     private void animateExchangeOverlay() {

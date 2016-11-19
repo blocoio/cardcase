@@ -7,6 +7,7 @@ import io.bloco.cardcase.data.models.Category;
 import io.bloco.cardcase.domain.GetCategories;
 import io.bloco.cardcase.domain.GetReceivedCards;
 import io.bloco.cardcase.domain.GetUserCard;
+import timber.log.Timber;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,14 +55,18 @@ public class HomePresenter
     public void clickedCloseSearch() {
         view.hideEmptySearchResult();
         view.closeSearch();
-        showReceivedCards();
     }
 
     @Override
     public void searchEntered(String query, UUID category) {
         List<Card> filteredCards = new ArrayList<>(receivedCards.size());
         for (Card card : receivedCards) {
-            if (card.matchQuery(query) && card.getCategoryId() == category) {
+            Timber.i("card's category id:" + card.getCategoryId());
+            Timber.i("current category id:" + category);
+            if (card.matchQuery(query) && card.getCategoryId().equals(category)) {
+                filteredCards.add(card);
+            }
+            if (category == null && card.matchQuery(query)) {
                 filteredCards.add(card);
             }
         }
@@ -72,6 +77,9 @@ public class HomePresenter
             view.hideEmptySearchResult();
         }
 
+        if (category == null) {
+            view.hideCategories();
+        }
         view.showCards(filteredCards);
     }
 
