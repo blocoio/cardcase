@@ -14,13 +14,12 @@ import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.TextView;
 
 import org.greenrobot.eventbus.EventBus;
 import org.w3c.dom.Text;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -36,7 +35,7 @@ import io.bloco.cardcase.domain.DoneClickedEvent;
 import io.bloco.cardcase.presentation.BaseActivity;
 import io.bloco.cardcase.presentation.common.CardAdapter;
 import io.bloco.cardcase.presentation.common.CategoryAdapter;
-import io.bloco.cardcase.presentation.common.CategoryViewHolder;
+import io.bloco.cardcase.presentation.common.MyEditText;
 import io.bloco.cardcase.presentation.common.SearchToolbar;
 import io.bloco.cardcase.presentation.exchange.ExchangeActivity;
 import io.bloco.cardcase.presentation.user.UserActivity;
@@ -74,7 +73,6 @@ public class HomeActivity extends BaseActivity implements HomeContract.View, Sea
     FloatingActionButton done;
 
     private Category currentCategory;
-    public Map<Category, CategoryViewHolder> categoryToHolder = new HashMap<>();
 
     public static class Factory {
         public static Intent getIntent(Context context) {
@@ -174,18 +172,15 @@ public class HomeActivity extends BaseActivity implements HomeContract.View, Sea
 
     @OnClick(R.id.category_done)
     public void onDoneClicked() {
-        for (CategoryViewHolder categoryViewHolder : categoryToHolder.values()) {
-            categoryViewHolder.closeEdit();
-        }
-
         MyEditText nameEdit = ((MyEditText)findViewById(R.id.name_text_edit));
         nameEdit.deactivate();
         hideDoneButton();
-
         try {
             getCurrentFocus().clearFocus();
         }
-        catch (NullPointerException ignored) {}
+        catch (NullPointerException npe) {
+
+        }
 
         EventBus.getDefault().post(new DoneClickedEvent("Zdraste!"));
 
