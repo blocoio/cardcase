@@ -14,6 +14,9 @@ import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 import java.util.List;
 
@@ -159,9 +162,19 @@ public class HomeActivity extends BaseActivity implements HomeContract.View, Sea
 
     @OnClick(R.id.category_done)
     public void onDoneClicked() {
-        ((MyEditText)findViewById(R.id.name_text_edit)).deactivate();
+        MyEditText nameEdit = ((MyEditText)findViewById(R.id.name_text_edit));
+        TextView nameText = ((TextView)findViewById(R.id.name_text_view));
+        nameEdit.deactivate();
+        nameEdit.setVisibility(View.GONE);
+        nameText.setVisibility(View.VISIBLE);
+        nameText.setText(nameEdit.getText());
         hideDoneButton();
-        getCurrentFocus().clearFocus();
+        try {
+            getCurrentFocus().clearFocus();
+        }
+        catch (NullPointerException npe) {
+
+        }
 
         //close virtual keyboard
         InputMethodManager inputManager = (InputMethodManager)

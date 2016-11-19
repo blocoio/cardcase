@@ -13,6 +13,8 @@ import android.view.View;
 import android.widget.TextView;
 
 
+import org.w3c.dom.Text;
+
 import butterknife.OnTextChanged;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +35,9 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder implements View.
     @Bind(R.id.name_text_edit)
     MyEditText nameEditText;
 
+    @Bind(R.id.name_text_view)
+    TextView nameTextView;
+
     private final HomeContract.View homeContract;
     private final Database database;
 
@@ -52,6 +57,7 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder implements View.
         nameEditText.setInputType(InputType.TYPE_NULL);
         nameEditText.setBackgroundColor(Color.TRANSPARENT);
         nameEditText.setOnClickListener(this);
+        nameTextView.setOnClickListener(this);
 
         view.setOnLongClickListener(longClickListener);
         view.setOnCreateContextMenuListener(onCreateContextListener);
@@ -61,6 +67,7 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder implements View.
     public void bind(Category category) {
         this.category = category;
         nameEditText.setText(category.getName());
+        nameTextView.setText(category.getName());
     }
 
     public Category getCategory() {
@@ -112,6 +119,8 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder implements View.
 
             switch (item.getItemId()) {
                 case 0:
+                    nameTextView.setVisibility(View.GONE);
+                    nameEditText.setVisibility(View.VISIBLE);
                     homeContract.showDoneButton();
 
                     nameEditText.setText(category.getName());
