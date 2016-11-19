@@ -33,7 +33,7 @@
         android:textColor="@color/text_alt"
         android:textStyle="bold"
         tools:ignore="MissingPrefix"
-        tools:text="@string/cards_received"/>
+        tools:text="@string/cards_received" />
 
     <ImageButton
         android:id="@+id/toolbar_icon_end"
