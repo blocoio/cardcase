@@ -26,7 +26,10 @@ import io.bloco.cardcase.R;
 import io.bloco.cardcase.data.Database;
 import io.bloco.cardcase.data.models.Card;
 import io.bloco.cardcase.data.models.Category;
+import io.bloco.cardcase.presentation.home.HomeActivity;
 import io.bloco.cardcase.presentation.home.HomeContract;
+import io.bloco.cardcase.presentation.home.HomePresenter;
+import timber.log.Timber;
 
 public class CategoryViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
@@ -55,12 +58,12 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder implements View.
 
         view.setOnLongClickListener(longClickListener);
         view.setOnCreateContextMenuListener(onCreateContextListener);
-
     }
 
     public void bind(Category category) {
         this.category = category;
         nameEditText.setText(category.getName());
+        ((HomeActivity) homeContract).setCurrentCategory(category);
     }
 
     public Category getCategory() {
@@ -80,6 +83,7 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder implements View.
         }
         homeContract.hideCategories();
         homeContract.showCards(cardsByCategory);
+        ((HomeActivity) homeContract).setCurrentCategory(category);
     }
 
     @OnTextChanged(R.id.name_text_edit)

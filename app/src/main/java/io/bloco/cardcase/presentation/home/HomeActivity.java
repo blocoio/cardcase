@@ -67,6 +67,8 @@ public class HomeActivity extends BaseActivity implements HomeContract.View, Sea
     @Bind(R.id.category_done)
     FloatingActionButton done;
 
+    private Category currentCategory;
+
     public static class Factory {
         public static Intent getIntent(Context context) {
             return new Intent(context, HomeActivity.class);
@@ -81,7 +83,6 @@ public class HomeActivity extends BaseActivity implements HomeContract.View, Sea
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-
         initializeInjectors();
 
         bindToolbar();
@@ -107,6 +108,14 @@ public class HomeActivity extends BaseActivity implements HomeContract.View, Sea
         component.inject(this);
 
         ButterKnife.bind(this);
+    }
+
+    public void setCurrentCategory(Category currentCategory) {
+        this.currentCategory = currentCategory;
+    }
+
+    public Category getCurrentCategory() {
+        return this.currentCategory;
     }
 
     @Override
@@ -324,17 +333,6 @@ public class HomeActivity extends BaseActivity implements HomeContract.View, Sea
     }
 
     @Override
-    public void onSearchClosed() {
-        presenter.clickedCloseSearch();
-    }
-
-    @Override
-    public void onSearchQuery(String query) {
-        Timber.i("onSearchQuery");
-        presenter.searchEntered(query);
-    }
-
-    @Override
     public void showDoneButton() {
         done.setVisibility(View.VISIBLE);
     }
@@ -342,6 +340,18 @@ public class HomeActivity extends BaseActivity implements HomeContract.View, Sea
     @Override
     public void hideDoneButton() {
         done.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void onSearchClosed() {
+        presenter.clickedCloseSearch();
+    }
+
+    @Override
+    public void onSearchQuery(String query) {
+        Timber.i("onSearchQuery");
+        Timber.i("current category:" + currentCategory.getId());
+        presenter.searchEntered(query, currentCategory.getId());
     }
 
     private void animateExchangeOverlay() {
