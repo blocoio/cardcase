@@ -59,6 +59,7 @@ public class HomePresenter
 
     @Override
     public void searchEntered(String query, UUID category) {
+        getReceivedCards.get(this);
         List<Card> filteredCards = new ArrayList<>(receivedCards.size());
         for (Card card : receivedCards) {
             Timber.i("card's category id:" + card.getCategoryId());
