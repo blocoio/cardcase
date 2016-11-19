@@ -36,7 +36,7 @@
             android:ems="10"
             android:visibility="visible"
             android:layout_gravity="center_vertical"
-            android:textColor="@color/red"
+            android:textColor="@color/background_crop"
             android:paddingTop="@dimen/margin_default"
             android:id="@+id/name_text_view" />
 
