@@ -1,110 +1,112 @@
 buildscript {
-  repositories {
-    maven { url 'https://maven.fabric.io/public' }
-  }
+    repositories {
+        maven { url 'https://maven.fabric.io/public' }
+    }
 
-  dependencies {
-    classpath 'io.fabric.tools:gradle:1.21.4'
-  }
+    dependencies {
+        classpath 'io.fabric.tools:gradle:1.21.4'
+    }
 }
 apply plugin: 'com.android.application'
 apply plugin: 'io.fabric'
 apply plugin: 'com.neenbedankt.android-apt'
 
 repositories {
-  maven { url 'https://jitpack.io' }
-  maven { url 'https://maven.fabric.io/public' }
+    maven { url 'https://jitpack.io' }
+    maven { url 'https://maven.fabric.io/public' }
 }
 
 android {
-  compileSdkVersion 23
-  buildToolsVersion '23.0.3'
-  lintOptions{
-    abortOnError false
-  }
-
-  defaultConfig {
-    applicationId "io.bloco.cardcase"
-    minSdkVersion 21
-    targetSdkVersion 23
-    versionCode 23
-    versionName "1.0.3"
-    testInstrumentationRunner 'android.support.test.runner.AndroidJUnitRunner'
-
-    def filesAuthorityValue = applicationId + ".files"
-    manifestPlaceholders = [filesAuthority: filesAuthorityValue]
-    buildConfigField "String", "FILES_AUTORITY", "\"${filesAuthorityValue}\""
-    resValue "string", "google_nearby_api_key",
-        getLocalProperties().getProperty("google_nearby_api_key")
-  }
-
-  buildTypes {
-    release {
-      minifyEnabled true
-      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+    compileSdkVersion 23
+    buildToolsVersion '23.0.3'
+    lintOptions {
+        abortOnError false
     }
-  }
 
-  packagingOptions {
-    exclude 'LICENSE'
-    exclude 'LICENSE.txt'
-    exclude 'NOTICE'
-    exclude 'asm-license.txt'
-    exclude 'META-INF/LICENSE.txt'
-    exclude 'META-INF/services/javax.annotation.processing.Processor'
-  }
+    defaultConfig {
+        applicationId "io.bloco.cardcase"
+        minSdkVersion 21
+        targetSdkVersion 23
+        versionCode 23
+        versionName "1.0.3"
+        testInstrumentationRunner 'android.support.test.runner.AndroidJUnitRunner'
+
+        def filesAuthorityValue = applicationId + ".files"
+        manifestPlaceholders = [filesAuthority: filesAuthorityValue]
+        buildConfigField "String", "FILES_AUTORITY", "\"${filesAuthorityValue}\""
+        resValue "string", "google_nearby_api_key",
+                getLocalProperties().getProperty("google_nearby_api_key")
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    packagingOptions {
+        exclude 'LICENSE'
+        exclude 'LICENSE.txt'
+        exclude 'NOTICE'
+        exclude 'asm-license.txt'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/services/javax.annotation.processing.Processor'
+    }
 }
 
 dependencies {
-  compile 'com.android.support:appcompat-v7:23.3.0'
-  compile 'com.android.support:cardview-v7:23.3.0'
-  compile 'com.android.support:design:23.3.0'
-  compile 'com.google.android.gms:play-services-nearby:8.4.0'
-  compile 'com.google.android.gms:play-services-appinvite:8.4.0'
-  compile 'com.google.android.gms:play-services-analytics:8.4.0'
-  // Dagger
-  compile 'com.google.dagger:dagger:2.0.2'
-  apt 'com.google.dagger:dagger-compiler:2.0.2'
-  compile 'javax.annotation:jsr250-api:1.0'
-  // Logging
-  compile 'com.jakewharton.timber:timber:4.1.0'
-  // View injection
-  compile 'com.jakewharton:butterknife:7.0.1'
-  // Database
-  compile 'com.j256.ormlite:ormlite-android:4.48'
-  // Fonts
-  compile 'uk.co.chrisjenx:calligraphy:2.1.0'
-  // Image loading
-  compile 'com.squareup.picasso:picasso:2.5.2'
-  // Crop avatar
-  compile 'com.lyft:scissors:1.0.1'
-  // JSON serialization
-  compile 'com.google.code.gson:gson:2.6.2'
-  // Crash & usage monitoring
-  compile('com.crashlytics.sdk.android:crashlytics:2.6.5@aar') {
-    transitive = true;
-  }
-  // Generate fake data
-  compile 'com.github.blocoio:faker:1.2.3'
-  // Testing
-  testCompile 'junit:junit:4.12'
-  testCompile 'org.mockito:mockito-core:2.0.31-beta'
-  androidTestCompile 'com.android.support.test.uiautomator:uiautomator-v18:2.1.1'
-  androidTestCompile 'junit:junit:4.12'
-  androidTestCompile 'com.android.support:support-annotations:23.3.0'
-  androidTestCompile 'com.android.support.test:runner:0.4.1'
-  androidTestCompile 'com.android.support.test:rules:0.4.1'
-  androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.1'
-  androidTestCompile('com.android.support.test.espresso:espresso-contrib:2.2.1') {
-    exclude module: 'recyclerview-v7'
-    exclude module: 'support-v4'
-  }
+    compile 'com.android.support:appcompat-v7:23.3.0'
+    compile 'com.android.support:cardview-v7:23.3.0'
+    compile 'com.android.support:design:23.3.0'
+    compile 'com.google.android.gms:play-services-nearby:8.4.0'
+    compile 'com.google.android.gms:play-services-appinvite:8.4.0'
+    compile 'com.google.android.gms:play-services-analytics:8.4.0'
+    // Dagger
+    compile 'com.google.dagger:dagger:2.0.2'
+    apt 'com.google.dagger:dagger-compiler:2.0.2'
+    compile 'javax.annotation:jsr250-api:1.0'
+    // Logging
+    compile 'com.jakewharton.timber:timber:4.1.0'
+    // View injection
+    compile 'com.jakewharton:butterknife:7.0.1'
+    // Database
+    compile 'com.j256.ormlite:ormlite-android:4.48'
+    // Fonts
+    compile 'uk.co.chrisjenx:calligraphy:2.1.0'
+    // Image loading
+    compile 'com.squareup.picasso:picasso:2.5.2'
+    // Crop avatar
+    compile 'com.lyft:scissors:1.0.1'
+    // JSON serialization
+    compile 'com.google.code.gson:gson:2.6.2'
+    // Crash & usage monitoring
+    compile('com.crashlytics.sdk.android:crashlytics:2.6.5@aar') {
+        transitive = true;
+    }
+    // Generate fake data
+    compile 'com.github.blocoio:faker:1.2.3'
+    //EventBus
+    compile 'org.greenrobot:eventbus:3.0.0'
+    // Testing
+    testCompile 'junit:junit:4.12'
+    testCompile 'org.mockito:mockito-core:2.0.31-beta'
+    androidTestCompile 'com.android.support.test.uiautomator:uiautomator-v18:2.1.1'
+    androidTestCompile 'junit:junit:4.12'
+    androidTestCompile 'com.android.support:support-annotations:23.3.0'
+    androidTestCompile 'com.android.support.test:runner:0.4.1'
+    androidTestCompile 'com.android.support.test:rules:0.4.1'
+    androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.1'
+    androidTestCompile('com.android.support.test.espresso:espresso-contrib:2.2.1') {
+        exclude module: 'recyclerview-v7'
+        exclude module: 'support-v4'
+    }
 }
 
 apply plugin: 'com.google.gms.google-services'
 
 def getLocalProperties() {
-  Properties properties = new Properties()
-  properties.load(new File(rootDir.absolutePath + "/local.properties").newDataInputStream())
-  return properties
+    Properties properties = new Properties()
+    properties.load(new File(rootDir.absolutePath + "/local.properties").newDataInputStream())
+    return properties
 }

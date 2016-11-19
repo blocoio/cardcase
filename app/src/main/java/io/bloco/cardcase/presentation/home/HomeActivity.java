@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 
+import org.greenrobot.eventbus.EventBus;
 import org.w3c.dom.Text;
 
 import java.util.List;
@@ -30,6 +31,7 @@ import io.bloco.cardcase.common.di.ActivityComponent;
 import io.bloco.cardcase.common.di.DaggerActivityComponent;
 import io.bloco.cardcase.data.models.Card;
 import io.bloco.cardcase.data.models.Category;
+import io.bloco.cardcase.domain.DoneClickedEvent;
 import io.bloco.cardcase.presentation.BaseActivity;
 import io.bloco.cardcase.presentation.common.CardAdapter;
 import io.bloco.cardcase.presentation.common.CategoryAdapter;
@@ -171,11 +173,7 @@ public class HomeActivity extends BaseActivity implements HomeContract.View, Sea
     @OnClick(R.id.category_done)
     public void onDoneClicked() {
         MyEditText nameEdit = ((MyEditText)findViewById(R.id.name_text_edit));
-        TextView nameText = ((TextView)findViewById(R.id.name_text_view));
         nameEdit.deactivate();
-        nameEdit.setVisibility(View.GONE);
-        nameText.setVisibility(View.VISIBLE);
-        nameText.setText(nameEdit.getText());
         hideDoneButton();
         try {
             getCurrentFocus().clearFocus();
@@ -183,6 +181,8 @@ public class HomeActivity extends BaseActivity implements HomeContract.View, Sea
         catch (NullPointerException npe) {
 
         }
+
+        EventBus.getDefault().post(new DoneClickedEvent("Zdraste!"));
 
         //close virtual keyboard
         InputMethodManager inputManager = (InputMethodManager)

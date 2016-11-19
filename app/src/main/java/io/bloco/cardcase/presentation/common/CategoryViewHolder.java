@@ -3,6 +3,7 @@ package io.bloco.cardcase.presentation.common;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.graphics.Color;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.text.InputType;
@@ -12,6 +13,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,12 +24,14 @@ import javax.inject.Inject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.OnTextChanged;
 import io.bloco.cardcase.AndroidApplication;
 import io.bloco.cardcase.R;
 import io.bloco.cardcase.data.Database;
 import io.bloco.cardcase.data.models.Card;
 import io.bloco.cardcase.data.models.Category;
+import io.bloco.cardcase.domain.DoneClickedEvent;
 import io.bloco.cardcase.presentation.home.HomeActivity;
 import io.bloco.cardcase.presentation.home.HomeContract;
 
@@ -32,7 +39,6 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder implements View.
 
     @Bind(R.id.name_text_edit)
     MyEditText nameEditText;
-
     @Bind(R.id.name_text_view)
     TextView nameTextView;
 
@@ -59,6 +65,8 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder implements View.
 
         view.setOnLongClickListener(longClickListener);
         view.setOnCreateContextMenuListener(onCreateContextListener);
+
+        EventBus.getDefault().register(this);
     }
 
     public void bind(Category category) {
@@ -73,7 +81,9 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder implements View.
 
     @Override
     public void onClick(View view) {
-        if (nameEditText.getInputType() == InputType.TYPE_CLASS_TEXT) { return; }
+        if (nameEditText.getInputType() == InputType.TYPE_CLASS_TEXT) {
+            return;
+        }
 
         List<Card> cards = database.getReceivedCards();
         List<Card> cardsByCategory = new ArrayList<>();
@@ -88,9 +98,11 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder implements View.
     }
 
     @OnTextChanged(R.id.name_text_edit)
-    public void afterTextChanged (CharSequence text) {
-        if (text == null || text.length() == 0) { return; }
-        if (itemView.hasFocus()){
+    public void afterTextChanged(CharSequence text) {
+        if (text == null || text.length() == 0) {
+            return;
+        }
+        if (itemView.hasFocus()) {
             homeContract.showDoneButton();
             category.setName(text.toString());
             database.saveCategory(category);
@@ -114,6 +126,14 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder implements View.
         }
 
     };
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(DoneClickedEvent event) {
+        nameEditText.deactivate();
+        nameEditText.setVisibility(View.GONE);
+        nameTextView.setVisibility(View.VISIBLE);
+        nameTextView.setText(nameEditText.getText());
+    }
 
     private MenuItem.OnMenuItemClickListener mMenuItemClickListener = new MenuItem.OnMenuItemClickListener() {
         @Override
