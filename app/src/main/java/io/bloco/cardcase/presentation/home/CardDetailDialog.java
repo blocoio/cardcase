@@ -4,7 +4,6 @@ import android.animation.Animator;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.Gravity;
@@ -12,7 +11,6 @@ import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.Window;
 import android.view.WindowManager;
-import android.view.animation.Animation;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
@@ -208,6 +206,7 @@ public class CardDetailDialog implements AdapterView.OnItemSelectedListener {
         categories = database.getCategories();
         cardInfoView.getCard().setCategoryId(categories.get(position).getId());
         database.saveCard(cardInfoView.getCard());
+        homeContract.getCardAdapter().moveCard(cardInfoView.getCard());
     }
 
     @Override

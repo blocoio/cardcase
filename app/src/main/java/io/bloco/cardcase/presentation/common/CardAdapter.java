@@ -85,6 +85,12 @@ public class CardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         this.cards = cards;
     }
 
+    public void moveCard(Card card) {
+        int index = cards.indexOf(card);
+        cards.remove(card);
+        notifyItemRemoved(index);
+    }
+
     private static class FooterViewHolder extends RecyclerView.ViewHolder {
 
         private final View view;
