@@ -49,6 +49,8 @@
         <activity
             android:name=".presentation.welcome.WelcomeActivity"
             android:screenOrientation="portrait" />
+        <activity android:name=".presentation.home.SettingsActivity"
+            android:screenOrientation="portrait" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -63,14 +65,6 @@
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="776cf45457ec459f9525ddd0617f22bc97a283f5" />
-
-        <activity android:name=".presentation.home.SettingsActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
     </application>
 
 </manifest>
