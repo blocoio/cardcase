@@ -67,13 +67,22 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder implements View.
         nameTextView.setText(category.getName());
     }
 
+    public void closeEdit() {
+        nameEditText.deactivate();
+        nameEditText.setVisibility(View.GONE);
+        nameTextView.setVisibility(View.VISIBLE);
+        nameTextView.setText(nameEditText.getText());
+    }
+
     public Category getCategory() {
         return category;
     }
 
     @Override
     public void onClick(View view) {
-        if (nameEditText.getInputType() == InputType.TYPE_CLASS_TEXT) { return; }
+        if (nameEditText.getInputType() == InputType.TYPE_CLASS_TEXT) {
+            return;
+        }
 
         List<Card> cards = database.getReceivedCards();
         List<Card> cardsByCategory = new ArrayList<>();
@@ -88,9 +97,11 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder implements View.
     }
 
     @OnTextChanged(R.id.name_text_edit)
-    public void afterTextChanged (CharSequence text) {
-        if (text == null || text.length() == 0) { return; }
-        if (itemView.hasFocus()){
+    public void afterTextChanged(CharSequence text) {
+        if (text == null || text.length() == 0) {
+            return;
+        }
+        if (itemView.hasFocus()) {
             homeContract.showDoneButton();
             category.setName(text.toString());
             database.saveCategory(category);

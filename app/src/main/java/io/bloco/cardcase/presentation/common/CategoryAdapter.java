@@ -10,6 +10,7 @@ import io.bloco.cardcase.R;
 import io.bloco.cardcase.common.di.PerActivity;
 import io.bloco.cardcase.data.Database;
 import io.bloco.cardcase.data.models.Category;
+import io.bloco.cardcase.presentation.home.HomeActivity;
 import io.bloco.cardcase.presentation.home.HomeContract;
 
 import java.util.ArrayList;
@@ -75,6 +76,8 @@ public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         if (holder instanceof CategoryViewHolder) {
             Category category = categories.get(position);
             ((CategoryViewHolder) holder).bind(category);
+            ((HomeActivity)homeContract).categoryToHolder.put(category, ((CategoryViewHolder) holder));
+
         } else if (holder instanceof FooterViewHolder) {
             ((FooterViewHolder) holder).start();
         }
