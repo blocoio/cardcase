@@ -92,7 +92,7 @@ public class ExchangeActivity extends BaseActivity implements ExchangeContract.V
             }
         });
 
-        //invite.setText(Html.fromHtml(getString(R.string.exchange_invite)));
+        invite.setText(Html.fromHtml(getString(R.string.exchange_invite)));
 
         cardAdapter.showLoader();
     }
