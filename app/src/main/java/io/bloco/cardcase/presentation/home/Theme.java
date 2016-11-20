@@ -142,6 +142,11 @@ public class Theme {
             editText.getBackground().setColorFilter(textIconColor, PorterDuff.Mode.SRC_ATOP);
         }
 
+        // Text fields on Category
+        for (Button buttonExchange : getViewsFromViewGroup(view.findViewById(R.id.exchange_container), Button.class)) {
+            buttonExchange.setBackgroundColor(currentBackgroundColor);
+            buttonExchange.getBackground().setColorFilter(currentBackgroundColor, PorterDuff.Mode.SRC_ATOP);
+        }
 
         // Transition overlay view on Home screen
         if (view.findViewById(R.id.home_transition_overlay) != null) {
