@@ -67,6 +67,7 @@ public class HomeActivityTest {
 
     @Before
     public void eraseData() {
+        cardFactory.clear();
         cardFactory.clearCategories();
     }
 
@@ -105,7 +106,7 @@ public class HomeActivityTest {
         mDevice.findObject(new UiSelector().textStartsWith("Yes")).click();
 
 
-        while (!mDevice.pressBack()) ;
+        mDevice.pressBack();
         mDevice.findObject(new UiSelector().text(category.getName())).click();
         onView(withText(card.getName())).check(doesNotExist());
     }
