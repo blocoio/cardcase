@@ -15,6 +15,7 @@ import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.greenrobot.eventbus.EventBus;
 import org.w3c.dom.Text;
@@ -203,6 +204,14 @@ public class HomeActivity extends BaseActivity implements HomeContract.View, Sea
     public void showCards(final List<Card> cards) {
         cardAdapter.setCards(cards);
         cardsView.setAdapter(cardAdapter);
+        if (cards.size() == 0) {
+            Context context = getApplicationContext();
+            CharSequence text = "Category is empty!";
+            int duration = Toast.LENGTH_SHORT;
+            Toast toast = Toast.makeText(context, text, duration);
+            toast.show();
+        }
+
         RecyclerView.LayoutManager layoutManager =
                 new LinearLayoutManager(HomeActivity.this, LinearLayoutManager.VERTICAL, false);
         cardsView.setLayoutManager(layoutManager);
