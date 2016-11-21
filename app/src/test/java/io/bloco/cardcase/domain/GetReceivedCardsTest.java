@@ -26,6 +26,7 @@ public class GetReceivedCardsTest {
   }
 
   @Test public void testGet() {
+
     List<Card> cards = Arrays.asList(new Card(), new Card());
     when(database.getReceivedCards()).thenReturn(cards);
 

@@ -34,9 +34,11 @@ public class CardFactory {
         this.categoryDao = new ApplicationModule(application).provideCategoryDao();
     }
 
-    public CardFactory(RuntimeExceptionDao<Card, UUID> cardDao) {
+    public CardFactory(RuntimeExceptionDao<Card, UUID> cardDao, RuntimeExceptionDao<Category, UUID> categoryDao) {
         this();
         this.cardDao = cardDao;
+        this.categoryDao = categoryDao;
+
     }
 
     public Category buildCategory(String name) {
