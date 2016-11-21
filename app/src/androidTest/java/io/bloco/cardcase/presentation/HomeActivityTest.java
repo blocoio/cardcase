@@ -5,7 +5,6 @@ import android.support.test.runner.AndroidJUnit4;
 import android.support.test.uiautomator.UiDevice;
 import android.support.test.uiautomator.UiObject;
 import android.support.test.uiautomator.UiSelector;
-import android.util.Log;
 
 import io.bloco.cardcase.R;
 import io.bloco.cardcase.data.Database;
@@ -26,13 +25,13 @@ import javax.inject.Inject;
 
 import static android.support.test.InstrumentationRegistry.getInstrumentation;
 import static android.support.test.espresso.Espresso.onView;
-import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.assertion.ViewAssertions.doesNotExist;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static io.bloco.cardcase.helpers.AssertCurrentActivity.assertCurrentActivity;
+import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.core.StringStartsWith.startsWith;
 
 @RunWith(AndroidJUnit4.class)
@@ -66,18 +65,24 @@ public class HomeActivityTest {
         assertCurrentActivity(HomeActivity.class);
     }
 
+    @Before
+    public void eraseData() {
+        cardFactory.clearCategories();
+    }
+
     @Test
     public void testCategories() throws Exception {
-        Card card = createReceivedCard();
         Category category = cardFactory.buildCategory("test");
+        Card card = createReceivedCard();
         card.setCategoryId(category.getId());
         cardFactory.updateCard(card);
 
         createUserCard();
         launchApp();
 
-        onView(withText(card.getName())).check(doesNotExist());
-        onView(withText(category.getName())).perform(click());
+        onView(withText(card.getName())).check(matches(not(isDisplayed())));
+        UiObject categoryObject = mDevice.findObject(new UiSelector().text(category.getName()));
+        categoryObject.click();
         onView(withText(card.getName())).check(matches(isDisplayed()));
     }
 
@@ -108,16 +113,15 @@ public class HomeActivityTest {
     @Test
     public void testViewCardDetails() throws Exception {
         Card card = createReceivedCard();
-        Category category = cardFactory.buildCategory("new cat");
+        Category category = cardFactory.buildCategory("yet another cat");
         card.setCategoryId(category.getId());
         cardFactory.updateCard(card);
 
         createUserCard();
         launchApp();
 
-        onView(withText(category.getName())).perform(click());
-        UiObject cardObject = mDevice.findObject(new UiSelector().text(card.getName()));
-        cardObject.click();
+        mDevice.findObject(new UiSelector().text(category.getName())).click();
+        mDevice.findObject(new UiSelector().text(card.getName())).click();
 
         onView(withId(R.id.card_avatar)).check(matches(isDisplayed()));
         onView(withId(R.id.card_name)).check(matches(withText(card.getName())));
@@ -136,17 +140,15 @@ public class HomeActivityTest {
         createUserCard();
         launchApp();
 
-        UiObject categoryObject = mDevice.findObject(new UiSelector().text(category.getName()));
-        categoryObject.click();
-
+        mDevice.findObject(new UiSelector().text(category.getName())).click();
         mDevice.findObject(new UiSelector().text(card.getName())).click();
         mDevice.findObject(new UiSelector().descriptionStartsWith("Share")).click();
 
-        //// FIXME: 10.11.16 some magic:/
-//        assertCurrentActivity(ExchangeActivity.class);
+
+        assertCurrentActivity(ExchangeActivity.class);
 
         while (!mDevice.pressBack());
-        assertCurrentActivity(ExchangeActivity.class);
+        assertCurrentActivity(HomeActivity.class);
 
     }
 

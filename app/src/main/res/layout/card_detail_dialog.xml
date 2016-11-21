@@ -17,6 +17,7 @@
             android:layout_height="match_parent"
             android:layout_width="0px"
             android:layout_weight="2"
+            android:contentDescription="@string/share"
             android:src="@drawable/ic_exchange"
             android:background="@color/background"
             />
@@ -32,6 +33,7 @@
             android:layout_height="match_parent"
             android:layout_width="0px"
             android:layout_weight="2"
+            android:contentDescription="@string/delete"
             android:src="@drawable/ic_delete_forever_white_24px"
             android:background="@color/background"
             />
