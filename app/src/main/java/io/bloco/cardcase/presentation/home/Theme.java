@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import java.util.ArrayList;
+
+import butterknife.ButterKnife;
 import io.bloco.cardcase.R;
 import io.bloco.cardcase.presentation.Preferences;
 import io.bloco.cardcase.presentation.common.Toolbar;
@@ -149,8 +151,9 @@ public class Theme {
         }
 
         // Transition overlay view on Home screen
-        if (view.findViewById(R.id.home_transition_overlay) != null) {
-            view.findViewById(R.id.home_transition_overlay).setBackgroundColor(currentBackgroundColor);
+        View transitionOverlay = ButterKnife.findById(view, R.id.home_transition_overlay);
+        if (transitionOverlay != null) {
+            transitionOverlay.setBackgroundColor(currentBackgroundColor);
         }
 
     }
