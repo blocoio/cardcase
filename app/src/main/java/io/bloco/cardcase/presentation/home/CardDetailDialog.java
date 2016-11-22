@@ -1,6 +1,7 @@
 package io.bloco.cardcase.presentation.home;
 
 import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -196,7 +197,9 @@ public class CardDetailDialog implements AdapterView.OnItemSelectedListener {
                 overlay.setVisibility(View.GONE);
                 dialog.dismiss();
             }
-        }, 400);
+        }, 300);
+
+
     }
 
     @Override

@@ -11,7 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/secondary"
-        android:visibility="gone" />
+        android:visibility="visible"
+        android:translationZ="200dp"/>
 
     <android.support.design.widget.CoordinatorLayout
         style="@style/layout"
@@ -90,7 +91,7 @@
                 android:id="@+id/home_cards"
                 style="@style/layout_inner"
                 android:visibility="gone"
-                android:translationZ="-100dp"
+
                 />
 
         <android.support.design.widget.FloatingActionButton

@@ -18,7 +18,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import org.greenrobot.eventbus.EventBus;
-import org.w3c.dom.Text;
 
 import java.util.List;
 
@@ -124,6 +123,7 @@ public class HomeActivity extends BaseActivity implements HomeContract.View, Sea
     @Override
     protected void onStart() {
         super.onStart();
+        transitionOverlay.setVisibility(View.GONE);
         presenter.start(this);
     }
 

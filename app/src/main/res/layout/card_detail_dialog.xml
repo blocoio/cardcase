@@ -51,26 +51,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <!--<android.support.design.widget.FloatingActionButton-->
-                <!--android:id="@+id/buttonDeleteCard"-->
-                <!--style="@style/fab"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_gravity="end"-->
-                <!--android:contentDescription="@string/delete"-->
-                <!--android:src="@drawable/ic_delete_forever_white_24px"-->
-                <!--android:background="@color/red" />-->
-
-            <!--<android.support.design.widget.FloatingActionButton-->
-                <!--android:id="@+id/buttonShareCard"-->
-                <!--style="@style/fab"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_gravity="start"-->
-                <!--android:contentDescription="@string/share"-->
-                <!--android:src="@drawable/ic_exchange"-->
-                <!--android:background="@color/secondary" />-->
-
             <io.bloco.cardcase.presentation.common.CardInfoView
                 android:id="@+id/card_dialog_info"
                 android:layout_width="match_parent"
@@ -81,7 +61,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/cardview_light_background"
-                android:visibility="gone" />
+                android:visibility="visible" />
         </FrameLayout>
     </ScrollView>
 
