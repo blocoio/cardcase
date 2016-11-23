@@ -16,95 +16,89 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-@PerActivity
-public class CardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+@PerActivity public class CardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private static class ViewType {
-        private static final int NORMAL = 0;
-        private static final int FOOTER = 1;
+  private static class ViewType {
+    private static final int NORMAL = 0;
+    private static final int FOOTER = 1;
+  }
+
+  private final CardDetailDialog cardDetailDialog;
+  private final Database database;
+  private List<Card> cards;
+  private boolean showLoader;
+
+  @Inject public CardAdapter(CardDetailDialog cardDetailDialog, Database database) {
+    this.cards = new ArrayList<>();
+    this.cardDetailDialog = cardDetailDialog;
+    this.showLoader = false;
+    this.database = database;
+  }
+
+  public void showLoader() {
+    this.showLoader = true;
+  }
+
+  public List<Card> getCards() {
+    return this.cards;
+  }
+
+  @Override public int getItemCount() {
+    return cards.size() + (showLoader ? 1 : 0);
+  }
+
+  @Override public int getItemViewType(int position) {
+    if (position < cards.size()) {
+      return ViewType.NORMAL;
+    } else {
+      return ViewType.FOOTER;
+    }
+  }
+
+  @Override public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    View view;
+    switch (viewType) {
+      case ViewType.FOOTER:
+        view = LayoutInflater.from(parent.getContext())
+            .inflate(R.layout.card_list_loader, parent, false);
+        return new FooterViewHolder(view);
+
+      case ViewType.NORMAL:
+      default:
+        view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_card, parent, false);
+        return new CardViewHolder(view, cardDetailDialog, database);
+    }
+  }
+
+  @Override public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    if (holder instanceof CardViewHolder) {
+      Card card = cards.get(position);
+      ((CardViewHolder) holder).bind(card);
+    } else if (holder instanceof FooterViewHolder) {
+      ((FooterViewHolder) holder).start();
+    }
+  }
+
+  public void setCards(List<Card> cards) {
+    this.cards = cards;
+  }
+
+  public void moveCard(Card card) {
+    int index = cards.indexOf(card);
+    cards.remove(card);
+    notifyItemRemoved(index);
+  }
+
+  private static class FooterViewHolder extends RecyclerView.ViewHolder {
+
+    private final View view;
+
+    public FooterViewHolder(View view) {
+      super(view);
+      this.view = view;
     }
 
-    private final CardDetailDialog cardDetailDialog;
-    private final Database database;
-    private List<Card> cards;
-    private boolean showLoader;
-
-    @Inject
-    public CardAdapter(CardDetailDialog cardDetailDialog, Database database) {
-        this.cards = new ArrayList<>();
-        this.cardDetailDialog = cardDetailDialog;
-        this.showLoader = false;
-        this.database = database;
+    public void start() {
     }
-
-    public void showLoader() {
-        this.showLoader = true;
-    }
-
-    public List<Card> getCards() {
-        return this.cards;
-    }
-
-    @Override
-    public int getItemCount() {
-        return cards.size() + (showLoader ? 1 : 0);
-    }
-
-    @Override
-    public int getItemViewType(int position) {
-        if (position < cards.size()) {
-            return ViewType.NORMAL;
-        } else {
-            return ViewType.FOOTER;
-        }
-    }
-
-    @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view;
-        switch (viewType) {
-            case ViewType.FOOTER:
-                view = LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.card_list_loader, parent, false);
-                return new FooterViewHolder(view);
-
-            case ViewType.NORMAL:
-            default:
-                view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_card, parent, false);
-                return new CardViewHolder(view, cardDetailDialog, database);
-        }
-    }
-
-    @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        if (holder instanceof CardViewHolder) {
-            Card card = cards.get(position);
-            ((CardViewHolder) holder).bind(card);
-        } else if (holder instanceof FooterViewHolder) {
-            ((FooterViewHolder) holder).start();
-        }
-    }
-
-    public void setCards(List<Card> cards) {
-        this.cards = cards;
-    }
-
-    public void moveCard(Card card) {
-        int index = cards.indexOf(card);
-        cards.remove(card);
-        notifyItemRemoved(index);
-    }
-
-    private static class FooterViewHolder extends RecyclerView.ViewHolder {
-
-        private final View view;
-
-        public FooterViewHolder(View view) {
-            super(view);
-            this.view = view;
-        }
-
-        public void start() {
-        }
-    }
+  }
 }

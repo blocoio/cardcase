@@ -49,10 +49,9 @@ public class SearchToolbar extends android.support.v7.widget.Toolbar {
   public void clear() {
     field.setText("");
     field.postDelayed(new Runnable() {
-      @Override
-      public void run() {
-        InputMethodManager keyboard = (InputMethodManager)
-            getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+      @Override public void run() {
+        InputMethodManager keyboard =
+            (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
         keyboard.hideSoftInputFromWindow(field.getWindowToken(), 0);
       }
     }, 100);
@@ -61,10 +60,9 @@ public class SearchToolbar extends android.support.v7.widget.Toolbar {
   public void focus() {
     field.requestFocus();
     field.postDelayed(new Runnable() {
-      @Override
-      public void run() {
-        InputMethodManager keyboard = (InputMethodManager)
-            getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+      @Override public void run() {
+        InputMethodManager keyboard =
+            (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
         keyboard.showSoftInput(field, 0);
       }
     }, 100);
@@ -72,6 +70,7 @@ public class SearchToolbar extends android.support.v7.widget.Toolbar {
 
   public interface SearchListener {
     void onSearchClosed();
+
     void onSearchQuery(String query);
   }
 }

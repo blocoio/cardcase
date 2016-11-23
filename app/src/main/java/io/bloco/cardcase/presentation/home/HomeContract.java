@@ -11,55 +11,55 @@ import java.util.UUID;
 
 public class HomeContract {
 
-    public interface View {
-        void showEmpty();
+  public interface View {
+    void showEmpty();
 
-        void showCards(List<Card> cards);
+    void showCards(List<Card> cards);
 
-        void showCategories(List<Category> categories);
+    void showCategories(List<Category> categories);
 
-        void hideCategories();
+    void hideCategories();
 
-        void resumeCategories();
+    void resumeCategories();
 
-        void showEmptySearchResult();
+    void showEmptySearchResult();
 
-        void hideEmptySearchResult();
+    void hideEmptySearchResult();
 
-        void openOnboarding();
+    void openOnboarding();
 
-        void openUser();
+    void openUser();
 
-        void openExchange();
+    void openExchange();
 
-        void openSearch();
+    void openSearch();
 
-        void closeSearch();
+    void closeSearch();
 
-        void openSettings();
+    void openSettings();
 
-        void showDoneButton();
+    void showDoneButton();
 
-        void hideDoneButton();
+    void hideDoneButton();
 
-        CategoryAdapter getCategoryAdapter();
+    CategoryAdapter getCategoryAdapter();
 
-        CardAdapter getCardAdapter();
-    }
+    CardAdapter getCardAdapter();
+  }
 
-    public interface Presenter {
-        void start(View view);
+  public interface Presenter {
+    void start(View view);
 
-        void clickedSearch();
+    void clickedSearch();
 
-        void clickedCloseSearch();
+    void clickedCloseSearch();
 
-        void searchEntered(String query, UUID category);
+    void searchEntered(String query, UUID category);
 
-        void clickedUser();
+    void clickedUser();
 
-        void clickedChangeTheme();
+    void clickedChangeTheme();
 
-        void clickedExchange();
-    }
+    void clickedExchange();
+  }
 }

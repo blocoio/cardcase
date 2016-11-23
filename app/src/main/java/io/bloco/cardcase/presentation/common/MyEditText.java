@@ -10,28 +10,27 @@ import android.widget.EditText;
 
 public class MyEditText extends EditText {
 
-    public MyEditText(Context context, AttributeSet attrs) {
-        super(context, attrs);
-    }
+  public MyEditText(Context context, AttributeSet attrs) {
+    super(context, attrs);
+  }
 
-    public void activate(){
-        setCursorVisible(true);
-        setFocusableInTouchMode(true);
-        setInputType(InputType.TYPE_CLASS_TEXT);
-        requestFocus();
-    }
+  public void activate() {
+    setCursorVisible(true);
+    setFocusableInTouchMode(true);
+    setInputType(InputType.TYPE_CLASS_TEXT);
+    requestFocus();
+  }
 
-    public void deactivate(){
-        setInputType(InputType.TYPE_NULL);
-        clearFocus();
-    }
+  public void deactivate() {
+    setInputType(InputType.TYPE_NULL);
+    clearFocus();
+  }
 
-    @Override
-    public boolean onKeyPreIme(int keyCode, KeyEvent event) {
-        if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK) {
-            deactivate();
-            return true;
-        }
-        return super.onKeyPreIme(keyCode, event);
+  @Override public boolean onKeyPreIme(int keyCode, KeyEvent event) {
+    if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK) {
+      deactivate();
+      return true;
     }
+    return super.onKeyPreIme(keyCode, event);
+  }
 }

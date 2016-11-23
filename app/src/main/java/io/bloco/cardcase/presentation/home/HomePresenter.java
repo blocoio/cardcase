@@ -15,124 +15,114 @@ import java.util.UUID;
 
 import javax.inject.Inject;
 
-@PerActivity
-public class HomePresenter
-        implements HomeContract.Presenter, GetUserCard.Callback, GetReceivedCards.Callback, GetCategories.Callback {
+@PerActivity public class HomePresenter
+    implements HomeContract.Presenter, GetUserCard.Callback, GetReceivedCards.Callback,
+    GetCategories.Callback {
 
-    private final GetUserCard getUserCard;
-    private final GetReceivedCards getReceivedCards;
-    private final AnalyticsService analyticsService;
-    private final GetCategories getCategories;
-    private HomeContract.View view;
-    private List<Card> receivedCards;
-    private List<Category> categories;
+  private final GetUserCard getUserCard;
+  private final GetReceivedCards getReceivedCards;
+  private final AnalyticsService analyticsService;
+  private final GetCategories getCategories;
+  private HomeContract.View view;
+  private List<Card> receivedCards;
+  private List<Category> categories;
 
-    @Inject
-    public HomePresenter(GetUserCard getUserCard, GetReceivedCards getReceivedCards,
-                         AnalyticsService analyticsService, GetCategories getCategories) {
-        this.getUserCard = getUserCard;
-        this.getReceivedCards = getReceivedCards;
-        this.getCategories = getCategories;
-        this.analyticsService = analyticsService;
+  @Inject public HomePresenter(GetUserCard getUserCard, GetReceivedCards getReceivedCards,
+      AnalyticsService analyticsService, GetCategories getCategories) {
+    this.getUserCard = getUserCard;
+    this.getReceivedCards = getReceivedCards;
+    this.getCategories = getCategories;
+    this.analyticsService = analyticsService;
+  }
+
+  @Override public void start(HomeContract.View view) {
+    this.view = view;
+    getUserCard.get(HomePresenter.this);
+    getCategories.get(HomePresenter.this);
+    analyticsService.trackEvent("Home Screen");
+  }
+
+  @Override public void clickedSearch() {
+    view.openSearch();
+
+    analyticsService.trackEvent("Home Open Search");
+  }
+
+  @Override public void clickedCloseSearch() {
+    view.hideEmptySearchResult();
+    view.closeSearch();
+  }
+
+  @Override public void searchEntered(String query, UUID category) {
+    getReceivedCards.get(this);
+    List<Card> filteredCards = new ArrayList<>(receivedCards.size());
+    for (Card card : receivedCards) {
+      Timber.i("card's category id:" + card.getCategoryId());
+      Timber.i("current category id:" + category);
+      if (card.matchQuery(query) && card.getCategoryId().equals(category)) {
+        filteredCards.add(card);
+      }
+      if (category == null && card.matchQuery(query)) {
+        filteredCards.add(card);
+      }
     }
 
-    @Override
-    public void start(HomeContract.View view) {
-        this.view = view;
-        getUserCard.get(HomePresenter.this);
-        getCategories.get(HomePresenter.this);
-        analyticsService.trackEvent("Home Screen");
+    if (filteredCards.isEmpty()) {
+      view.showEmptySearchResult();
+    } else {
+      view.hideEmptySearchResult();
     }
 
-    @Override
-    public void clickedSearch() {
-        view.openSearch();
-
-        analyticsService.trackEvent("Home Open Search");
+    if (category == null) {
+      view.hideCategories();
     }
+    view.showCards(filteredCards);
+  }
 
-    @Override
-    public void clickedCloseSearch() {
-        view.hideEmptySearchResult();
-        view.closeSearch();
+  @Override public void clickedUser() {
+    view.openUser();
+    analyticsService.trackEvent("Home View Card");
+  }
+
+  @Override public void clickedExchange() {
+    view.openExchange();
+  }
+
+  public void clickedChangeTheme() {
+    view.openSettings();
+  }
+
+  @Override public void onGetUserCard(Card userCard) {
+    if (userCard == null) {
+      view.openOnboarding();
+    } else {
+      getReceivedCards.get(this);
     }
+  }
 
-    @Override
-    public void searchEntered(String query, UUID category) {
-        getReceivedCards.get(this);
-        List<Card> filteredCards = new ArrayList<>(receivedCards.size());
-        for (Card card : receivedCards) {
-            Timber.i("card's category id:" + card.getCategoryId());
-            Timber.i("current category id:" + category);
-            if (card.matchQuery(query) && card.getCategoryId().equals(category)) {
-                filteredCards.add(card);
-            }
-            if (category == null && card.matchQuery(query)) {
-                filteredCards.add(card);
-            }
-        }
+  @Override public void onGetReceivedCards(List<Card> receivedCards) {
+    this.receivedCards = receivedCards;
+    showReceivedCards();
+  }
 
-        if (filteredCards.isEmpty()) {
-            view.showEmptySearchResult();
-        } else {
-            view.hideEmptySearchResult();
-        }
-
-        if (category == null) {
-            view.hideCategories();
-        }
-        view.showCards(filteredCards);
+  public void showReceivedCards() {
+    if (this.receivedCards.isEmpty()) {
+      view.showEmpty();
+    } else {
+      view.showCards(this.receivedCards);
     }
+  }
 
-    @Override
-    public void clickedUser() {
-        view.openUser();
-        analyticsService.trackEvent("Home View Card");
+  private void showCategories() {
+    if (this.categories.isEmpty()) {
+      view.showEmpty();
+    } else {
+      view.showCategories(categories);
     }
+  }
 
-    @Override
-    public void clickedExchange() {
-        view.openExchange();
-    }
-
-     public void clickedChangeTheme() {
-            view.openSettings();
-    }
-
-    @Override
-    public void onGetUserCard(Card userCard) {
-        if (userCard == null) {
-            view.openOnboarding();
-        } else {
-            getReceivedCards.get(this);
-        }
-    }
-
-    @Override
-    public void onGetReceivedCards(List<Card> receivedCards) {
-        this.receivedCards = receivedCards;
-        showReceivedCards();
-    }
-
-    public void showReceivedCards() {
-        if (this.receivedCards.isEmpty()) {
-            view.showEmpty();
-        } else {
-            view.showCards(this.receivedCards);
-        }
-    }
-
-    private void showCategories() {
-        if (this.categories.isEmpty()) {
-            view.showEmpty();
-        } else {
-            view.showCategories(categories);
-        }
-    }
-
-    @Override
-    public void onGetCategories(List<Category> categories) {
-        this.categories = categories;
-        showCategories();
-    }
+  @Override public void onGetCategories(List<Category> categories) {
+    this.categories = categories;
+    showCategories();
+  }
 }

@@ -16,63 +16,56 @@ import io.bloco.cardcase.presentation.home.CardDetailDialog;
 
 import javax.inject.Inject;
 
-public class CardViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
+public class CardViewHolder extends RecyclerView.ViewHolder
+    implements View.OnClickListener, View.OnLongClickListener {
 
-    @Inject
-    DateTimeFormat dateTimeFormat;
-    @Inject
-    ImageLoader imageLoader;
+  @Inject DateTimeFormat dateTimeFormat;
+  @Inject ImageLoader imageLoader;
 
-    Database database;
+  Database database;
 
-    @Bind(R.id.card_avatar)
-    ImageView avatar;
-    @Bind(R.id.card_name)
-    TextView name;
-    @Bind(R.id.card_time)
-    TextView time;
-    @Bind(R.id.card_category)
-    TextView cardCategory;
+  @Bind(R.id.card_avatar) ImageView avatar;
+  @Bind(R.id.card_name) TextView name;
+  @Bind(R.id.card_time) TextView time;
+  @Bind(R.id.card_category) TextView cardCategory;
 
-    private final CardDetailDialog cardDetailDialog;
-    private Card card;
+  private final CardDetailDialog cardDetailDialog;
+  private Card card;
 
-    public CardViewHolder(View view, CardDetailDialog cardDetailDialog, Database database) {
-        super(view);
-        view.setOnClickListener(this);
-        view.setOnLongClickListener(this);
-        this.cardDetailDialog = cardDetailDialog;
-        this.database = database;
+  public CardViewHolder(View view, CardDetailDialog cardDetailDialog, Database database) {
+    super(view);
+    view.setOnClickListener(this);
+    view.setOnLongClickListener(this);
+    this.cardDetailDialog = cardDetailDialog;
+    this.database = database;
 
-        ((AndroidApplication) view.getContext().getApplicationContext()).getApplicationComponent()
-                .inject(this);
-        ButterKnife.bind(this, view);
+    ((AndroidApplication) view.getContext().getApplicationContext()).getApplicationComponent()
+        .inject(this);
+    ButterKnife.bind(this, view);
+  }
+
+  public void bind(Card card) {
+    this.card = card;
+    name.setText(card.getName());
+
+    CharSequence timeStr = dateTimeFormat.getRelativeTimeSpanString(card.getUpdatedAt());
+    time.setText(timeStr);
+
+    //TODO set category when received card
+    //cardCategory.setText(database.getCategory(card.getCategoryId()).getName());
+
+    if (card.hasAvatar()) {
+      imageLoader.loadAvatar(avatar, card.getAvatarPath());
     }
+  }
 
-    public void bind(Card card) {
-        this.card = card;
-        name.setText(card.getName());
+  @Override public void onClick(View view) {
+    cardDetailDialog.show(card);
+  }
 
-        CharSequence timeStr = dateTimeFormat.getRelativeTimeSpanString(card.getUpdatedAt());
-        time.setText(timeStr);
+  @Override public boolean onLongClick(View v) {
+    Log.d("TEST", "Long click ");
 
-        //TODO set category when received card
-        //cardCategory.setText(database.getCategory(card.getCategoryId()).getName());
-
-        if (card.hasAvatar()) {
-            imageLoader.loadAvatar(avatar, card.getAvatarPath());
-        }
-    }
-
-    @Override
-    public void onClick(View view) {
-        cardDetailDialog.show(card);
-    }
-
-    @Override
-    public boolean onLongClick(View v) {
-        Log.d("TEST", "Long click ");
-
-        return false;
-    }
+    return false;
+  }
 }

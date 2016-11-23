@@ -22,8 +22,11 @@ import javax.inject.Singleton;
 
 @Singleton public class AvatarPicker {
 
-  public class ReceivingError extends Exception {}
-  public class ResizeError extends Exception {}
+  public class ReceivingError extends Exception {
+  }
+
+  public class ResizeError extends Exception {
+  }
 
   public static final int AVATAR_REQUEST_CODE = 21;
   public static final int CROP_REQUEST_CODE = 31;
@@ -67,8 +70,8 @@ import javax.inject.Singleton;
     activity.startActivityForResult(chooserIntent, AVATAR_REQUEST_CODE);
   }
 
-  public File processActivityResult(int requestCode, int resultCode, Intent data,
-      Activity activity) throws ReceivingError, ResizeError {
+  public File processActivityResult(int requestCode, int resultCode, Intent data, Activity activity)
+      throws ReceivingError, ResizeError {
     // Crop
     if (requestCode == CROP_REQUEST_CODE) {
       clearTempFile();
