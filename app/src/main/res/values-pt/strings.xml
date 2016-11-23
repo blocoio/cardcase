@@ -1,41 +1,41 @@
 <resources>
-    <string name="app_name">Card Case</string>
-    <string name="cards_received">Cartões recebidos</string>
-    <string name="user_card">O meu cartão</string>
-    <string name="back">Voltar</string>
-    <string name="done">Terminar</string>
-    <string name="avatar">Foto</string>
-    <string name="name">Nome</string>
-    <string name="email">Email</string>
-    <string name="phone">Telefone</string>
-    <string name="field_hint"></string>
-    <string name="exchange">Trocar</string>
-    <string name="close">Fechar</string>
-    <string name="edit">Editar</string>
-    <string name="card_time">Adicionado em %s</string>
-    <string name="added_at">Adicionado em %s</string>
-    <string name="waiting">Em espera</string>
-    <string name="ok">OK</string>
-    <string name="cancel">Cancelar</string>
-    <string name="delete">Excluir</string>
-    <string name="share">Share</string>
-    <string name="linkedin">LinkedIn</string>
-    <string name="instagram">Instagram</string>
-    <string name="vk">Vk</string>
+  <string name="app_name">Card Case</string>
+  <string name="cards_received">Cartões recebidos</string>
+  <string name="user_card">O meu cartão</string>
+  <string name="back">Voltar</string>
+  <string name="done">Terminar</string>
+  <string name="avatar">Foto</string>
+  <string name="name">Nome</string>
+  <string name="email">Email</string>
+  <string name="phone">Telefone</string>
+  <string name="field_hint"></string>
+  <string name="exchange">Trocar</string>
+  <string name="close">Fechar</string>
+  <string name="edit">Editar</string>
+  <string name="card_time">Adicionado em %s</string>
+  <string name="added_at">Adicionado em %s</string>
+  <string name="waiting">Em espera</string>
+  <string name="ok">OK</string>
+  <string name="cancel">Cancelar</string>
+  <string name="delete">Excluir</string>
+  <string name="share">Share</string>
+  <string name="linkedin">LinkedIn</string>
+  <string name="instagram">Instagram</string>
+  <string name="vk">Vk</string>
 
 
-    <string name="avatar_edit">Mudar foto</string>
-    <string name="avatar_picker">A partir de onde?</string>
-    <string name="crop_avatar">Recortar foto</string>
-    <string name="crop_avatar_dialog">A recortar foto</string>
+  <string name="avatar_edit">Mudar foto</string>
+  <string name="avatar_picker">A partir de onde?</string>
+  <string name="crop_avatar">Recortar foto</string>
+  <string name="crop_avatar_dialog">A recortar foto</string>
 
-    <string name="time_just_now">agora</string>
-    <string name="time_a_minute_ago">há um minuto</string>
-    <string name="time_minutes">%dm</string>
-    <string name="time_hours">%dh</string>
+  <string name="time_just_now">agora</string>
+  <string name="time_a_minute_ago">há um minuto</string>
+  <string name="time_minutes">%dm</string>
+  <string name="time_hours">%dh</string>
 
-    <string name="welcome_start">Cria o teu cartão</string>
-    <string name="welcome_title">Bem-vindo ao Card Case</string>
+  <string name="welcome_start">Cria o teu cartão</string>
+  <string name="welcome_title">Bem-vindo ao Card Case</string>
   <string name="welcome_text">A forma mais fácil de trocar contactos com pessoas perto de ti
   </string>
 
@@ -45,9 +45,9 @@
     Conversa e troca cartões\n
     com outras pessoas!
   </string>
-    <string name="send_email">Enviar email</string>
+  <string name="send_email">Enviar email</string>
 
-    <!-- Exchange -->
+  <!-- Exchange -->
   <string name="exchange_title">
     A partilhar o teu cartão\n
     e à procura de outros cartões
@@ -60,21 +60,21 @@
       Não têm a aplicação instalada?<br/><u>Convida-os</u>
     ]]>
   </string>
-    <string name="exchange_cards_title">Cartões recebidos</string>
+  <string name="exchange_cards_title">Cartões recebidos</string>
   <string name="exchange_close_confirm">
     Tens a certeza que queres fechar e perder os cartões que recebeste?
   </string>
-    <string name="exchange_close_yes">Descartar e fechar</string>
+  <string name="exchange_close_yes">Descartar e fechar</string>
 
-    <!-- Invite -->
-    <string name="invite_title">Convida para o Card Case</string>
+  <!-- Invite -->
+  <string name="invite_title">Convida para o Card Case</string>
   <string name="invite_message">
     Olá, experimenta o Card Case, uma app para partilhar contactos com pessoas perto de ti.
   </string>
-    <string name="invite_button">Convidar</string>
+  <string name="invite_button">Convidar</string>
 
-    <!-- Errors -->
-    <string name="error">Erro (desculpa!)</string>
+  <!-- Errors -->
+  <string name="error">Erro (desculpa!)</string>
   <string name="error_exchange_general">
     Não foi possível trocar cartões. Por favor tenta novamente.
   </string>
@@ -96,6 +96,6 @@
   </string>
   <string name="error_avatar_resize">Não foi possível cortar imagem. Por favor tente novamente.
   </string>
-    <string name="search">Pesquisar cartões</string>
-    <string name="home_search_empty_text">Nenhum cartão encontrado</string>
+  <string name="search">Pesquisar cartões</string>
+  <string name="home_search_empty_text">Nenhum cartão encontrado</string>
 </resources>

@@ -1,231 +1,230 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     style="@style/card"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:clickable="false">
 
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_margin="@dimen/margin_double"
+      android:weightSum="1"
+      android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="@dimen/card_avatar"
+        android:layout_height="@dimen/card_avatar"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="@dimen/card_avatar_margin">
+
+      <ImageView
+          android:id="@+id/card_avatar"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:background="@drawable/avatar_placeholder"
+          android:contentDescription="@string/avatar"
+          android:scaleType="centerInside"/>
+
+      <ImageView
+          android:id="@+id/card_avatar_edit_overlay"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:layout_gravity="center_horizontal"
+          android:contentDescription="@string/avatar_edit"
+          android:scaleType="centerInside"
+          android:src="@drawable/avatar_edit"
+          android:visibility="gone"
+          tools:visibility="visible"/>
+    </FrameLayout>
+
+    <EditText
+        android:id="@+id/card_name"
+        style="@style/card_field"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/card_name_height"
+        android:hint="@string/name"
+        android:nextFocusDown="@+id/card_email"
+        android:textSize="@dimen/card_name_text"/>
+
+    <EditText
+        android:id="@+id/card_company"
+        style="@style/card_field"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="4dp"
+        android:hint="Company"
+        android:inputType="textPersonName"/>
+
+    <EditText
+        android:id="@+id/card_position"
+        style="@style/card_field"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/card_field_height"
+        android:layout_marginTop="@dimen/margin_tiny"
+        android:hint="Position"
+        android:inputType="textPersonName"/>
+
+    <EditText
+        android:id="@+id/card_address"
+        style="@style/card_field"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="4dp"
+        android:hint="Address"
+        android:inputType="textPostalAddress"/>
+
+    <EditText
+        android:id="@+id/card_website"
+        style="@style/card_field"
+        android:layout_height="@dimen/card_field_height"
+        android:layout_marginTop="@dimen/margin_tiny"
+        android:hint="website"
+        android:inputType="textPersonName"/>
+
     <LinearLayout
+        android:id="@+id/linkedin_fields"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin_double"
-        android:orientation="vertical"
-        android:weightSum="1">
+        android:orientation="horizontal">
 
-        <FrameLayout
-            android:layout_width="@dimen/card_avatar"
-            android:layout_height="@dimen/card_avatar"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="@dimen/card_avatar_margin">
-
-            <ImageView
-                android:id="@+id/card_avatar"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/avatar_placeholder"
-                android:contentDescription="@string/avatar"
-                android:scaleType="centerInside" />
-
-            <ImageView
-                android:id="@+id/card_avatar_edit_overlay"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center_horizontal"
-                android:contentDescription="@string/avatar_edit"
-                android:scaleType="centerInside"
-                android:src="@drawable/avatar_edit"
-                android:visibility="gone"
-                tools:visibility="visible" />
-        </FrameLayout>
-
-        <EditText
-            android:id="@+id/card_name"
-            style="@style/card_field"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/card_name_height"
-            android:hint="@string/name"
-            android:nextFocusDown="@+id/card_email"
-            android:textSize="@dimen/card_name_text" />
-
-        <EditText
-            android:id="@+id/card_company"
-            style="@style/card_field"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginTop="4dp"
-            android:hint="Company"
-            android:inputType="textPersonName" />
-
-        <EditText
-            android:id="@+id/card_position"
-            style="@style/card_field"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/card_field_height"
-            android:layout_marginTop="@dimen/margin_tiny"
-            android:hint="Position"
-            android:inputType="textPersonName" />
-
-        <EditText
-            android:id="@+id/card_address"
-            style="@style/card_field"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginTop="4dp"
-            android:hint="Address"
-            android:inputType="textPostalAddress" />
-
-        <EditText
-            android:id="@+id/card_website"
-            style="@style/card_field"
-            android:layout_height="@dimen/card_field_height"
-            android:layout_marginTop="@dimen/margin_tiny"
-            android:hint="website"
-            android:inputType="textPersonName" />
-
-        <LinearLayout
-            android:id="@+id/linkedin_fields"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:id="@+id/linkedin_icon"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginTop="@dimen/margin_tiny"
-                android:contentDescription="@string/linkedin"
-                android:background="@drawable/ic_linkedin"
-                android:scaleType="centerInside" />
+      <ImageView
+          android:id="@+id/linkedin_icon"
+          android:layout_width="30dp"
+          android:layout_height="30dp"
+          android:layout_marginTop="@dimen/margin_tiny"
+          android:contentDescription="@string/linkedin"
+          android:background="@drawable/ic_linkedin"
+          android:scaleType="centerInside"/>
 
 
-            <EditText
-                android:id="@+id/linkedinLink"
-                style="@style/card_field"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/card_field_height"
-                android:layout_marginTop="@dimen/margin_tiny"
-                android:hint="@string/linkedin"
-                android:inputType="textPersonName"
-                />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <ImageView
-                android:id="@+id/facebook_icon"
-                android:layout_height="30dp"
-                android:layout_marginTop="@dimen/margin_tiny"
-                android:contentDescription="@string/auth_google_play_services_client_facebook_display_name"
-                android:background="@drawable/ic_facebook"
-                android:scaleType="centerInside"
-                android:layout_width="30dp" />
-
-            <EditText
-                android:id="@+id/facebook_link"
-                style="@style/card_field"
-                android:layout_height="40dp"
-                android:inputType="textPersonName"
-                android:layout_marginTop="4dp"
-                android:hint="facebook.com" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/vk_fields"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:id="@+id/vk_icon"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginTop="@dimen/margin_tiny"
-                android:contentDescription="@string/vk"
-                android:background="@drawable/ic_vk_social_network_logo"
-                android:scaleType="centerInside" />
-
-
-            <EditText
-                android:id="@+id/card_vk"
-                style="@style/card_field"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:inputType="textPersonName"
-                android:layout_marginTop="4dp"
-                android:hint="vk.com"
-                />
-
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:id="@+id/instagram_fields"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <ImageView
-                android:id="@+id/instagramIcon"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginTop="@dimen/margin_tiny"
-                android:contentDescription="@string/instagram"
-                android:background="@drawable/instagram"
-                android:scaleType="centerInside" />
-
-            <EditText
-                android:id="@+id/instagramLink"
-                style="@style/card_field"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/card_field_height"
-                android:layout_marginTop="@dimen/margin_tiny"
-                android:hint="@string/instagram"
-                android:inputType="textPersonName" />
-
-        </LinearLayout>
-
-        <EditText
-            android:id="@id/card_email"
-            style="@style/card_field"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/card_field_height"
-            android:layout_marginTop="@dimen/margin_tiny"
-            android:hint="@string/email"
-            android:inputType="textEmailAddress"
-            android:nextFocusDown="@+id/card_phone" />
-
-        <EditText
-            android:id="@id/card_phone"
-            style="@style/card_field"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/card_field_height"
-            android:layout_marginTop="@dimen/margin_tiny"
-            android:hint="@string/phone"
-            android:inputType="phone"
-            android:nextFocusDown="@+id/card_fields" />
-
-
-        <LinearLayout
-            android:id="@id/card_fields"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" />
-
-        <TextView
-            android:id="@+id/card_time"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_default"
-            android:gravity="center_horizontal"
-            android:textColor="@color/text_light"
-            android:textSize="@dimen/text_small"
-            android:visibility="gone" />
+      <EditText
+          android:id="@+id/linkedinLink"
+          style="@style/card_field"
+          android:layout_width="match_parent"
+          android:layout_height="@dimen/card_field_height"
+          android:layout_marginTop="@dimen/margin_tiny"
+          android:hint="@string/linkedin"
+          android:inputType="textPersonName"/>
 
     </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+      <ImageView
+          android:id="@+id/facebook_icon"
+          android:layout_height="30dp"
+          android:layout_marginTop="@dimen/margin_tiny"
+          android:contentDescription="@string/auth_google_play_services_client_facebook_display_name"
+          android:background="@drawable/ic_facebook"
+          android:scaleType="centerInside"
+          android:layout_width="30dp"/>
+
+      <EditText
+          android:id="@+id/facebook_link"
+          style="@style/card_field"
+          android:layout_height="40dp"
+          android:inputType="textPersonName"
+          android:layout_marginTop="4dp"
+          android:hint="facebook.com"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/vk_fields"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+      <ImageView
+          android:id="@+id/vk_icon"
+          android:layout_width="30dp"
+          android:layout_height="30dp"
+          android:layout_marginTop="@dimen/margin_tiny"
+          android:contentDescription="@string/vk"
+          android:background="@drawable/ic_vk_social_network_logo"
+          android:scaleType="centerInside"/>
+
+
+      <EditText
+          android:id="@+id/card_vk"
+          style="@style/card_field"
+          android:layout_width="match_parent"
+          android:layout_height="40dp"
+          android:inputType="textPersonName"
+          android:layout_marginTop="4dp"
+          android:hint="vk.com"/>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/instagram_fields"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+      <ImageView
+          android:id="@+id/instagramIcon"
+          android:layout_width="30dp"
+          android:layout_height="30dp"
+          android:layout_marginTop="@dimen/margin_tiny"
+          android:contentDescription="@string/instagram"
+          android:background="@drawable/instagram"
+          android:scaleType="centerInside"/>
+
+      <EditText
+          android:id="@+id/instagramLink"
+          style="@style/card_field"
+          android:layout_width="match_parent"
+          android:layout_height="@dimen/card_field_height"
+          android:layout_marginTop="@dimen/margin_tiny"
+          android:hint="@string/instagram"
+          android:inputType="textPersonName"/>
+
+    </LinearLayout>
+
+    <EditText
+        android:id="@id/card_email"
+        style="@style/card_field"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/card_field_height"
+        android:layout_marginTop="@dimen/margin_tiny"
+        android:hint="@string/email"
+        android:inputType="textEmailAddress"
+        android:nextFocusDown="@+id/card_phone"/>
+
+    <EditText
+        android:id="@id/card_phone"
+        style="@style/card_field"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/card_field_height"
+        android:layout_marginTop="@dimen/margin_tiny"
+        android:hint="@string/phone"
+        android:inputType="phone"
+        android:nextFocusDown="@+id/card_fields"/>
+
+
+    <LinearLayout
+        android:id="@id/card_fields"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"/>
+
+    <TextView
+        android:id="@+id/card_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_default"
+        android:gravity="center_horizontal"
+        android:textColor="@color/text_light"
+        android:textSize="@dimen/text_small"
+        android:visibility="gone"/>
+
+  </LinearLayout>
 
 </android.support.v7.widget.CardView>

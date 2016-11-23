@@ -25,46 +25,44 @@ import io.bloco.cardcase.presentation.user.AvatarPicker;
 
 import javax.inject.Singleton;
 
-@Singleton
-@Component(modules = ApplicationModule.class)
-public interface ApplicationComponent {
+@Singleton @Component(modules = ApplicationModule.class) public interface ApplicationComponent {
 
-    void inject(CardViewHolder cardViewHolder);
+  void inject(CardViewHolder cardViewHolder);
 
-    void inject(CategoryViewHolder categoryViewHolder);
+  void inject(CategoryViewHolder categoryViewHolder);
 
-    void inject(CardInfoView cardInfoView);
+  void inject(CardInfoView cardInfoView);
 
-    //Exposed to sub-graphs.
-    Context context();
+  //Exposed to sub-graphs.
+  Context context();
 
-    Resources resources();
+  Resources resources();
 
-    Gson gson();
+  Gson gson();
 
-    Database database();
+  Database database();
 
-    AvatarPicker avatarPicker();
+  AvatarPicker avatarPicker();
 
-    GetUserCard getUserCard();
+  GetUserCard getUserCard();
 
-    GetReceivedCards getReceivedCards();
+  GetReceivedCards getReceivedCards();
 
-    SaveUserCard saveUserCard();
+  SaveUserCard saveUserCard();
 
-    GetCategories getCategories();
+  GetCategories getCategories();
 
-    SaveCategories saveCategories();
+  SaveCategories saveCategories();
 
-    SaveReceivedCards saveReceivedCards();
+  SaveReceivedCards saveReceivedCards();
 
-    ImageLoader imageLoader();
+  ImageLoader imageLoader();
 
-    CardSerializer cardSerializer();
+  CardSerializer cardSerializer();
 
-    AnalyticsService analyticsService();
+  AnalyticsService analyticsService();
 
-    Bootstrap bootstrap();
+  Bootstrap bootstrap();
 
-    ErrorDisplayer errorDisplayer();
+  ErrorDisplayer errorDisplayer();
 }

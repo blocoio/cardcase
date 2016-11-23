@@ -34,141 +34,127 @@ import static io.bloco.cardcase.helpers.AssertCurrentActivity.assertCurrentActiv
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.core.StringStartsWith.startsWith;
 
-@RunWith(AndroidJUnit4.class)
-public class HomeActivityTest {
+@RunWith(AndroidJUnit4.class) public class HomeActivityTest {
 
-    @Inject
-    Database database;
+  @Inject Database database;
 
-    private UiDevice mDevice;
+  private UiDevice mDevice;
 
-    @Rule
-    public ActivityTestRule<HomeActivity> activityTestRule =
-            new ActivityTestRule<>(HomeActivity.class);
-    private CardFactory cardFactory;
+  @Rule public ActivityTestRule<HomeActivity> activityTestRule =
+      new ActivityTestRule<>(HomeActivity.class);
+  private CardFactory cardFactory;
 
-    @Before
-    public void setup() {
-        cardFactory = new CardFactory(activityTestRule);
-        mDevice = UiDevice.getInstance(getInstrumentation());
-    }
+  @Before public void setup() {
+    cardFactory = new CardFactory(activityTestRule);
+    mDevice = UiDevice.getInstance(getInstrumentation());
+  }
 
-    @Test
-    public void testFirstOpen() throws Exception {
-        assertCurrentActivity(WelcomeActivity.class);
-    }
+  @Test public void testFirstOpen() throws Exception {
+    assertCurrentActivity(WelcomeActivity.class);
+  }
 
-    @Test
-    public void testOpenWithUserCard() throws Exception {
-        createUserCard();
-        launchApp();
-        assertCurrentActivity(HomeActivity.class);
-    }
+  @Test public void testOpenWithUserCard() throws Exception {
+    createUserCard();
+    launchApp();
+    assertCurrentActivity(HomeActivity.class);
+  }
 
-    @Before
-    public void eraseData() {
-        cardFactory.clear();
-        cardFactory.clearCategories();
-    }
+  @Before public void eraseData() {
+    cardFactory.clear();
+    cardFactory.clearCategories();
+  }
 
-    @Test
-    public void testCategories() throws Exception {
-        Category category = cardFactory.buildCategory("test");
-        Card card = createReceivedCard();
-        card.setCategoryId(category.getId());
-        cardFactory.updateCard(card);
+  @Test public void testCategories() throws Exception {
+    Category category = cardFactory.buildCategory("test");
+    Card card = createReceivedCard();
+    card.setCategoryId(category.getId());
+    cardFactory.updateCard(card);
 
-        createUserCard();
-        launchApp();
+    createUserCard();
+    launchApp();
 
-        onView(withText(card.getName())).check(matches(not(isDisplayed())));
-        UiObject categoryObject = mDevice.findObject(new UiSelector().text(category.getName()));
-        categoryObject.click();
-        onView(withText(card.getName())).check(matches(isDisplayed()));
-    }
+    onView(withText(card.getName())).check(matches(not(isDisplayed())));
+    UiObject categoryObject = mDevice.findObject(new UiSelector().text(category.getName()));
+    categoryObject.click();
+    onView(withText(card.getName())).check(matches(isDisplayed()));
+  }
 
-    @Test
-    public void testDeleteCard() throws Exception {
-        Card card = createReceivedCard();
-        Category category = cardFactory.buildCategory("test cat");
-        card.setCategoryId(category.getId());
-        card.setName("to be deleted");
-        cardFactory.updateCard(card);
+  @Test public void testDeleteCard() throws Exception {
+    Card card = createReceivedCard();
+    Category category = cardFactory.buildCategory("test cat");
+    card.setCategoryId(category.getId());
+    card.setName("to be deleted");
+    cardFactory.updateCard(card);
 
-        createUserCard();
-        launchApp();
+    createUserCard();
+    launchApp();
 
-        UiObject categoryObject = mDevice.findObject(new UiSelector().text(category.getName()));
-        categoryObject.click();
+    UiObject categoryObject = mDevice.findObject(new UiSelector().text(category.getName()));
+    categoryObject.click();
 
-        mDevice.findObject(new UiSelector().text(card.getName())).click();
-        mDevice.findObject(new UiSelector().descriptionStartsWith("Delete")).click();
-        mDevice.findObject(new UiSelector().textStartsWith("Yes")).click();
+    mDevice.findObject(new UiSelector().text(card.getName())).click();
+    mDevice.findObject(new UiSelector().descriptionStartsWith("Delete")).click();
+    mDevice.findObject(new UiSelector().textStartsWith("Yes")).click();
 
+    mDevice.pressBack();
+    mDevice.findObject(new UiSelector().text(category.getName())).click();
+    onView(withText(card.getName())).check(doesNotExist());
+  }
 
-        mDevice.pressBack();
-        mDevice.findObject(new UiSelector().text(category.getName())).click();
-        onView(withText(card.getName())).check(doesNotExist());
-    }
+  @Test public void testViewCardDetails() throws Exception {
+    Card card = createReceivedCard();
+    Category category = cardFactory.buildCategory("yet another cat");
+    card.setCategoryId(category.getId());
+    cardFactory.updateCard(card);
 
-    @Test
-    public void testViewCardDetails() throws Exception {
-        Card card = createReceivedCard();
-        Category category = cardFactory.buildCategory("yet another cat");
-        card.setCategoryId(category.getId());
-        cardFactory.updateCard(card);
+    createUserCard();
+    launchApp();
 
-        createUserCard();
-        launchApp();
+    mDevice.findObject(new UiSelector().text(category.getName())).click();
+    mDevice.findObject(new UiSelector().text(card.getName())).click();
 
-        mDevice.findObject(new UiSelector().text(category.getName())).click();
-        mDevice.findObject(new UiSelector().text(card.getName())).click();
+    onView(withId(R.id.card_avatar)).check(matches(isDisplayed()));
+    onView(withId(R.id.card_name)).check(matches(withText(card.getName())));
+    onView(withId(R.id.card_email)).check(matches(withText(card.getEmail())));
+    onView(withId(R.id.card_phone)).check(matches(withText(card.getPhone())));
+    onView(withId(R.id.card_time)).check(matches(withText(startsWith("Added"))));
+  }
 
-        onView(withId(R.id.card_avatar)).check(matches(isDisplayed()));
-        onView(withId(R.id.card_name)).check(matches(withText(card.getName())));
-        onView(withId(R.id.card_email)).check(matches(withText(card.getEmail())));
-        onView(withId(R.id.card_phone)).check(matches(withText(card.getPhone())));
-        onView(withId(R.id.card_time)).check(matches(withText(startsWith("Added"))));
-    }
+  //Fixme    @Test
+  public void testExchangeClicked() throws Exception {
+    Card card = createReceivedCard();
+    Category category = cardFactory.buildCategory("test category");
+    card.setCategoryId(category.getId());
+    cardFactory.updateCard(card);
 
-//Fixme    @Test
-    public void testExchangeClicked() throws Exception {
-        Card card = createReceivedCard();
-        Category category = cardFactory.buildCategory("test category");
-        card.setCategoryId(category.getId());
-        cardFactory.updateCard(card);
+    createUserCard();
+    launchApp();
 
-        createUserCard();
-        launchApp();
+    mDevice.findObject(new UiSelector().text(category.getName())).click();
+    mDevice.findObject(new UiSelector().text(card.getName())).click();
+    mDevice.findObject(new UiSelector().descriptionStartsWith("Share")).click();
 
-        mDevice.findObject(new UiSelector().text(category.getName())).click();
-        mDevice.findObject(new UiSelector().text(card.getName())).click();
-        mDevice.findObject(new UiSelector().descriptionStartsWith("Share")).click();
+    assertCurrentActivity(ExchangeActivity.class);
 
+    while (!mDevice.pressBack()) ;
+    assertCurrentActivity(HomeActivity.class);
+  }
 
-        assertCurrentActivity(ExchangeActivity.class);
+  @After public void cleanUp() {
+    cardFactory.clear();
+    cardFactory.clearCategories();
+  }
 
-        while (!mDevice.pressBack());
-        assertCurrentActivity(HomeActivity.class);
+  private void launchApp() {
+    activityTestRule.launchActivity(
+        HomeActivity.Factory.getIntent(getInstrumentation().getContext()));
+  }
 
-    }
+  private Card createUserCard() {
+    return cardFactory.createUserCard();
+  }
 
-    @After
-    public void cleanUp() {
-        cardFactory.clear();
-        cardFactory.clearCategories();
-    }
-
-    private void launchApp() {
-        activityTestRule.launchActivity(
-                HomeActivity.Factory.getIntent(getInstrumentation().getContext()));
-    }
-
-    private Card createUserCard() {
-        return cardFactory.createUserCard();
-    }
-
-    private Card createReceivedCard() {
-        return cardFactory.createReceivedCard();
-    }
+  private Card createReceivedCard() {
+    return cardFactory.createReceivedCard();
+  }
 }

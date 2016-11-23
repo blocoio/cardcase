@@ -19,55 +19,44 @@ import java.util.UUID;
 
 import javax.inject.Singleton;
 
-@Module
-public class ApplicationModule {
-    private final AndroidApplication application;
+@Module public class ApplicationModule {
+  private final AndroidApplication application;
 
-    public ApplicationModule(AndroidApplication application) {
-        this.application = application;
-    }
+  public ApplicationModule(AndroidApplication application) {
+    this.application = application;
+  }
 
-    @Provides
-    @Singleton
-    public Context provideApplicationContext() {
-        return application;
-    }
+  @Provides @Singleton public Context provideApplicationContext() {
+    return application;
+  }
 
-    @Provides
-    @Singleton
-    public Resources provideResources(Context context) {
-        return context.getResources();
-    }
+  @Provides @Singleton public Resources provideResources(Context context) {
+    return context.getResources();
+  }
 
-    @Provides
-    @Singleton
-    public Gson provideGson() {
-        return new Gson();
-    }
+  @Provides @Singleton public Gson provideGson() {
+    return new Gson();
+  }
 
-    @Provides
-    @Singleton
-    public RuntimeExceptionDao<Card, UUID> provideCardDao() {
-        DatabaseHelper databaseHelper =
-                new DatabaseHelper(application.getApplicationContext(), application.getMode());
-        ConnectionSource connectionSource = databaseHelper.getConnectionSource();
-        try {
-            return RuntimeExceptionDao.createDao(connectionSource, Card.class);
-        } catch (SQLException exception) {
-            throw new RuntimeException(exception);
-        }
+  @Provides @Singleton public RuntimeExceptionDao<Card, UUID> provideCardDao() {
+    DatabaseHelper databaseHelper =
+        new DatabaseHelper(application.getApplicationContext(), application.getMode());
+    ConnectionSource connectionSource = databaseHelper.getConnectionSource();
+    try {
+      return RuntimeExceptionDao.createDao(connectionSource, Card.class);
+    } catch (SQLException exception) {
+      throw new RuntimeException(exception);
     }
+  }
 
-    @Provides
-    @Singleton
-    public RuntimeExceptionDao<Category, UUID> provideCategoryDao() {
-        DatabaseHelper databaseHelper =
-                new DatabaseHelper(application.getApplicationContext(), application.getMode());
-        ConnectionSource connectionSource = databaseHelper.getConnectionSource();
-        try {
-            return RuntimeExceptionDao.createDao(connectionSource, Category.class);
-        } catch (SQLException exception) {
-            throw new RuntimeException(exception);
-        }
+  @Provides @Singleton public RuntimeExceptionDao<Category, UUID> provideCategoryDao() {
+    DatabaseHelper databaseHelper =
+        new DatabaseHelper(application.getApplicationContext(), application.getMode());
+    ConnectionSource connectionSource = databaseHelper.getConnectionSource();
+    try {
+      return RuntimeExceptionDao.createDao(connectionSource, Category.class);
+    } catch (SQLException exception) {
+      throw new RuntimeException(exception);
     }
+  }
 }

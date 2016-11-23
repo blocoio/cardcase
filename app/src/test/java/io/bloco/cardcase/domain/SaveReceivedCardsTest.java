@@ -24,7 +24,7 @@ public class SaveReceivedCardsTest {
     saveReceivedCards = new SaveReceivedCards(database);
   }
 
-//  Fixme @Test
+  //  Fixme @Test
   public void testGet() {
     List<Card> cards = Arrays.asList(new Card(), new Card());
     saveReceivedCards.save(cards, callback);

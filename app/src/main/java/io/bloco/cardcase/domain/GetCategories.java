@@ -10,18 +10,18 @@ import javax.inject.Singleton;
 
 @Singleton public class GetCategories {
 
-    private final Database database;
+  private final Database database;
 
-    public interface Callback {
-        void onGetCategories(List<Category> categories);
-    }
+  public interface Callback {
+    void onGetCategories(List<Category> categories);
+  }
 
-    @Inject public GetCategories(Database database) {
-        this.database = database;
-    }
+  @Inject public GetCategories(Database database) {
+    this.database = database;
+  }
 
-    public void get(Callback callback) {
-        List<Category> categories = this.database.getCategories();
-        callback.onGetCategories(categories);
-    }
+  public void get(Callback callback) {
+    List<Category> categories = this.database.getCategories();
+    callback.onGetCategories(categories);
+  }
 }

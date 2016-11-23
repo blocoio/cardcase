@@ -10,18 +10,18 @@ import javax.inject.Singleton;
 
 @Singleton public class SaveCategories {
 
-    private final Database database;
+  private final Database database;
 
-    public interface Callback {
-        void onSavedCategories(List<Category> savedCategories);
-    }
+  public interface Callback {
+    void onSavedCategories(List<Category> savedCategories);
+  }
 
-    @Inject public SaveCategories(Database database) {
-        this.database = database;
-    }
+  @Inject public SaveCategories(Database database) {
+    this.database = database;
+  }
 
-    public void save(List<Category> categories, Callback callback) {
-        database.saveCategories(categories);
-        callback.onSavedCategories(categories);
-    }
+  public void save(List<Category> categories, Callback callback) {
+    database.saveCategories(categories);
+    callback.onSavedCategories(categories);
+  }
 }

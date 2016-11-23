@@ -6,9 +6,9 @@ package io.bloco.cardcase.domain;
 
 public class DoneClickedEvent {
 
-    public final String message;
+  public final String message;
 
-    public DoneClickedEvent(String message) {
-        this.message = message;
-    }
+  public DoneClickedEvent(String message) {
+    this.message = message;
+  }
 }

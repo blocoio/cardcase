@@ -45,8 +45,7 @@
       app:backgroundTint="#F44336"
       app:elevation="6dp"
       android:layout_gravity="bottom|end"
-      android:src="@drawable/ic_delete_forever_white_24px"
-      />
+      android:src="@drawable/ic_delete_forever_white_24px"/>
 
   <android.support.design.widget.FloatingActionButton
       android:id="@+id/user_edit_fab"
@@ -59,12 +58,11 @@
       android:layout_gravity="bottom|end"
       app:backgroundTint="#2196F3"
       app:elevation="6dp"
-      android:src="@drawable/ic_edit"
-      />
+      android:src="@drawable/ic_edit"/>
 
   <android.support.design.widget.FloatingActionButton
       android:id="@+id/fab_main"
       app:elevation="6dp"
       android:src="@drawable/ic_add_white_24px"
-      style="@style/fab" />
+      style="@style/fab"/>
 </android.support.design.widget.CoordinatorLayout>

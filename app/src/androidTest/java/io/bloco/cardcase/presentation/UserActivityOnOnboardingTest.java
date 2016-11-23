@@ -53,7 +53,7 @@ import static org.hamcrest.Matchers.not;
     onView(withId(R.id.user_done)).check(matches(not(isDisplayed())));
   }
 
-//FIXME: 21.11.16
+  //FIXME: 21.11.16
   /*@Test public void testUserDataIsSaved() throws Exception {
     String name = new Faker().name.name();
     onView(withId(R.id.card_name)).perform(typeText(name));

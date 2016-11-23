@@ -1,68 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginTop="@dimen/margin_tiny"
     android:orientation="vertical">
 
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/card_dialog_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/status_bar"
-        android:orientation="horizontal">
+  <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+      android:id="@+id/card_dialog_toolbar"
+      android:layout_width="match_parent"
+      android:layout_height="@dimen/status_bar"
+      android:orientation="horizontal"
+      >
 
-        <ImageButton
-            android:id="@+id/card_dialog_share"
-            android:layout_height="match_parent"
-            android:layout_width="0px"
-            android:layout_weight="2"
-            android:contentDescription="@string/share"
-            android:src="@drawable/ic_exchange"
-            android:background="@color/background"
-            />
-
-        <Spinner
-            android:id="@+id/card_dialog_category_spinner"
-            android:layout_width="0px"
-            android:layout_weight="5"
-            android:layout_height="match_parent" />
-
-        <ImageButton
-            android:id="@+id/card_dialog_delete"
-            android:layout_height="match_parent"
-            android:layout_width="0px"
-            android:layout_weight="2"
-            android:contentDescription="@string/delete"
-            android:src="@drawable/ic_delete_forever_white_24px"
-            android:background="@color/background"
-            />
-
-
-    </LinearLayout>
-
-    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/card_detail_dialog_id"
-        android:layout_width="match_parent"
+    <ImageButton
+        android:id="@+id/card_dialog_share"
         android:layout_height="match_parent"
-        android:fillViewport="true">
+        android:layout_width="0px"
+        android:layout_weight="2"
+        android:contentDescription="@string/share"
+        android:src="@drawable/ic_exchange"
+        android:background="@color/background"
+        />
 
-        <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+    <Spinner
+        android:id="@+id/card_dialog_category_spinner"
+        android:layout_width="0px"
+        android:layout_weight="5"
+        android:layout_height="match_parent"
+        />
 
-            <io.bloco.cardcase.presentation.common.CardInfoView
-                android:id="@+id/card_dialog_info"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+    <ImageButton
+        android:id="@+id/card_dialog_delete"
+        android:layout_height="match_parent"
+        android:layout_width="0px"
+        android:layout_weight="2"
+        android:contentDescription="@string/delete"
+        android:src="@drawable/ic_delete_forever_white_24px"
+        android:background="@color/background"
+        />
 
-            <View
-                android:id="@+id/card_dialog_transition_overlay"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/cardview_light_background"
-                android:visibility="visible" />
-        </FrameLayout>
-    </ScrollView>
+
+  </LinearLayout>
+
+  <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+      android:id="@+id/card_detail_dialog_id"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:fillViewport="true"
+      >
+
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+      <io.bloco.cardcase.presentation.common.CardInfoView
+          android:id="@+id/card_dialog_info"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"/>
+
+      <View
+          android:id="@+id/card_dialog_transition_overlay"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:background="@color/cardview_light_background"
+          android:visibility="visible"
+          />
+    </FrameLayout>
+  </ScrollView>
 
 </LinearLayout>

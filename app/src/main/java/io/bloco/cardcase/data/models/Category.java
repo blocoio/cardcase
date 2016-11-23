@@ -9,45 +9,40 @@ import java.util.UUID;
  * Created by Mtrs on 28.09.2016.
  */
 
-@DatabaseTable(tableName = "categories")
-public class Category {
+@DatabaseTable(tableName = "categories") public class Category {
 
-    @DatabaseField(generatedId = true)
-    private UUID id;
-    @DatabaseField
-    private String name;
+  @DatabaseField(generatedId = true) private UUID id;
+  @DatabaseField private String name;
 
-    public UUID getId() {
-        return id;
+  public UUID getId() {
+    return id;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public Category() {
+  }
+
+  @Override public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
     }
 
-    public String getName() {
-        return name;
-    }
+    Category category = (Category) o;
 
-    public void setName(String name) {
-        this.name = name;
-    }
+    return id.equals(category.id);
+  }
 
-    public Category() {
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        Category category = (Category) o;
-
-        return id.equals(category.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return id.hashCode();
-    }
+  @Override public int hashCode() {
+    return id.hashCode();
+  }
 }
