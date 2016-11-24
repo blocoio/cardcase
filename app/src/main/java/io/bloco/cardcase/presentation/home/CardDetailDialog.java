@@ -72,8 +72,6 @@ import javax.inject.Inject;
 
     spinner.setOnItemSelectedListener(this);
 
-    //setSpinnerValues();
-
     //Add animation to the CardDialog
     dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
   }

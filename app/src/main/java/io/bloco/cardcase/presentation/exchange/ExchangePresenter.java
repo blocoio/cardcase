@@ -24,7 +24,7 @@ import javax.inject.Inject;
 import timber.log.Timber;
 
 @PerActivity public class ExchangePresenter
-    implements ExchangeContract.Presenter, NearbyManager.Listener, GetUserCard.Callback {
+        implements ExchangeContract.Presenter, NearbyManager.Listener, GetUserCard.Callback {
 
   private final NearbyManager nearbyManager;
   private final CardSerializer cardSerializer;
@@ -38,8 +38,8 @@ import timber.log.Timber;
   private Database database;
 
   @Inject public ExchangePresenter(NearbyManager nearbyManager, CardSerializer cardSerializer,
-      GetUserCard getUserCard, SaveReceivedCards saveReceivedCards,
-      AnalyticsService analyticsService, Database database) {
+                                   GetUserCard getUserCard, SaveReceivedCards saveReceivedCards,
+                                   AnalyticsService analyticsService, Database database) {
     this.nearbyManager = nearbyManager;
     this.cardSerializer = cardSerializer;
     this.getUserCard = getUserCard;
@@ -87,6 +87,9 @@ import timber.log.Timber;
   }
 
   @Override public void clickedClose() {
+    //If card shared is not a userCard, then change its field user to false
+    database.changeSharedCardBack();
+
     if (receivedCards.isEmpty()) {
       view.close();
     } else {

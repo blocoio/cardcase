@@ -1,10 +1,11 @@
 package io.bloco.cardcase.presentation.common;
 
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import javax.inject.Inject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -14,10 +15,8 @@ import io.bloco.cardcase.data.Database;
 import io.bloco.cardcase.data.models.Card;
 import io.bloco.cardcase.presentation.home.CardDetailDialog;
 
-import javax.inject.Inject;
-
 public class CardViewHolder extends RecyclerView.ViewHolder
-    implements View.OnClickListener, View.OnLongClickListener {
+        implements View.OnClickListener {
 
   @Inject DateTimeFormat dateTimeFormat;
   @Inject ImageLoader imageLoader;
@@ -35,12 +34,11 @@ public class CardViewHolder extends RecyclerView.ViewHolder
   public CardViewHolder(View view, CardDetailDialog cardDetailDialog, Database database) {
     super(view);
     view.setOnClickListener(this);
-    view.setOnLongClickListener(this);
     this.cardDetailDialog = cardDetailDialog;
     this.database = database;
 
     ((AndroidApplication) view.getContext().getApplicationContext()).getApplicationComponent()
-        .inject(this);
+            .inject(this);
     ButterKnife.bind(this, view);
   }
 
@@ -61,11 +59,5 @@ public class CardViewHolder extends RecyclerView.ViewHolder
 
   @Override public void onClick(View view) {
     cardDetailDialog.show(card);
-  }
-
-  @Override public boolean onLongClick(View v) {
-    Log.d("TEST", "Long click ");
-
-    return false;
   }
 }
