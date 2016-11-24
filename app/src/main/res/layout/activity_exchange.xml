@@ -5,8 +5,7 @@
     tools:context=".presentation.exchange.ExchangeActivity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/exchange_container"
-    android:background="@color/secondary">
+    android:id="@+id/exchange_container">
 
   <android.support.design.widget.CoordinatorLayout
       android:id="@+id/layout"
@@ -50,6 +49,7 @@
 
         <Button
             android:id="@+id/exchange_invite"
+            style="?android:attr/borderlessButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin_small"

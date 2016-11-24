@@ -3,22 +3,34 @@ package io.bloco.cardcase.data.models;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 @DatabaseTable(tableName = "cards") public class Card {
 
-  @DatabaseField(id = true) private String id;
+  @DatabaseField(generatedId = true) private UUID id;
   @DatabaseField(canBeNull = false) private String name;
+  @DatabaseField private String company;
+  @DatabaseField private String position;
+  @DatabaseField private String address;
+  @DatabaseField private String website;
   @DatabaseField private String email;
   @DatabaseField private String phone;
   @DatabaseField private String avatarPath;
+  @DatabaseField private String linkedinURL;
+  @DatabaseField private String instagramURL;
+  @DatabaseField private String vklink;
+  @DatabaseField private String facebookLink;
+
   @DatabaseField(dataType = DataType.SERIALIZABLE) private ArrayList<String> fields;
   @DatabaseField private transient Date createdAt;
   @DatabaseField private transient Date updatedAt;
   @DatabaseField private transient boolean isUser;
+  @DatabaseField private UUID categoryId;
 
   public Card() {
     fields = new ArrayList<>();
@@ -43,21 +55,46 @@ import java.util.List;
     Card card = new Card();
     card.id = id;
     card.name = name;
+    card.company = company;
+    card.position = position;
+    card.address = address;
+    card.website = website;
     card.email = email;
     card.phone = phone;
+    card.vklink = vklink;
+    card.facebookLink = facebookLink;
     card.avatarPath = avatarPath;
     card.fields = new ArrayList<>(getFields());
     card.createdAt = createdAt;
     card.updatedAt = updatedAt;
     card.isUser = isUser;
+    card.categoryId = categoryId;
+    card.linkedinURL = linkedinURL;
+    card.instagramURL = instagramURL;
     return card;
   }
 
-  public String getId() {
+  public void setVklink(String link) {
+    this.vklink = link;
+  }
+
+  public String getVklink() {
+    return vklink;
+  }
+
+  public void setFacebookLink(String link) {
+    this.facebookLink = link;
+  }
+
+  public String getFacebookLink() {
+    return facebookLink;
+  }
+
+  public UUID getId() {
     return id;
   }
 
-  public void setId(String id) {
+  public void setId(UUID id) {
     this.id = id;
   }
 
@@ -67,6 +104,38 @@ import java.util.List;
 
   public void setName(String name) {
     this.name = name;
+  }
+
+  public String getCompany() {
+    return company;
+  }
+
+  public void setCompany(String company) {
+    this.company = company;
+  }
+
+  public String getPosition() {
+    return position;
+  }
+
+  public void setPosition(String position) {
+    this.position = position;
+  }
+
+  public String getAddress() {
+    return address;
+  }
+
+  public void setAddress(String address) {
+    this.address = address;
+  }
+
+  public String getWebsite() {
+    return website;
+  }
+
+  public void setWebsite(String website) {
+    this.website = website;
   }
 
   public String getEmail() {
@@ -144,13 +213,46 @@ import java.util.List;
     return !getName().isEmpty();
   }
 
+  public UUID getCategoryId() {
+    return categoryId;
+  }
+
+  public void setCategoryId(UUID categoryId) {
+    this.categoryId = categoryId;
+  }
+
+  public String getLinkedinURL() {
+    return linkedinURL;
+  }
+
+  public void setLinkedinURL(String linkedinURL) {
+    this.linkedinURL = linkedinURL;
+  }
+
+  public String getInstagramURL() {
+    return instagramURL;
+  }
+
+  public void setInstagramURL(String instagramURL) {
+    this.instagramURL = instagramURL;
+  }
+
   public boolean matchQuery(String query) {
     String queryNormalized = query.toLowerCase().trim();
 
     List<String> fieldsToMatch = new ArrayList<>(fields);
     fieldsToMatch.add(name);
+    fieldsToMatch.add(company);
+    fieldsToMatch.add(position);
+    fieldsToMatch.add(address);
+    fieldsToMatch.add(website);
     fieldsToMatch.add(email);
     fieldsToMatch.add(phone);
+    fieldsToMatch.add(vklink);
+    fieldsToMatch.add(facebookLink);
+    fieldsToMatch.add(linkedinURL);
+    fieldsToMatch.add(instagramURL);
+    fieldsToMatch.add(categoryId.toString());
 
     for (String field : fieldsToMatch) {
       if (field != null && field.toLowerCase().contains(queryNormalized)) {

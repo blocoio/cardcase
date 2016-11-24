@@ -1,7 +1,6 @@
 <resources>
 
-  <style name="AppTheme"
-      parent="Theme.AppCompat.Light.DarkActionBar">
+  <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
     <!-- Customize your theme here. -->
     <item name="colorPrimary">@color/primary</item>
     <item name="colorPrimaryDark">@color/primary</item>
@@ -26,6 +25,24 @@
     <item name="colorAccent">@color/primary</item>
   </style>
 
+  <style name="AppTheme.Red" parent="Theme.AppCompat">
+    <item name="colorPrimary">@color/primary_red</item>
+    <item name="colorPrimaryDark">@color/primary_red</item>
+    <item name="colorAccent">@color/secondary_red</item>
+    <item name="windowActionBar">false</item>
+    <item name="windowNoTitle">true</item>
+    <item name="android:statusBarColor">@android:color/transparent</item>
+    <item name="android:textSize">@dimen/text_default</item>
+    <item name="android:windowBackground">@color/background</item>
+    <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+    <item name="android:windowTranslucentStatus">true</item>
+    <item name="android:windowTranslucentNavigation">true</item>
+    <!-- Animations -->
+    <item name="android:windowContentTransitions">true</item>
+    <item name="android:windowAllowEnterTransitionOverlap">true</item>
+    <item name="android:windowAllowReturnTransitionOverlap">true</item>
+  </style>
+
   <style name="layout">
     <item name="android:layout_width">match_parent</item>
     <item name="android:layout_height">match_parent</item>
@@ -37,6 +54,14 @@
     <item name="android:layout_width">match_parent</item>
     <item name="android:layout_height">match_parent</item>
     <item name="android:layout_marginTop">@dimen/toolbar</item>
+    <item name="android:paddingStart">@dimen/margin_default</item>
+    <item name="android:paddingEnd">@dimen/margin_default</item>
+  </style>
+
+  <style name="bottom_layout">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">match_parent</item>
+    <item name="android:layout_marginTop">5dp</item>
     <item name="android:paddingStart">@dimen/margin_default</item>
     <item name="android:paddingEnd">@dimen/margin_default</item>
   </style>
@@ -72,12 +97,28 @@
     <item name="android:layout_margin">@dimen/fab_margin</item>
   </style>
 
+  <style name="fab_left">
+    <item name="android:layout_width">wrap_content</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:layout_gravity">bottom|start</item>
+    <item name="android:layout_margin">@dimen/fab_margin</item>
+  </style>
+
+  <style name="change_theme_button_style">
+    <item name="android:layout_width">wrap_content</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:layout_gravity">bottom|start</item>
+    <item name="android:layout_margin">@dimen/fab_margin</item>
+  </style>
+
+
   <style name="card">
     <item name="cardCornerRadius">0dp</item>
     <item name="android:background">@color/background_card</item>
     <item name="cardElevation">@dimen/elevation_card</item>
     <item name="android:foreground">@drawable/list_item_background</item>
     <item name="android:clickable">true</item>
+    <item name="android:windowAnimationStyle">@style/DialogAnimation</item>
   </style>
 
   <style name="card_field">
@@ -107,11 +148,23 @@
     <item name="android:gravity">center</item>
   </style>
 
+  <style name="test">
+    <item name="android:layout_width">wrap_content</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:layout_gravity">bottom|start</item>
+    <item name="android:layout_margin">@dimen/fab_margin</item>
+  </style>
+
   <style name="loader">
     <item name="android:indeterminate">true</item>
     <item name="android:indeterminateTint">@color/text_alt</item>
     <item name="android:contentDescription">@string/waiting</item>
     <item name="android:layout_gravity">center</item>
     <item name="android:alpha">0.5</item>
+  </style>
+
+  <style name="DialogAnimation">
+    <item name="android:windowEnterAnimation">@android:anim/slide_in_left</item>
+    <item name="android:windowExitAnimation">@android:anim/slide_out_right</item>
   </style>
 </resources>

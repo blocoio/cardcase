@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/category_view"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/card_name_height"
+    android:layout_marginBottom="@dimen/card_item_divider"
+    android:layout_marginTop="3dp"
+    style="@style/card"
+    >
+
+  <LinearLayout
+      android:id="@+id/main_layout"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:gravity="center_vertical"
+      android:orientation="horizontal"
+      android:paddingEnd="@dimen/margin_default"
+      android:paddingStart="@dimen/margin_default"
+      android:weightSum="1"
+      >
+
+    <io.bloco.cardcase.presentation.common.MyEditText
+        android:id="@+id/name_text_edit"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:paddingTop="@dimen/margin_default"
+        android:visibility="gone"
+        />
+
+    <TextView
+        android:id="@+id/name_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_vertical"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:paddingTop="@dimen/margin_default"
+        android:textColor="@color/background_crop"
+        android:visibility="visible"
+        />
+
+
+  </LinearLayout>
+
+</android.support.v7.widget.CardView>

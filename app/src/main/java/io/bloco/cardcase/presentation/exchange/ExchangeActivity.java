@@ -17,18 +17,27 @@ import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.FrameLayout;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
 import com.google.android.gms.appinvite.AppInviteInvitation;
 import com.google.android.gms.common.api.Status;
+
 import io.bloco.cardcase.R;
 import io.bloco.cardcase.common.di.ActivityComponent;
 import io.bloco.cardcase.common.di.DaggerActivityComponent;
+import io.bloco.cardcase.data.Database;
 import io.bloco.cardcase.data.models.Card;
+import io.bloco.cardcase.data.models.Category;
 import io.bloco.cardcase.presentation.BaseActivity;
 import io.bloco.cardcase.presentation.common.CardAdapter;
+import io.bloco.cardcase.presentation.home.Theme;
+
 import java.util.List;
+
 import javax.inject.Inject;
 
 public class ExchangeActivity extends BaseActivity implements ExchangeContract.View {
@@ -38,6 +47,7 @@ public class ExchangeActivity extends BaseActivity implements ExchangeContract.V
 
   @Inject ExchangeContract.Presenter presenter;
   @Inject CardAdapter cardAdapter;
+  @Inject Database database;
 
   @Bind(R.id.exchange_container) View overlay;
   @Bind(R.id.exchange_empty) ViewGroup emptyView;
@@ -90,8 +100,14 @@ public class ExchangeActivity extends BaseActivity implements ExchangeContract.V
     presenter.start(this);
   }
 
+  @Override protected void onResume() {
+    super.onResume();
+    Theme.applyThemeFor(this.getWindow().getDecorView(), getApplicationContext());
+  }
+
   @Override protected void onStop() {
     super.onStop();
+
     presenter.stop();
   }
 

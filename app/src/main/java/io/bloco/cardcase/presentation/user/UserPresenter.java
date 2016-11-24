@@ -1,11 +1,16 @@
 package io.bloco.cardcase.presentation.user;
 
+import android.app.Activity;
+
 import io.bloco.cardcase.common.analytics.AnalyticsService;
 import io.bloco.cardcase.common.di.PerActivity;
+import io.bloco.cardcase.data.Database;
 import io.bloco.cardcase.data.models.Card;
 import io.bloco.cardcase.domain.GetUserCard;
 import io.bloco.cardcase.domain.SaveUserCard;
+
 import java.util.UUID;
+
 import javax.inject.Inject;
 
 @PerActivity public class UserPresenter
@@ -17,12 +22,14 @@ import javax.inject.Inject;
   private UserContract.View view;
   private boolean onboarding;
   private Card userCard;
+  private Database database;
 
   @Inject public UserPresenter(GetUserCard getUserCard, SaveUserCard saveUserCard,
-      AnalyticsService analyticsService) {
+      AnalyticsService analyticsService, Database database) {
     this.getUserCard = getUserCard;
     this.saveUserCard = saveUserCard;
     this.analyticsService = analyticsService;
+    this.database = database;
   }
 
   @Override public void start(UserContract.View view, boolean onboarding) {
@@ -31,9 +38,10 @@ import javax.inject.Inject;
 
     if (onboarding) {
       userCard = new Card();
-      userCard.setId(UUID.randomUUID().toString());
+      //            userCard.setId(UUID.randomUUID());
       view.showUser(userCard);
       view.enableEditMode();
+      showDone();
       analyticsService.trackEvent("Onboarding Screen");
     } else {
       getUserCard.get(this);
@@ -70,6 +78,10 @@ import javax.inject.Inject;
     this.userCard = updatedCard;
     saveUserCard.save(userCard, this);
     analyticsService.trackEvent("User Card Save");
+    if (onboarding) {
+      ((Activity) view).finish();
+      this.start(view, false);
+    }
   }
 
   @Override public void onCardChanged(Card updatedCard) {
@@ -78,6 +90,19 @@ import javax.inject.Inject;
     } else {
       view.hideDoneButton();
     }
+  }
+
+  @Override public void clickRemoveUserCard() {
+    database.deleteCard(userCard);
+    userCard = new Card();
+    //            userCard.setId(UUID.randomUUID());
+    view.showUser(userCard);
+    view.enableEditMode();
+    view.showDoneButton();
+  }
+
+  @Override public void showDone() {
+    //        showDone();
   }
 
   @Override public void onGetUserCard(Card userCard) {

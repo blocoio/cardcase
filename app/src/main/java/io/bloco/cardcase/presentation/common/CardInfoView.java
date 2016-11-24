@@ -2,6 +2,7 @@ package io.bloco.cardcase.presentation.common;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.text.format.DateUtils;
 import android.util.AttributeSet;
@@ -12,6 +13,7 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -19,7 +21,10 @@ import io.bloco.cardcase.AndroidApplication;
 import io.bloco.cardcase.R;
 import io.bloco.cardcase.data.models.Card;
 import io.bloco.cardcase.presentation.home.SimpleTextWatcher;
+
 import java.util.ArrayList;
+import java.util.List;
+
 import javax.inject.Inject;
 
 public class CardInfoView extends FrameLayout {
@@ -29,10 +34,25 @@ public class CardInfoView extends FrameLayout {
   @Bind(R.id.card_avatar) ImageView avatar;
   @Bind(R.id.card_avatar_edit_overlay) View avatarEditOverlay;
   @Bind(R.id.card_name) EditText name;
-  @Bind(R.id.card_email) EditText email;
   @Bind(R.id.card_phone) EditText phone;
   @Bind(R.id.card_fields) ViewGroup fields;
   @Bind(R.id.card_time) TextView time;
+  @Bind(R.id.card_company) EditText company;
+  @Bind(R.id.card_address) EditText address;
+  @Bind(R.id.card_website) EditText website;
+  @Bind(R.id.card_position) EditText position;
+  @Bind(R.id.card_email) EditText email;
+  @Bind(R.id.linkedinLink) EditText linkedinProfile;
+  @Bind(R.id.linkedin_icon) ImageView linkedinIcon;
+  @Bind(R.id.card_vk) EditText vklink;
+  @Bind(R.id.facebook_link) EditText facebooklink;
+
+  //icons
+  @Bind(R.id.facebook_icon) ImageView faceIcon;
+  @Bind(R.id.vk_icon) ImageView vkIcon;
+
+  @Bind(R.id.instagramLink) EditText instagramProfile;
+  @Bind(R.id.instagramIcon) ImageView instagramIcon;
 
   private Card card;
   private CardEditListener editListener;
@@ -48,8 +68,16 @@ public class CardInfoView extends FrameLayout {
 
     fieldTextWatcher = new FieldTextWatcher();
     name.addTextChangedListener(fieldTextWatcher);
+    company.addTextChangedListener(fieldTextWatcher);
+    address.addTextChangedListener(fieldTextWatcher);
+    website.addTextChangedListener(fieldTextWatcher);
+    position.addTextChangedListener(fieldTextWatcher);
     email.addTextChangedListener(fieldTextWatcher);
     phone.addTextChangedListener(fieldTextWatcher);
+    vklink.addTextChangedListener(fieldTextWatcher);
+    facebooklink.addTextChangedListener(fieldTextWatcher);
+    linkedinProfile.addTextChangedListener(fieldTextWatcher);
+    instagramProfile.addTextChangedListener(fieldTextWatcher);
 
     disabledEditMode();
   }
@@ -66,6 +94,56 @@ public class CardInfoView extends FrameLayout {
 
     Intent chooser = Intent.createChooser(intent, getResources().getString(R.string.send_email));
     getContext().startActivity(chooser);
+  }
+
+  @OnClick(R.id.card_vk) public void clickVkLink() {
+    if (editMode) return;
+
+    Uri webpage = Uri.parse("https://www.vk.com/" + card.getVklink());
+    Intent intent = new Intent(Intent.ACTION_VIEW, webpage);
+
+    List<ResolveInfo> resInfo = getContext().getPackageManager().queryIntentActivities(intent, 0);
+
+    if (resInfo.isEmpty()) return;
+
+    for (ResolveInfo info : resInfo) {
+      if (info.activityInfo == null) continue;
+      if ("com.vkontakte.android".equals(info.activityInfo.packageName)) {
+        intent.setPackage(info.activityInfo.packageName);
+        break;
+      }
+    }
+    getContext().startActivity(intent);
+  }
+
+  @OnClick(R.id.facebook_link) public void clickFacebookLink() {
+    if (editMode) {
+      return;
+    }
+    Uri webpage = Uri.parse("https://www.facebook.com/" + card.getFacebookLink());
+    Intent intent = new Intent(Intent.ACTION_VIEW, webpage);
+    getContext().startActivity(intent);
+  }
+
+  @OnClick(R.id.vk_icon) public void clickVkIcon() {
+    clickVkLink();
+  }
+
+  @OnClick(R.id.instagramIcon) public void clickInstagramIcon() {
+    instagramClick();
+  }
+
+  @OnClick(R.id.instagramLink) public void instagramClick() {
+    if (editMode) {
+      return;
+    }
+    Uri webpage = Uri.parse("https://www.instagram.com/" + card.getInstagramURL());
+    Intent intent = new Intent(Intent.ACTION_VIEW, webpage);
+    getContext().startActivity(intent);
+  }
+
+  @OnClick(R.id.facebook_icon) public void clickFacebookIcon() {
+    clickFacebookLink();
   }
 
   @OnClick(R.id.card_phone) public void clickPhone() {
@@ -85,6 +163,20 @@ public class CardInfoView extends FrameLayout {
     }
   }
 
+  @OnClick(R.id.linkedin_icon) public void clickLinkedinIcon() {
+    clickLinkedInURL();
+  }
+
+  @OnClick(R.id.linkedinLink) public void clickLinkedInURL() {
+    if (editMode) {
+      return;
+    }
+
+    Uri webpage = Uri.parse("https://www.linkedin.com/in/" + card.getLinkedinURL());
+    Intent intent = new Intent(Intent.ACTION_VIEW, webpage);
+    getContext().startActivity(intent);
+  }
+
   public void setAvatar(String avatarPath) {
     card.setAvatarPath(avatarPath);
     if (card.hasAvatar()) {
@@ -98,8 +190,16 @@ public class CardInfoView extends FrameLayout {
 
   public Card getCard() {
     card.setName(name.getText().toString().trim());
+    card.setCompany(company.getText().toString().trim());
+    card.setAddress(address.getText().toString().trim());
+    card.setWebsite(website.getText().toString().trim());
+    card.setPosition(position.getText().toString().trim());
     card.setEmail(email.getText().toString().trim());
     card.setPhone(phone.getText().toString().trim());
+    card.setVklink(vklink.getText().toString().trim());
+    card.setFacebookLink(facebooklink.getText().toString().trim());
+    card.setLinkedinURL(linkedinProfile.getText().toString().trim());
+    card.setInstagramURL(instagramProfile.getText().toString().trim());
 
     int fieldsCount = fields.getChildCount();
     ArrayList<String> fieldValues = new ArrayList<>(fieldsCount);
@@ -119,21 +219,44 @@ public class CardInfoView extends FrameLayout {
     this.card = card.copy();
 
     name.setText(card.getName());
+    company.setText(card.getCompany());
+    address.setText(card.getAddress());
+    website.setText(card.getWebsite());
+    position.setText(card.getPosition());
     email.setText(card.getEmail());
     phone.setText(card.getPhone());
+    vklink.setText(card.getVklink());
+    facebooklink.setText(card.getFacebookLink());
+    linkedinProfile.setText(card.getLinkedinURL());
+    instagramProfile.setText(card.getInstagramURL());
 
     setAvatar(card.getAvatarPath());
+    try {
+      fields.removeAllViews();
+      for (String fieldValue : card.getFields()) {
+        addNewField(fieldValue);
+      }
 
-    fields.removeAllViews();
-    for (String fieldValue : card.getFields()) {
-      addNewField(fieldValue);
-    }
+      if (card.getUpdatedAt() != null) {
+        long timestamp = card.getUpdatedAt().getTime();
+        String timeCaption = DateUtils.getRelativeTimeSpanString(timestamp).toString();
+        String timePhrase = getResources().getString(R.string.card_time, timeCaption);
+        time.setText(timePhrase);
+      }
 
-    if (card.getUpdatedAt() != null) {
-      long timestamp = card.getUpdatedAt().getTime();
-      String timeCaption = DateUtils.getRelativeTimeSpanString(timestamp).toString();
-      String timePhrase = getResources().getString(R.string.card_time, timeCaption);
-      time.setText(timePhrase);
+      if (card.getVklink().isEmpty()) {
+        vkIcon.setVisibility(View.GONE);
+      }
+      if (card.getFacebookLink().isEmpty()) {
+        faceIcon.setVisibility(View.GONE);
+      }
+      if (card.getInstagramURL().isEmpty()) {
+        instagramIcon.setVisibility(View.GONE);
+      }
+      if (card.getLinkedinURL().isEmpty()) {
+        linkedinIcon.setVisibility(View.GONE);
+      }
+    } catch (NullPointerException ignored) {
     }
 
     if (editMode) {
@@ -151,8 +274,16 @@ public class CardInfoView extends FrameLayout {
     editMode = true;
 
     enableEditText(name);
+    enableEditText(company);
+    enableEditText(address);
+    enableEditText(website);
+    enableEditText(position);
     enableEditText(email);
     enableEditText(phone);
+    enableEditText(linkedinProfile);
+    enableEditText(vklink);
+    enableEditText(facebooklink);
+    enableEditText(instagramProfile);
 
     if (card == null || !card.hasAvatar()) {
       avatar.setImageResource(R.drawable.avatar_edit);
@@ -171,8 +302,16 @@ public class CardInfoView extends FrameLayout {
     editMode = false;
 
     disabledEditText(name);
+    disabledEditText(company);
+    disabledEditText(address);
+    disabledEditText(website);
+    disabledEditText(position);
     disabledEditText(email);
     disabledEditText(phone);
+    disabledEditText(vklink);
+    disabledEditText(facebooklink);
+    disabledEditText(linkedinProfile);
+    disabledEditText(instagramProfile);
 
     if (card == null || !card.hasAvatar()) {
       avatar.setImageResource(R.drawable.ic_avatar);
@@ -181,6 +320,19 @@ public class CardInfoView extends FrameLayout {
     for (int i = 0; i < fields.getChildCount(); i++) {
       EditText field = (EditText) fields.getChildAt(i);
       if (getEditTextValue(field).isEmpty()) {
+        if (card.getVklink().isEmpty()) {
+          vkIcon.setVisibility(View.GONE);
+        }
+        if (card.getFacebookLink().isEmpty()) {
+          faceIcon.setVisibility(View.GONE);
+        }
+        if (card.getInstagramURL().isEmpty()) {
+          instagramIcon.setVisibility(View.GONE);
+        }
+        if (card.getLinkedinURL().isEmpty()) {
+          linkedinIcon.setVisibility(View.GONE);
+        }
+
         fields.removeView(field);
         i--;
       } else {
@@ -191,8 +343,8 @@ public class CardInfoView extends FrameLayout {
     avatarEditOverlay.setVisibility(View.GONE);
 
     // Close keyboard
-    InputMethodManager imm = (InputMethodManager)
-        getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+    InputMethodManager imm =
+        (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
     imm.hideSoftInputFromWindow(getWindowToken(), 0);
   }
 
@@ -207,7 +359,6 @@ public class CardInfoView extends FrameLayout {
   }
 
   // Private
-
   private String getEditTextValue(EditText editText) {
     return editText.getText().toString().trim();
   }
@@ -215,6 +366,7 @@ public class CardInfoView extends FrameLayout {
   private void disabledEditText(EditText editText) {
     // Hide if empty
     if (editText.getText().length() == 0) {
+
       editText.setVisibility(View.GONE);
     } else {
       editText.setVisibility(View.VISIBLE);
@@ -247,6 +399,7 @@ public class CardInfoView extends FrameLayout {
     for (int i = 0, count = fields.getChildCount(); i < count; i++) {
       EditText field = (EditText) fields.getChildAt(i);
       if (getEditTextValue(field).isEmpty()) {
+
         return false;
       }
     }

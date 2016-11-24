@@ -1,6 +1,7 @@
 package io.bloco.cardcase.common.di;
 
 import android.app.Activity;
+
 import dagger.Module;
 import dagger.Provides;
 import io.bloco.cardcase.presentation.exchange.ExchangeContract;

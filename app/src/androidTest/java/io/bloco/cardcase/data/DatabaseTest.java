@@ -5,16 +5,20 @@ import com.j256.ormlite.dao.RuntimeExceptionDao;
 import io.bloco.cardcase.AndroidApplication;
 import io.bloco.cardcase.common.di.ApplicationModule;
 import io.bloco.cardcase.data.models.Card;
+import io.bloco.cardcase.data.models.Category;
 import io.bloco.cardcase.helpers.CardFactory;
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 
+import static org.hamcrest.core.IsCollectionContaining.hasItem;
 import static org.hamcrest.core.IsCollectionContaining.hasItems;
 import static org.junit.Assert.assertThat;
 
 public class DatabaseTest extends ApplicationTestCase<AndroidApplication> {
 
-  private RuntimeExceptionDao<Card, String> cardDao;
+  private RuntimeExceptionDao<Card, UUID> cardDao;
+  private RuntimeExceptionDao<Category, UUID> categoryDao;
   private Database database;
   private CardFactory cardFactory;
 
@@ -25,8 +29,53 @@ public class DatabaseTest extends ApplicationTestCase<AndroidApplication> {
   @Override public void setUp() throws Exception {
     createApplication();
     cardDao = new ApplicationModule(getApplication()).provideCardDao();
-    database = new Database(cardDao);
-    cardFactory = new CardFactory(cardDao);
+    categoryDao = new ApplicationModule(getApplication()).provideCategoryDao();
+    database = new Database(cardDao, categoryDao);
+    cardFactory = new CardFactory(cardDao, categoryDao);
+
+    cardFactory.clear();
+    cardFactory.clearCategories();
+  }
+
+  public void testSaveCategory() throws Exception {
+    Category category = cardFactory.buildCategory("test category");
+    database.saveCategory(category);
+
+    assertEquals(categoryDao.countOf(), 1);
+    assertEquals(categoryDao.queryBuilder().queryForFirst(), category);
+
+    cardFactory.clear();
+    cardFactory.clearCategories();
+  }
+
+  public void testSaveCategories() throws Exception {
+    Category category1 = cardFactory.buildCategory("test category1");
+    Category category2 = cardFactory.buildCategory("test category2");
+    database.saveCategory(category1);
+    database.saveCategory(category2);
+
+    assertEquals(2, categoryDao.countOf());
+    assertThat(categoryDao.queryForAll(), hasItems(category1, category2));
+
+    cardFactory.clear();
+    cardFactory.clearCategories();
+  }
+
+  public void testGetCategoryByCard() throws Exception {
+    Category category = cardFactory.buildCategory("test category");
+    database.saveCategory(category);
+
+    Card card = cardFactory.build();
+    card.setCategoryId(category.getId());
+    database.saveCard(card);
+
+    assertEquals(categoryDao.countOf(), 1);
+    assertEquals(cardDao.countOf(), 1);
+
+    assertEquals(cardDao.queryForEq("categoryId", category.getId()).get(0).getId(), card.getId());
+
+    cardFactory.clear();
+    cardFactory.clearCategories();
   }
 
   public void testSaveCard() throws Exception {

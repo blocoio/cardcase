@@ -1,6 +1,7 @@
 <resources>
   <string name="app_name">Card Case</string>
   <string name="cards_received">Cards received</string>
+  <string name="theme_settings">Theme settings</string>
   <string name="user_card">My card</string>
   <string name="back">Back</string>
   <string name="done">Done</string>
@@ -9,6 +10,11 @@
   <string name="email">Email</string>
   <string name="phone">Phone number</string>
   <string name="field_hint"></string>
+  <string name="linkedin">LinkedIn</string>
+  <string name="instagram">Instagram</string>
+  <string name="vk">Vk</string>
+  <string name="add_category">Add category</string>
+
   <string name="exchange">Exchange</string>
   <string name="close">Close</string>
   <string name="edit">Edit</string>
@@ -17,6 +23,8 @@
   <string name="waiting">Waiting</string>
   <string name="ok">OK</string>
   <string name="cancel">Cancel</string>
+  <string name="delete">Delete</string>
+  <string name="share">Share</string>
 
   <string name="avatar_edit">Change avatar</string>
   <string name="avatar_picker">Where from?</string>
@@ -31,6 +39,11 @@
   <string name="welcome_start">Create your card</string>
   <string name="welcome_title">Welcome to Card Case</string>
   <string name="welcome_text">The easiest way to exchange contacts with people nearby</string>
+
+  <string-array name="category_spinner">
+    <item>Edit</item>
+    <item>Delete</item>
+  </string-array>
 
   <string name="home_empty_text">
     Here you will see the\n

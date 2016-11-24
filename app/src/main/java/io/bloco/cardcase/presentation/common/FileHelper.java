@@ -47,7 +47,8 @@ import timber.log.Timber;
 
   public File createFinalImageFile() {
     String timeStamp =
-        new SimpleDateFormat("yyyyMMdd" + IMAGE_SEPARATOR + "HHmmssSSSS", Locale.US).format(new Date());
+        new SimpleDateFormat("yyyyMMdd" + IMAGE_SEPARATOR + "HHmmssSSSS", Locale.US).format(
+            new Date());
     String imageFileName = IMAGE_PREFIX + IMAGE_SEPARATOR + timeStamp;
 
     File file = new File(getStorageFolder(), imageFileName + IMAGE_SUFFIX);

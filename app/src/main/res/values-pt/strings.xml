@@ -17,6 +17,12 @@
   <string name="waiting">Em espera</string>
   <string name="ok">OK</string>
   <string name="cancel">Cancelar</string>
+  <string name="delete">Excluir</string>
+  <string name="share">Share</string>
+  <string name="linkedin">LinkedIn</string>
+  <string name="instagram">Instagram</string>
+  <string name="vk">Vk</string>
+
 
   <string name="avatar_edit">Mudar foto</string>
   <string name="avatar_picker">A partir de onde?</string>
