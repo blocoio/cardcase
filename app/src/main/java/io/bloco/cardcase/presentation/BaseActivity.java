@@ -13,7 +13,7 @@ import io.bloco.cardcase.common.di.ApplicationComponent;
 import io.bloco.cardcase.presentation.common.Toolbar;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-public class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends AppCompatActivity {
 
   protected Toolbar toolbar;
 
@@ -39,7 +39,7 @@ public class BaseActivity extends AppCompatActivity {
   }
 
   protected void bindToolbar() {
-    toolbar = (Toolbar) findViewById(R.id.toolbar);
+    toolbar = findViewById(R.id.toolbar);
   }
 
   protected void finishWithAnimation() {

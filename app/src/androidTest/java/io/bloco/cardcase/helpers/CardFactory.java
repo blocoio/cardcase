@@ -4,7 +4,6 @@ import android.support.test.rule.ActivityTestRule;
 import com.j256.ormlite.dao.RuntimeExceptionDao;
 import com.j256.ormlite.table.TableUtils;
 import io.bloco.cardcase.AndroidApplication;
-import io.bloco.cardcase.common.di.ApplicationModule;
 import io.bloco.cardcase.data.models.Card;
 import io.bloco.faker.Faker;
 import java.sql.SQLException;
@@ -13,24 +12,20 @@ import java.util.UUID;
 public class CardFactory {
 
   private final Faker faker;
-  private RuntimeExceptionDao<Card, String> cardDao;
+  private RuntimeExceptionDao<Card, String> dao;
 
   public CardFactory() {
     faker = new Faker();
   }
 
   public CardFactory(ActivityTestRule activityTestRule) {
-    this((AndroidApplication) activityTestRule.getActivity().getApplication());
+    this(((AndroidApplication) activityTestRule.getActivity().getApplication())
+        .getApplicationComponent().cardDao());
   }
 
-  public CardFactory(AndroidApplication application) {
+  public CardFactory(RuntimeExceptionDao<Card, String> dao) {
     this();
-    this.cardDao = new ApplicationModule(application).provideCardDao();
-  }
-
-  public CardFactory(RuntimeExceptionDao<Card, String> cardDao) {
-    this();
-    this.cardDao = cardDao;
+    this.dao = dao;
   }
 
   public Card build() {
@@ -69,13 +64,13 @@ public class CardFactory {
   }
 
   private Card create(final Card card) {
-    cardDao.createOrUpdate(card);
+    dao.createOrUpdate(card);
     return card;
   }
 
   public void clear() {
     try {
-      TableUtils.clearTable(cardDao.getConnectionSource(), Card.class);
+      TableUtils.clearTable(dao.getConnectionSource(), Card.class);
     } catch (SQLException exception) {
       throw new RuntimeException(exception);
     }

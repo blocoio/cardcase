@@ -33,7 +33,7 @@ import static org.hamcrest.Matchers.not;
   private CardFactory cardFactory;
 
   @Before public void setUp() {
-    Intent intent = UserActivity.Factory.getOnboardingIntent(getInstrumentation().getContext());
+    Intent intent = UserActivity.Factory.getOnboardingIntent(getInstrumentation().getTargetContext());
     activityTestRule.launchActivity(intent);
     cardFactory = new CardFactory(activityTestRule);
   }

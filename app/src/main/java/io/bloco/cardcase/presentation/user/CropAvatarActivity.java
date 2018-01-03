@@ -9,7 +9,7 @@ import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.lyft.android.scissors.CropView;
@@ -28,7 +28,7 @@ public class CropAvatarActivity extends BaseActivity {
 
   @Inject AvatarPicker avatarPicker;
 
-  @Bind(R.id.crop_avatar_view) CropView cropView;
+  @BindView(R.id.crop_avatar_view) CropView cropView;
 
   private ProgressDialog waitDialog;
   private CropView.Extensions cropExtensions;

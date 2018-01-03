@@ -12,7 +12,7 @@ import android.transition.TransitionInflater;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.bloco.cardcase.R;
@@ -35,17 +35,12 @@ public class HomeActivity extends BaseActivity
   @Inject HomeContract.Presenter presenter;
   @Inject CardAdapter cardAdapter;
 
-  @Bind(R.id.toolbar_search) SearchToolbar searchToolbar;
-
-  @Bind(R.id.home_empty) ViewGroup homeEmpty;
-
-  @Bind(R.id.home_search_empty) ViewGroup homeSearchEmpty;
-
-  @Bind(R.id.home_cards) RecyclerView cardsView;
-
-  @Bind(R.id.home_exchange) FloatingActionButton exchangeButton;
-
-  @Bind(R.id.home_transition_overlay) View transitionOverlay;
+  @BindView(R.id.toolbar_search) SearchToolbar searchToolbar;
+  @BindView(R.id.home_empty) ViewGroup homeEmpty;
+  @BindView(R.id.home_search_empty) ViewGroup homeSearchEmpty;
+  @BindView(R.id.home_cards) RecyclerView cardsView;
+  @BindView(R.id.home_exchange) FloatingActionButton exchangeButton;
+  @BindView(R.id.home_transition_overlay) View transitionOverlay;
 
   public static class Factory {
     public static Intent getIntent(Context context) {

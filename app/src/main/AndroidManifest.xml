@@ -5,7 +5,9 @@
 
   <uses-permission android:name="android.permission.INTERNET"/>
   <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-  <uses-permission android:name="android.permission.WAKE_LOCK" tools:node="remove" />
+  <uses-permission
+      android:name="android.permission.WAKE_LOCK"
+      tools:node="remove"/>
 
   <application
       android:name=".AndroidApplication"
@@ -35,18 +37,19 @@
 
     <activity
         android:name=".presentation.user.UserActivity"
-        android:windowSoftInputMode="adjustResize|stateHidden"
-        android:launchMode="singleTask"
         android:label="@string/user_card"
-        android:screenOrientation="portrait"/>
+        android:launchMode="singleTask"
+        android:screenOrientation="portrait"
+        android:windowSoftInputMode="adjustResize|stateHidden"/>
 
     <activity
         android:name=".presentation.user.CropAvatarActivity"
         android:screenOrientation="portrait"/>
 
-    <activity android:name=".presentation.exchange.ExchangeActivity"
-        android:theme="@style/AppThemeAlt"
-        android:screenOrientation="portrait"/>
+    <activity
+        android:name=".presentation.exchange.ExchangeActivity"
+        android:screenOrientation="portrait"
+        android:theme="@style/AppThemeAlt"/>
 
     <activity
         android:name=".presentation.welcome.WelcomeActivity"
@@ -61,6 +64,10 @@
           android:name="android.support.FILE_PROVIDER_PATHS"
           android:resource="@xml/file_paths"/>
     </provider>
+
+    <meta-data
+        android:name="io.fabric.ApiKey"
+        android:value="8305d86e1277209ffd177cfa04fdcf485906e673"/>
 
   </application>
 </manifest>

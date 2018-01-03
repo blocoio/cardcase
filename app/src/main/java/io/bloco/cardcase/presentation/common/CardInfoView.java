@@ -12,7 +12,8 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
-import butterknife.Bind;
+
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.bloco.cardcase.AndroidApplication;
@@ -26,13 +27,13 @@ public class CardInfoView extends FrameLayout {
 
   @Inject ImageLoader imageLoader;
 
-  @Bind(R.id.card_avatar) ImageView avatar;
-  @Bind(R.id.card_avatar_edit_overlay) View avatarEditOverlay;
-  @Bind(R.id.card_name) EditText name;
-  @Bind(R.id.card_email) EditText email;
-  @Bind(R.id.card_phone) EditText phone;
-  @Bind(R.id.card_fields) ViewGroup fields;
-  @Bind(R.id.card_time) TextView time;
+  @BindView(R.id.card_avatar) ImageView avatar;
+  @BindView(R.id.card_avatar_edit_overlay) View avatarEditOverlay;
+  @BindView(R.id.card_name) EditText name;
+  @BindView(R.id.card_email) EditText email;
+  @BindView(R.id.card_phone) EditText phone;
+  @BindView(R.id.card_fields) ViewGroup fields;
+  @BindView(R.id.card_time) TextView time;
 
   private Card card;
   private CardEditListener editListener;

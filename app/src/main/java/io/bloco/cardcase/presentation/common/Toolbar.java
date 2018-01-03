@@ -8,22 +8,20 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import butterknife.Bind;
+
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.bloco.cardcase.R;
 
 public class Toolbar extends android.support.v7.widget.Toolbar {
 
-  @Bind(R.id.toolbar_title) TextView title;
-  @Bind(R.id.toolbar_icon_start) ImageButton iconStart;
-  @Bind(R.id.toolbar_icon_end) ImageButton iconEnd;
+  @BindView(R.id.toolbar_title) TextView title;
+  @BindView(R.id.toolbar_icon_start) ImageButton iconStart;
+  @BindView(R.id.toolbar_icon_end) ImageButton iconEnd;
 
   public Toolbar(Context context, @Nullable AttributeSet attrs) {
     super(context, attrs);
-  }
-
-  @Override protected void onFinishInflate() {
-    super.onFinishInflate();
+    inflate(context, R.layout.view_toolbar, this);
     ButterKnife.bind(this);
   }
 

@@ -8,7 +8,8 @@ import android.transition.Transition;
 import android.transition.TransitionInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import butterknife.Bind;
+
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.bloco.cardcase.R;
@@ -31,10 +32,10 @@ public class UserActivity extends BaseActivity
   @Inject AvatarPicker avatarPicker;
   @Inject ErrorDisplayer errorDisplayer;
 
-  @Bind(R.id.user_layout) ViewGroup rootLayout;
-  @Bind(R.id.user_card) CardInfoView cardView;
-  @Bind(R.id.user_edit) FloatingActionButton edit;
-  @Bind(R.id.user_done) FloatingActionButton done;
+  @BindView(R.id.user_layout) ViewGroup rootLayout;
+  @BindView(R.id.user_card) CardInfoView cardView;
+  @BindView(R.id.user_edit) FloatingActionButton edit;
+  @BindView(R.id.user_done) FloatingActionButton done;
 
   public static class Factory {
     public static class BundleArgs {

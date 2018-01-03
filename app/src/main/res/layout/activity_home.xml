@@ -11,7 +11,9 @@
 
     <android.support.design.widget.AppBarLayout
         style="@style/app_bar">
-      <include layout="@layout/toolbar_inner"/>
+      <io.bloco.cardcase.presentation.common.Toolbar
+          android:id="@+id/toolbar"
+          style="@style/toolbar"/>
       <include layout="@layout/toolbar_search" android:visibility="gone"/>
     </android.support.design.widget.AppBarLayout>
 

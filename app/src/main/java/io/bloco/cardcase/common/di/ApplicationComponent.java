@@ -3,9 +3,11 @@ package io.bloco.cardcase.common.di;
 import android.content.Context;
 import android.content.res.Resources;
 import com.google.gson.Gson;
+import com.j256.ormlite.dao.RuntimeExceptionDao;
 import dagger.Component;
 import io.bloco.cardcase.common.analytics.AnalyticsService;
 import io.bloco.cardcase.data.Database;
+import io.bloco.cardcase.data.models.Card;
 import io.bloco.cardcase.domain.GetReceivedCards;
 import io.bloco.cardcase.domain.GetUserCard;
 import io.bloco.cardcase.domain.SaveReceivedCards;
@@ -53,4 +55,6 @@ import javax.inject.Singleton;
   Bootstrap bootstrap();
 
   ErrorDisplayer errorDisplayer();
+
+  RuntimeExceptionDao<Card, String> cardDao();
 }

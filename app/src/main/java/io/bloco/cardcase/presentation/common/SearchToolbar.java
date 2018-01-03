@@ -5,7 +5,7 @@ import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.bloco.cardcase.R;
@@ -13,7 +13,7 @@ import io.bloco.cardcase.presentation.home.SimpleTextWatcher;
 
 public class SearchToolbar extends android.support.v7.widget.Toolbar {
 
-  @Bind(R.id.toolbar_search_field) EditText field;
+  @BindView(R.id.toolbar_search_field) EditText field;
 
   private SearchListener listener;
 

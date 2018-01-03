@@ -75,7 +75,7 @@ import static org.hamcrest.core.StringStartsWith.startsWith;
 
   private void launchApp() {
     activityTestRule.launchActivity(
-        HomeActivity.Factory.getIntent(getInstrumentation().getContext()));
+        HomeActivity.Factory.getIntent(getInstrumentation().getTargetContext()));
   }
 
   private Card createUserCard() {

@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.view.Window;
 import android.view.WindowManager;
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.bloco.cardcase.R;
 import io.bloco.cardcase.common.di.PerActivity;
@@ -16,7 +16,7 @@ import javax.inject.Inject;
 
   private final Dialog dialog;
 
-  @Bind(R.id.card_dialog_info) CardInfoView cardInfoView;
+  @BindView(R.id.card_dialog_info) CardInfoView cardInfoView;
 
   // TODO: Inject only the activity context?
   @Inject public CardDetailDialog(Activity activity) {

@@ -4,7 +4,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.bloco.cardcase.AndroidApplication;
 import io.bloco.cardcase.R;
@@ -17,9 +17,9 @@ public class CardViewHolder extends RecyclerView.ViewHolder implements View.OnCl
   @Inject DateTimeFormat dateTimeFormat;
   @Inject ImageLoader imageLoader;
 
-  @Bind(R.id.card_avatar) ImageView avatar;
-  @Bind(R.id.card_name) TextView name;
-  @Bind(R.id.card_time) TextView time;
+  @BindView(R.id.card_avatar) ImageView avatar;
+  @BindView(R.id.card_name) TextView name;
+  @BindView(R.id.card_time) TextView time;
 
   private final CardDetailDialog cardDetailDialog;
   private Card card;

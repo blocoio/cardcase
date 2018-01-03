@@ -17,7 +17,8 @@ import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
 import android.widget.Button;
-import butterknife.Bind;
+
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.google.android.gms.appinvite.AppInviteInvitation;
@@ -39,13 +40,13 @@ public class ExchangeActivity extends BaseActivity implements ExchangeContract.V
   @Inject ExchangeContract.Presenter presenter;
   @Inject CardAdapter cardAdapter;
 
-  @Bind(R.id.exchange_container) View overlay;
-  @Bind(R.id.exchange_empty) ViewGroup emptyView;
-  @Bind(R.id.exchange_cards) ViewGroup cardsView;
-  @Bind(R.id.exchange_cards_list) RecyclerView cardsListView;
-  @Bind(R.id.exchange_done) FloatingActionButton done;
-  @Bind(R.id.exchange_invite) Button invite;
-  @Bind(R.id.exchange_loader) View loader;
+  @BindView(R.id.exchange_container) View overlay;
+  @BindView(R.id.exchange_empty) ViewGroup emptyView;
+  @BindView(R.id.exchange_cards) ViewGroup cardsView;
+  @BindView(R.id.exchange_cards_list) RecyclerView cardsListView;
+  @BindView(R.id.exchange_done) FloatingActionButton done;
+  @BindView(R.id.exchange_invite) Button invite;
+  @BindView(R.id.exchange_loader) View loader;
 
   private AlertDialog errorDialog;
   private AlertDialog confirmDialog;

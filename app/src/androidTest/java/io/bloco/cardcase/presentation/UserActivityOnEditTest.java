@@ -80,7 +80,7 @@ import static org.hamcrest.CoreMatchers.not;
   }
 
   private void startActivity() {
-    Intent intent = UserActivity.Factory.getIntent(getInstrumentation().getContext());
+    Intent intent = UserActivity.Factory.getIntent(getInstrumentation().getTargetContext());
     activityTestRule.launchActivity(intent);
   }
 
