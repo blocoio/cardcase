@@ -31,6 +31,9 @@ Before building the application, you will need to:
 - Add your `google_analytics_tracker.xml` to the `app/src/main/res/xml` folder
 - Add your `google-services.json` file to the `app` folder
 
+## Contributing
+If you're new to open-source, we recommend you to checkout our [_Contributing Guidelines_](https://github.com/blocoio/cardcase/blob/master/CONTRIBUTING.md) and [Setup Guidelines](https://github.com/blocoio/cardcase/blob/master/SETUP_GUIDELINES.md). Feel free to fork the project and send us a pull request.
+
 ## License
 
     Copyright 2016 Block Studio, Lda
