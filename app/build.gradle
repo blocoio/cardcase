@@ -43,6 +43,10 @@ android {
     }
   }
 
+  lintOptions {
+    warningsAsErrors true
+  }
+
   packagingOptions {
     exclude 'LICENSE'
     exclude 'LICENSE.txt'
