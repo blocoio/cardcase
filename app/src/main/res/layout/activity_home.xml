@@ -5,17 +5,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-  <android.support.design.widget.CoordinatorLayout
+  <androidx.coordinatorlayout.widget.CoordinatorLayout
       style="@style/layout"
       tools:context=".presentation.home.HomeActivity">
 
-    <android.support.design.widget.AppBarLayout
+    <com.google.android.material.appbar.AppBarLayout
         style="@style/app_bar">
       <io.bloco.cardcase.presentation.common.Toolbar
           android:id="@+id/toolbar"
           style="@style/toolbar"/>
       <include layout="@layout/toolbar_search" android:visibility="gone"/>
-    </android.support.design.widget.AppBarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
 
     <LinearLayout
         android:id="@+id/home_empty"
@@ -55,7 +55,7 @@
 
     </LinearLayout>
 
-    <android.support.v7.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
         style="@style/layout_inner"
         android:id="@+id/home_cards"
         android:layout_marginBottom="@dimen/nav_bar_subtraction"
@@ -64,13 +64,13 @@
         android:clipToPadding="false"
         tools:visibility="visible"/>
 
-    <android.support.design.widget.FloatingActionButton
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/home_exchange"
         style="@style/fab"
         android:scaleType="center"
         android:src="@drawable/ic_exchange"/>
 
-  </android.support.design.widget.CoordinatorLayout>
+  </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
   <View
       android:id="@+id/home_transition_overlay"

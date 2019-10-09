@@ -1,34 +1,43 @@
 package io.bloco.cardcase.data;
 
-import android.test.ApplicationTestCase;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.platform.app.InstrumentationRegistry;
+
 import com.j256.ormlite.dao.RuntimeExceptionDao;
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+
+import java.util.Arrays;
+import java.util.List;
+
 import io.bloco.cardcase.AndroidApplication;
 import io.bloco.cardcase.common.di.ApplicationModule;
 import io.bloco.cardcase.data.models.Card;
 import io.bloco.cardcase.helpers.CardFactory;
-import java.util.Arrays;
-import java.util.List;
 
 import static org.hamcrest.core.IsCollectionContaining.hasItems;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
 
-public class DatabaseTest extends ApplicationTestCase<AndroidApplication> {
+@RunWith(AndroidJUnit4.class)
+public class DatabaseTest {
 
   private RuntimeExceptionDao<Card, String> cardDao;
   private Database database;
   private CardFactory cardFactory;
 
-  public DatabaseTest() {
-    super(AndroidApplication.class);
-  }
-
-  @Override public void setUp() throws Exception {
-    createApplication();
+  @Before
+  public void setUp() {
     cardDao = new ApplicationModule(getApplication()).provideCardDao();
     database = new Database(cardDao);
     cardFactory = new CardFactory(cardDao);
   }
 
+  @Test
   public void testSaveCard() throws Exception {
     Card card = cardFactory.buildUserCard();
     database.saveCard(card);
@@ -36,8 +45,8 @@ public class DatabaseTest extends ApplicationTestCase<AndroidApplication> {
     assertEquals(cardDao.countOf(), 1);
     assertEquals(cardDao.queryBuilder().queryForFirst(), card);
   }
-
-  public void testSaveCards() throws Exception {
+  @Test
+  public void testSaveCards() {
     Card card1 = cardFactory.buildUserCard();
     Card card2 = cardFactory.buildUserCard();
     List<Card> cards = Arrays.asList(card1, card2);
@@ -46,17 +55,17 @@ public class DatabaseTest extends ApplicationTestCase<AndroidApplication> {
     assertEquals(cardDao.countOf(), 2);
     assertThat(cardDao.queryForAll(), hasItems(card1, card2));
   }
-
-  public void testGetUserCard() throws Exception {
+  @Test
+  public void testGetUserCard() {
     Card card = cardFactory.createUserCard();
     assertEquals(database.getUserCard().getId(), card.getId());
   }
-
-  public void testGetUserCardEmpty() throws Exception {
+  @Test
+  public void testGetUserCardEmpty() {
     assertNull(database.getUserCard());
   }
-
-  public void testGetReceivedCard() throws Exception {
+  @Test
+  public void testGetReceivedCard() {
     cardFactory.createUserCard();
     cardFactory.createReceivedCard();
     cardFactory.createReceivedCard();
@@ -64,7 +73,12 @@ public class DatabaseTest extends ApplicationTestCase<AndroidApplication> {
     assertEquals(database.getReceivedCards().size(), 2);
   }
 
-  @Override public void tearDown() throws Exception {
+  @After
+  public void tearDown() {
     cardFactory.clear();
+  }
+
+  private AndroidApplication getApplication() {
+    return (AndroidApplication) InstrumentationRegistry.getInstrumentation().getTargetContext().getApplicationContext();
   }
 }

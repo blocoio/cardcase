@@ -1,7 +1,9 @@
 package io.bloco.cardcase;
 
 import android.app.Application;
+
 import com.crashlytics.android.Crashlytics;
+
 import io.bloco.cardcase.common.analytics.AnswersTracker;
 import io.bloco.cardcase.common.analytics.GoogleAnalyticsTracker;
 import io.bloco.cardcase.common.di.ApplicationComponent;
@@ -16,7 +18,8 @@ public class AndroidApplication extends Application {
   private Mode mode;
   private ApplicationComponent applicationComponent;
 
-  @Override public void onCreate() {
+  @Override
+  public void onCreate() {
     super.onCreate();
     checkTestMode();
     this.initializeInjector();

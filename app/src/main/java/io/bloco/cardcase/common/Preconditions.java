@@ -1,6 +1,6 @@
 package io.bloco.cardcase.common;
 
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 // Based on http://google-collections.googlecode.com/svn-history/r78/trunk/javadoc/com/google/common/base/Preconditions.html
 

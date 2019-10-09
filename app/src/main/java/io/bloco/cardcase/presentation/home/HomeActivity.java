@@ -4,9 +4,9 @@ import android.animation.Animator;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.transition.Transition;
 import android.transition.TransitionInflater;
 import android.view.View;
@@ -56,11 +56,7 @@ public class HomeActivity extends BaseActivity
 
     bindToolbar();
     toolbar.setTitle(R.string.cards_received);
-    toolbar.setStartButton(R.drawable.ic_user, R.string.user_card, new View.OnClickListener() {
-      @Override public void onClick(View v) {
-        presenter.clickedUser();
-      }
-    });
+    toolbar.setStartButton(R.drawable.ic_user, R.string.user_card, v -> presenter.clickedUser());
 
     Transition slideEnd = TransitionInflater.from(this).inflateTransition(R.transition.slide_end);
     getWindow().setEnterTransition(slideEnd);
@@ -110,11 +106,7 @@ public class HomeActivity extends BaseActivity
     homeEmpty.setVisibility(View.GONE);
 
     // Show Search
-    toolbar.setEndButton(R.drawable.ic_search, R.string.search, new View.OnClickListener() {
-      @Override public void onClick(View v) {
-        presenter.clickedSearch();
-      }
-    });
+    toolbar.setEndButton(R.drawable.ic_search, R.string.search, v -> presenter.clickedSearch());
   }
 
   @Override public void hideEmptySearchResult() {

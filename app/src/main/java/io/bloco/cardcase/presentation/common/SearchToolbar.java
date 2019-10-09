@@ -1,7 +1,7 @@
 package io.bloco.cardcase.presentation.common;
 
 import android.content.Context;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
@@ -11,7 +11,7 @@ import butterknife.OnClick;
 import io.bloco.cardcase.R;
 import io.bloco.cardcase.presentation.home.SimpleTextWatcher;
 
-public class SearchToolbar extends android.support.v7.widget.Toolbar {
+public class SearchToolbar extends androidx.appcompat.widget.Toolbar {
 
   @BindView(R.id.toolbar_search_field) EditText field;
 
@@ -48,25 +48,19 @@ public class SearchToolbar extends android.support.v7.widget.Toolbar {
 
   public void clear() {
     field.setText("");
-    field.postDelayed(new Runnable() {
-      @Override
-      public void run() {
-        InputMethodManager keyboard = (InputMethodManager)
-            getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-        keyboard.hideSoftInputFromWindow(field.getWindowToken(), 0);
-      }
+    field.postDelayed(() -> {
+      InputMethodManager keyboard = (InputMethodManager)
+          getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+      keyboard.hideSoftInputFromWindow(field.getWindowToken(), 0);
     }, 100);
   }
 
   public void focus() {
     field.requestFocus();
-    field.postDelayed(new Runnable() {
-      @Override
-      public void run() {
-        InputMethodManager keyboard = (InputMethodManager)
-            getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-        keyboard.showSoftInput(field, 0);
-      }
+    field.postDelayed(() -> {
+      InputMethodManager keyboard = (InputMethodManager)
+          getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+      keyboard.showSoftInput(field, 0);
     }, 100);
   }
 

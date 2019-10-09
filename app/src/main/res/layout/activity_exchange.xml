@@ -8,7 +8,7 @@
     android:id="@+id/exchange_container"
     android:background="@color/secondary">
 
-  <android.support.design.widget.CoordinatorLayout
+  <androidx.coordinatorlayout.widget.CoordinatorLayout
       android:id="@+id/layout"
       style="@style/layout">
 
@@ -79,7 +79,7 @@
             android:text="@string/exchange_cards_title"
             android:textSize="@dimen/text_title"/>
 
-        <android.support.v7.widget.RecyclerView
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/exchange_cards_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
@@ -88,7 +88,7 @@
 
     </FrameLayout>
 
-    <android.support.design.widget.FloatingActionButton
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/exchange_done"
         style="@style/fab"
         android:contentDescription="@string/done"
@@ -96,6 +96,6 @@
         android:visibility="gone"
         tools:visibility="visible"/>
 
-  </android.support.design.widget.CoordinatorLayout>
+  </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 </FrameLayout>

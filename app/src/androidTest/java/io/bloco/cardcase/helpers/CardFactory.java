@@ -1,6 +1,6 @@
 package io.bloco.cardcase.helpers;
 
-import android.support.test.rule.ActivityTestRule;
+import androidx.test.rule.ActivityTestRule;
 import com.j256.ormlite.dao.RuntimeExceptionDao;
 import com.j256.ormlite.table.TableUtils;
 import io.bloco.cardcase.AndroidApplication;

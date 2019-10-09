@@ -1,6 +1,6 @@
 package io.bloco.cardcase.presentation.common;
 
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -65,7 +65,7 @@ import javax.inject.Inject;
       Card card = cards.get(position);
       ((CardViewHolder) holder).bind(card);
     } else if (holder instanceof FooterViewHolder) {
-      ((FooterViewHolder) holder).start();
+      //((FooterViewHolder) holder).start();
     }
   }
 
@@ -75,14 +75,14 @@ import javax.inject.Inject;
 
   private static class FooterViewHolder extends RecyclerView.ViewHolder {
 
-    private final View view;
+    //private final View view;
 
     public FooterViewHolder(View view) {
       super(view);
-      this.view = view;
+      //this.view = view;
     }
 
-    public void start() {
-    }
+/*    public void start() {
+    }*/
   }
 }
