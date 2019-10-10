@@ -92,10 +92,6 @@ public class HomePresenterTest {
     receivedCards.add(card3);
 
     homePresenter.onGetReceivedCards(receivedCards);
-    List<Card> cards = new ArrayList<>();
-    cards.add(card1);
-    cards.add(card2);
-    cards.add(card3);
     verify(view).showCards(Arrays.asList(card1, card2, card3));
   }
 }
