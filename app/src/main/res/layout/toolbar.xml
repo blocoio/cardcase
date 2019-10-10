@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.AppBarLayout
+<com.google.android.material.appbar.AppBarLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     style="@style/app_bar">
   <io.bloco.cardcase.presentation.common.Toolbar
       android:id="@+id/toolbar"
       style="@style/toolbar"/>
-</android.support.design.widget.AppBarLayout>
+</com.google.android.material.appbar.AppBarLayout>

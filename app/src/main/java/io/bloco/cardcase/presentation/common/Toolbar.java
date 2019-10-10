@@ -1,9 +1,9 @@
 package io.bloco.cardcase.presentation.common;
 
 import android.content.Context;
-import android.support.annotation.DrawableRes;
-import android.support.annotation.Nullable;
-import android.support.annotation.StringRes;
+import androidx.annotation.DrawableRes;
+import androidx.annotation.Nullable;
+import androidx.annotation.StringRes;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.ImageButton;
@@ -13,7 +13,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.bloco.cardcase.R;
 
-public class Toolbar extends android.support.v7.widget.Toolbar {
+public class Toolbar extends androidx.appcompat.widget.Toolbar {
 
   @BindView(R.id.toolbar_title) TextView title;
   @BindView(R.id.toolbar_icon_start) ImageButton iconStart;

@@ -1,13 +1,13 @@
 package io.bloco.cardcase.presentation.exchange;
 
-import android.support.annotation.StringRes;
-import com.google.android.gms.common.api.Status;
-import io.bloco.cardcase.data.models.Card;
+import androidx.annotation.StringRes;
+
 import java.util.List;
+
+import io.bloco.cardcase.data.models.Card;
 
 public class ExchangeContract {
   public interface View {
-    void requestPermission(Status status);
 
     void setupCards(List<Card> receivedCards);
 
@@ -30,10 +30,6 @@ public class ExchangeContract {
     void start(View view);
 
     void stop();
-
-    void permissionApproved();
-
-    void permissionRejected();
 
     void clickedInvite();
 

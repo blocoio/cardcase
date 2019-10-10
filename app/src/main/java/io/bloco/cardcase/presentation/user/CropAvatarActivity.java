@@ -49,11 +49,7 @@ public class CropAvatarActivity extends BaseActivity {
 
     bindToolbar();
     toolbar.setTitle(R.string.crop_avatar);
-    toolbar.setStartButton(R.drawable.ic_close, R.string.close, new View.OnClickListener() {
-      @Override public void onClick(View v) {
-        finish();
-      }
-    });
+    toolbar.setStartButton(R.drawable.ic_close, R.string.close, v -> finish());
 
     Intent intent = getIntent();
     String filePath = intent.getStringExtra(AvatarPicker.BundleArgs.FILE_PATH);

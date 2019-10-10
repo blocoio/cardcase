@@ -9,7 +9,7 @@ import android.graphics.BitmapFactory;
 import android.hardware.Camera;
 import android.net.Uri;
 import android.provider.MediaStore;
-import android.support.v4.content.FileProvider;
+import androidx.core.content.FileProvider;
 import io.bloco.cardcase.BuildConfig;
 import io.bloco.cardcase.R;
 import io.bloco.cardcase.common.Preconditions;

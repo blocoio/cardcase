@@ -1,18 +1,23 @@
 package io.bloco.cardcase.presentation.common;
 
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.inject.Inject;
+
 import io.bloco.cardcase.R;
 import io.bloco.cardcase.common.di.PerActivity;
 import io.bloco.cardcase.data.models.Card;
 import io.bloco.cardcase.presentation.home.CardDetailDialog;
-import java.util.ArrayList;
-import java.util.List;
-import javax.inject.Inject;
 
-@PerActivity public class CardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+@PerActivity
+public class CardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
   private static class ViewType {
     private static final int NORMAL = 0;
@@ -23,7 +28,8 @@ import javax.inject.Inject;
   private List<Card> cards;
   private boolean showLoader;
 
-  @Inject public CardAdapter(CardDetailDialog cardDetailDialog) {
+  @Inject
+  public CardAdapter(CardDetailDialog cardDetailDialog) {
     this.cards = new ArrayList<>();
     this.cardDetailDialog = cardDetailDialog;
     this.showLoader = false;
@@ -33,11 +39,13 @@ import javax.inject.Inject;
     this.showLoader = true;
   }
 
-  @Override public int getItemCount() {
+  @Override
+  public int getItemCount() {
     return cards.size() + (showLoader ? 1 : 0);
   }
 
-  @Override public int getItemViewType(int position) {
+  @Override
+  public int getItemViewType(int position) {
     if (position < cards.size()) {
       return ViewType.NORMAL;
     } else {
@@ -45,7 +53,8 @@ import javax.inject.Inject;
     }
   }
 
-  @Override public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+  @Override
+  public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
     View view;
     switch (viewType) {
       case ViewType.FOOTER:
@@ -60,12 +69,11 @@ import javax.inject.Inject;
     }
   }
 
-  @Override public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+  @Override
+  public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
     if (holder instanceof CardViewHolder) {
       Card card = cards.get(position);
       ((CardViewHolder) holder).bind(card);
-    } else if (holder instanceof FooterViewHolder) {
-      ((FooterViewHolder) holder).start();
     }
   }
 
@@ -75,14 +83,8 @@ import javax.inject.Inject;
 
   private static class FooterViewHolder extends RecyclerView.ViewHolder {
 
-    private final View view;
-
     public FooterViewHolder(View view) {
       super(view);
-      this.view = view;
-    }
-
-    public void start() {
     }
   }
 }

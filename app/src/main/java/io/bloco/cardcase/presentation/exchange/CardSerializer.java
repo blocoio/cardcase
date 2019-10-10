@@ -1,19 +1,24 @@
 package io.bloco.cardcase.presentation.exchange;
 
 import com.google.gson.Gson;
-import io.bloco.cardcase.data.models.Card;
-import io.bloco.cardcase.presentation.common.FileHelper;
+
 import java.io.File;
+
 import javax.inject.Inject;
 import javax.inject.Singleton;
+
+import io.bloco.cardcase.data.models.Card;
+import io.bloco.cardcase.presentation.common.FileHelper;
 import timber.log.Timber;
 
-@Singleton public class CardSerializer {
+@Singleton
+public class CardSerializer {
 
   private final Gson gson;
   private final FileHelper fileHelper;
 
-  @Inject public CardSerializer(Gson gson, FileHelper fileHelper) {
+  @Inject
+  public CardSerializer(Gson gson, FileHelper fileHelper) {
     this.gson = gson;
     this.fileHelper = fileHelper;
   }

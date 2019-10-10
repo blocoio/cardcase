@@ -3,7 +3,7 @@ package io.bloco.cardcase.presentation.user;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import android.transition.Transition;
 import android.transition.TransitionInflater;
 import android.view.View;
@@ -119,11 +119,7 @@ public class UserActivity extends BaseActivity
   }
 
   @Override public void showBack() {
-    toolbar.setEndButton(R.drawable.ic_back_right, R.string.back, new View.OnClickListener() {
-      @Override public void onClick(View v) {
-        presenter.clickedBack();
-      }
-    });
+    toolbar.setEndButton(R.drawable.ic_back_right, R.string.back, v -> presenter.clickedBack());
   }
 
   @Override public void hideBack() {
@@ -131,11 +127,7 @@ public class UserActivity extends BaseActivity
   }
 
   @Override public void showCancel() {
-    toolbar.setStartButton(R.drawable.ic_close, R.string.back, new View.OnClickListener() {
-      @Override public void onClick(View v) {
-        presenter.clickedCancel();
-      }
-    });
+    toolbar.setStartButton(R.drawable.ic_close, R.string.back, v -> presenter.clickedCancel());
   }
 
   @Override public void hideCancel() {
@@ -143,19 +135,19 @@ public class UserActivity extends BaseActivity
   }
 
   @Override public void showEditButton() {
-    edit.setVisibility(View.VISIBLE);
+    edit.show();
   }
 
   @Override public void hideEditButton() {
-    edit.setVisibility(View.GONE);
+    edit.show();
   }
 
   @Override public void showDoneButton() {
-    done.setVisibility(View.VISIBLE);
+    done.show();
   }
 
   @Override public void hideDoneButton() {
-    done.setVisibility(View.GONE);
+    done.show();
   }
 
   @Override public void enableEditMode() {

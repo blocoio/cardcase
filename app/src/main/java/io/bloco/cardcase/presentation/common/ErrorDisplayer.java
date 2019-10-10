@@ -3,9 +3,9 @@ package io.bloco.cardcase.presentation.common;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
-import android.support.annotation.StringRes;
-import android.support.design.widget.Snackbar;
-import android.support.v4.content.ContextCompat;
+import androidx.annotation.StringRes;
+import com.google.android.material.snackbar.Snackbar;
+import androidx.core.content.ContextCompat;
 import android.view.View;
 import android.widget.TextView;
 import javax.inject.Inject;
@@ -37,7 +37,7 @@ import javax.inject.Singleton;
 
   private void setTextColor(Snackbar snackbar) {
     View view = snackbar.getView();
-    TextView textView = (TextView) view.findViewById(android.support.design.R.id.snackbar_text);
+    TextView textView = (TextView) view.findViewById(com.google.android.material.R.id.snackbar_text);
     textView.setTextColor(ContextCompat.getColor(context, android.R.color.white));
   }
 }

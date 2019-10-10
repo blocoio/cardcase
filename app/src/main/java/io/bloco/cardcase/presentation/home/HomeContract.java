@@ -1,7 +1,8 @@
 package io.bloco.cardcase.presentation.home;
 
-import io.bloco.cardcase.data.models.Card;
 import java.util.List;
+
+import io.bloco.cardcase.data.models.Card;
 
 public class HomeContract {
   public interface View {
