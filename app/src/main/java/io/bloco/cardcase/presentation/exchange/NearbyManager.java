@@ -22,6 +22,7 @@ public class NearbyManager extends MessageListener {
   public interface Listener {
 
     void onMessageReceived(byte[] messageBytes);
+
     void onError(Status status);
   }
 

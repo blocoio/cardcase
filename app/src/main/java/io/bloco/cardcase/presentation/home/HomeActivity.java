@@ -4,14 +4,21 @@ import android.animation.Animator;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import android.transition.Transition;
 import android.transition.TransitionInflater;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
+
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.util.List;
+
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -25,22 +32,28 @@ import io.bloco.cardcase.presentation.common.SearchToolbar;
 import io.bloco.cardcase.presentation.exchange.ExchangeActivity;
 import io.bloco.cardcase.presentation.user.UserActivity;
 import io.bloco.cardcase.presentation.welcome.WelcomeActivity;
-import java.util.List;
-import javax.inject.Inject;
 import timber.log.Timber;
 
 public class HomeActivity extends BaseActivity
     implements HomeContract.View, SearchToolbar.SearchListener {
 
-  @Inject HomeContract.Presenter presenter;
-  @Inject CardAdapter cardAdapter;
+  @Inject
+  HomeContract.Presenter presenter;
+  @Inject
+  CardAdapter cardAdapter;
 
-  @BindView(R.id.toolbar_search) SearchToolbar searchToolbar;
-  @BindView(R.id.home_empty) ViewGroup homeEmpty;
-  @BindView(R.id.home_search_empty) ViewGroup homeSearchEmpty;
-  @BindView(R.id.home_cards) RecyclerView cardsView;
-  @BindView(R.id.home_exchange) FloatingActionButton exchangeButton;
-  @BindView(R.id.home_transition_overlay) View transitionOverlay;
+  @BindView(R.id.toolbar_search)
+  SearchToolbar searchToolbar;
+  @BindView(R.id.home_empty)
+  ViewGroup homeEmpty;
+  @BindView(R.id.home_search_empty)
+  ViewGroup homeSearchEmpty;
+  @BindView(R.id.home_cards)
+  RecyclerView cardsView;
+  @BindView(R.id.home_exchange)
+  FloatingActionButton exchangeButton;
+  @BindView(R.id.home_transition_overlay)
+  View transitionOverlay;
 
   public static class Factory {
     public static Intent getIntent(Context context) {
@@ -48,7 +61,8 @@ public class HomeActivity extends BaseActivity
     }
   }
 
-  @Override protected void onCreate(Bundle savedInstanceState) {
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_home);
 
@@ -72,13 +86,15 @@ public class HomeActivity extends BaseActivity
     ButterKnife.bind(this);
   }
 
-  @Override protected void onStart() {
+  @Override
+  protected void onStart() {
     super.onStart();
     transitionOverlay.setVisibility(View.GONE);
     presenter.start(this);
   }
 
-  @Override public void onBackPressed() {
+  @Override
+  public void onBackPressed() {
     if (searchToolbar.getVisibility() == View.VISIBLE) {
       presenter.clickedCloseSearch();
     } else {
@@ -86,17 +102,20 @@ public class HomeActivity extends BaseActivity
     }
   }
 
-  @OnClick(R.id.home_exchange) public void onClickedExchange() {
+  @OnClick(R.id.home_exchange)
+  public void onClickedExchange() {
     presenter.clickedExchange();
   }
 
-  @Override public void showEmpty() {
+  @Override
+  public void showEmpty() {
     homeEmpty.setVisibility(View.VISIBLE);
     cardsView.setVisibility(View.GONE);
     toolbar.removeEndButton(); // Hide Search
   }
 
-  @Override public void showCards(final List<Card> cards) {
+  @Override
+  public void showCards(final List<Card> cards) {
     cardAdapter.setCards(cards);
     cardsView.setAdapter(cardAdapter);
     RecyclerView.LayoutManager layoutManager =
@@ -109,50 +128,59 @@ public class HomeActivity extends BaseActivity
     toolbar.setEndButton(R.drawable.ic_search, R.string.search, v -> presenter.clickedSearch());
   }
 
-  @Override public void hideEmptySearchResult() {
+  @Override
+  public void hideEmptySearchResult() {
     homeSearchEmpty.setVisibility(View.GONE);
   }
 
-  @Override public void showEmptySearchResult() {
+  @Override
+  public void showEmptySearchResult() {
     homeSearchEmpty.setVisibility(View.VISIBLE);
   }
 
-  @Override public void openOnboarding() {
+  @Override
+  public void openOnboarding() {
     Intent intent = WelcomeActivity.Factory.getIntent(HomeActivity.this);
     startActivity(intent);
     finish();
   }
 
-  @Override public void openUser() {
+  @Override
+  public void openUser() {
     Intent intent = UserActivity.Factory.getIntent(this);
     startActivityWithAnimation(intent);
   }
 
-  @Override public void openExchange() {
+  @Override
+  public void openExchange() {
     animateExchangeOverlay();
     Intent intent = ExchangeActivity.Factory.getIntent(this);
     startActivityWithAnimation(intent);
   }
 
-  @Override public void openSearch() {
+  @Override
+  public void openSearch() {
     toolbar.setVisibility(View.GONE);
     searchToolbar.setVisibility(View.VISIBLE);
     searchToolbar.focus();
     searchToolbar.setListener(this);
   }
 
-  @Override public void closeSearch() {
+  @Override
+  public void closeSearch() {
     toolbar.setVisibility(View.VISIBLE);
     searchToolbar.setVisibility(View.GONE);
     searchToolbar.clear();
     searchToolbar.setListener(null);
   }
 
-  @Override public void onSearchClosed() {
+  @Override
+  public void onSearchClosed() {
     presenter.clickedCloseSearch();
   }
 
-  @Override public void onSearchQuery(String query) {
+  @Override
+  public void onSearchQuery(String query) {
     Timber.i("onSearchQuery");
     presenter.searchEntered(query);
   }

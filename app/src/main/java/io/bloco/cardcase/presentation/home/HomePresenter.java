@@ -1,15 +1,18 @@
 package io.bloco.cardcase.presentation.home;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.inject.Inject;
+
 import io.bloco.cardcase.common.analytics.AnalyticsService;
 import io.bloco.cardcase.common.di.PerActivity;
 import io.bloco.cardcase.data.models.Card;
 import io.bloco.cardcase.domain.GetReceivedCards;
 import io.bloco.cardcase.domain.GetUserCard;
-import java.util.ArrayList;
-import java.util.List;
-import javax.inject.Inject;
 
-@PerActivity public class HomePresenter
+@PerActivity
+public class HomePresenter
     implements HomeContract.Presenter, GetUserCard.Callback, GetReceivedCards.Callback {
 
   private final GetUserCard getUserCard;
@@ -18,14 +21,16 @@ import javax.inject.Inject;
   private HomeContract.View view;
   private List<Card> receivedCards;
 
-  @Inject public HomePresenter(GetUserCard getUserCard, GetReceivedCards getReceivedCards,
-      AnalyticsService analyticsService) {
+  @Inject
+  public HomePresenter(GetUserCard getUserCard, GetReceivedCards getReceivedCards,
+                       AnalyticsService analyticsService) {
     this.getUserCard = getUserCard;
     this.getReceivedCards = getReceivedCards;
     this.analyticsService = analyticsService;
   }
 
-  @Override public void start(HomeContract.View view) {
+  @Override
+  public void start(HomeContract.View view) {
     this.view = view;
     getUserCard.get(HomePresenter.this);
 
@@ -54,18 +59,21 @@ import javax.inject.Inject;
     analyticsService.trackEvent("Home Screen");
   }
 
-  @Override public void clickedSearch() {
+  @Override
+  public void clickedSearch() {
     view.openSearch();
     analyticsService.trackEvent("Home Open Search");
   }
 
-  @Override public void clickedCloseSearch() {
+  @Override
+  public void clickedCloseSearch() {
     view.hideEmptySearchResult();
     view.closeSearch();
     showReceivedCards();
   }
 
-  @Override public void searchEntered(String query) {
+  @Override
+  public void searchEntered(String query) {
     List<Card> filteredCards = new ArrayList<>(receivedCards.size());
     for (Card card : receivedCards) {
       if (card.matchQuery(query)) {
@@ -82,16 +90,19 @@ import javax.inject.Inject;
     view.showCards(filteredCards);
   }
 
-  @Override public void clickedUser() {
+  @Override
+  public void clickedUser() {
     view.openUser();
     analyticsService.trackEvent("Home View Card");
   }
 
-  @Override public void clickedExchange() {
+  @Override
+  public void clickedExchange() {
     view.openExchange();
   }
 
-  @Override public void onGetUserCard(Card userCard) {
+  @Override
+  public void onGetUserCard(Card userCard) {
     if (userCard == null) {
       view.openOnboarding();
     } else {
@@ -99,7 +110,8 @@ import javax.inject.Inject;
     }
   }
 
-  @Override public void onGetReceivedCards(List<Card> receivedCards) {
+  @Override
+  public void onGetReceivedCards(List<Card> receivedCards) {
     this.receivedCards = receivedCards;
     showReceivedCards();
   }
