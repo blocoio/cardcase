@@ -161,7 +161,7 @@ public class UserActivity extends BaseActivity
 
   @Override
   public void hideEditButton() {
-    edit.show();
+    edit.hide();
   }
 
   @Override
@@ -171,7 +171,7 @@ public class UserActivity extends BaseActivity
 
   @Override
   public void hideDoneButton() {
-    done.show();
+    done.hide();
   }
 
   @Override

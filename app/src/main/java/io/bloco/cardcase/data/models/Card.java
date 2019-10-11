@@ -3,28 +3,40 @@ package io.bloco.cardcase.data.models;
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-@DatabaseTable(tableName = "cards") public class Card {
+@DatabaseTable(tableName = "cards")
+public class Card {
 
-  @DatabaseField(id = true) private String id;
-  @DatabaseField(canBeNull = false) private String name;
-  @DatabaseField private String email;
-  @DatabaseField private String phone;
-  @DatabaseField private String avatarPath;
-  @DatabaseField(dataType = DataType.SERIALIZABLE) private ArrayList<String> fields;
-  @DatabaseField private transient Date createdAt;
-  @DatabaseField private transient Date updatedAt;
-  @DatabaseField private transient boolean isUser;
+  @DatabaseField(id = true)
+  private String id;
+  @DatabaseField(canBeNull = false)
+  private String name;
+  @DatabaseField
+  private String email;
+  @DatabaseField
+  private String phone;
+  @DatabaseField
+  private String avatarPath;
+  @DatabaseField(dataType = DataType.SERIALIZABLE)
+  private ArrayList<String> fields;
+  @DatabaseField
+  private transient Date createdAt;
+  @DatabaseField
+  private transient Date updatedAt;
+  @DatabaseField
+  private transient boolean isUser;
 
   public Card() {
     fields = new ArrayList<>();
   }
 
-  @Override public boolean equals(Object o) {
+  @Override
+  public boolean equals(Object o) {
     if (this == o) {
       return true;
     }
@@ -35,7 +47,8 @@ import java.util.List;
     return id.equals(card.id);
   }
 
-  @Override public int hashCode() {
+  @Override
+  public int hashCode() {
     return id.hashCode();
   }
 
@@ -142,7 +155,7 @@ import java.util.List;
   }
 
   public boolean isValid() {
-    return !getName().isEmpty();
+    return (!getName().isEmpty());
   }
 
   public boolean matchQuery(String query) {

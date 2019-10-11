@@ -39,7 +39,7 @@ public class ExchangeActivity extends BaseActivity implements ExchangeContract.V
   private static final int REQUEST_INVITE = 145;
 
   @Inject
- ExchangeContract.Presenter presenter;
+  ExchangeContract.Presenter presenter;
   @SuppressWarnings("unused")
   @Inject
   CardAdapter cardAdapter;
