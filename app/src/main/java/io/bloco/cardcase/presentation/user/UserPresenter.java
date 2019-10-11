@@ -1,14 +1,17 @@
 package io.bloco.cardcase.presentation.user;
 
+import java.util.UUID;
+
+import javax.inject.Inject;
+
 import io.bloco.cardcase.common.analytics.AnalyticsService;
 import io.bloco.cardcase.common.di.PerActivity;
 import io.bloco.cardcase.data.models.Card;
 import io.bloco.cardcase.domain.GetUserCard;
 import io.bloco.cardcase.domain.SaveUserCard;
-import java.util.UUID;
-import javax.inject.Inject;
 
-@PerActivity public class UserPresenter
+@PerActivity
+public class UserPresenter
     implements UserContract.Presenter, GetUserCard.Callback, SaveUserCard.Callback {
 
   private final GetUserCard getUserCard;
@@ -18,14 +21,16 @@ import javax.inject.Inject;
   private boolean onboarding;
   private Card userCard;
 
-  @Inject public UserPresenter(GetUserCard getUserCard, SaveUserCard saveUserCard,
-      AnalyticsService analyticsService) {
+  @Inject
+  public UserPresenter(GetUserCard getUserCard, SaveUserCard saveUserCard,
+                       AnalyticsService analyticsService) {
     this.getUserCard = getUserCard;
     this.saveUserCard = saveUserCard;
     this.analyticsService = analyticsService;
   }
 
-  @Override public void start(UserContract.View view, boolean onboarding) {
+  @Override
+  public void start(UserContract.View view, boolean onboarding) {
     this.view = view;
     this.onboarding = onboarding;
 
@@ -43,11 +48,13 @@ import javax.inject.Inject;
     }
   }
 
-  @Override public void clickedBack() {
+  @Override
+  public void clickedBack() {
     view.close();
   }
 
-  @Override public void clickedCancel() {
+  @Override
+  public void clickedCancel() {
     view.showUser(userCard);
     view.disabledEditMode();
     view.hideDoneButton();
@@ -56,7 +63,8 @@ import javax.inject.Inject;
     view.showEditButton();
   }
 
-  @Override public void clickedEdit() {
+  @Override
+  public void clickedEdit() {
     view.hideEditButton();
     view.hideBack();
     view.showCancel();
@@ -64,7 +72,8 @@ import javax.inject.Inject;
     analyticsService.trackEvent("User Card Edit");
   }
 
-  @Override public void clickedDone(Card updatedCard) {
+  @Override
+  public void clickedDone(Card updatedCard) {
     view.hideDoneButton();
     view.hideCancel();
     this.userCard = updatedCard;
@@ -72,7 +81,8 @@ import javax.inject.Inject;
     analyticsService.trackEvent("User Card Save");
   }
 
-  @Override public void onCardChanged(Card updatedCard) {
+  @Override
+  public void onCardChanged(Card updatedCard) {
     if (updatedCard.isValid()) {
       view.showDoneButton();
     } else {
@@ -80,12 +90,14 @@ import javax.inject.Inject;
     }
   }
 
-  @Override public void onGetUserCard(Card userCard) {
+  @Override
+  public void onGetUserCard(Card userCard) {
     this.userCard = userCard;
     view.showUser(this.userCard);
   }
 
-  @Override public void onSaveUserCard(Card savedCard) {
+  @Override
+  public void onSaveUserCard(Card savedCard) {
     if (onboarding) {
       view.openHome();
       view.close();

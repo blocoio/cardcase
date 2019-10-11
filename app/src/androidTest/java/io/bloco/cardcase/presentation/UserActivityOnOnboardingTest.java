@@ -50,7 +50,7 @@ public class UserActivityOnOnboardingTest {
   }
 
   @Test
-  public void testDoneVisibility() {
+  public void testDoneVisibility() throws Exception {
     onView(withId(R.id.user_done)).check(matches(not(isDisplayed())));
 
     String name = new Faker().name.name();
@@ -58,6 +58,7 @@ public class UserActivityOnOnboardingTest {
     onView(withId(R.id.user_done)).check(matches(isDisplayed()));
 
     onView(withId(R.id.card_name)).perform(clearText());
+    Thread.sleep(250);
     onView(withId(R.id.user_done)).check(matches(not(isDisplayed())));
   }
 
