@@ -8,12 +8,10 @@
   <string name="name">Nome</string>
   <string name="email">Email</string>
   <string name="phone">Telefone</string>
-  <string name="field_hint"></string>
   <string name="exchange">Trocar</string>
   <string name="close">Fechar</string>
   <string name="edit">Editar</string>
   <string name="card_time">Adicionado em %s</string>
-  <string name="added_at">Adicionado em %s</string>
   <string name="waiting">Em espera</string>
   <string name="ok">OK</string>
   <string name="cancel">Cancelar</string>
@@ -24,7 +22,6 @@
   <string name="crop_avatar_dialog">A recortar foto</string>
 
   <string name="time_just_now">agora</string>
-  <string name="time_a_minute_ago">há um minuto</string>
   <string name="time_minutes">%dm</string>
   <string name="time_hours">%dh</string>
 
@@ -69,21 +66,9 @@
 
   <!-- Errors -->
   <string name="error">Erro (desculpa!)</string>
-  <string name="error_exchange_general">
-    Não foi possível trocar cartões. Por favor tenta novamente.
-  </string>
-  <string name="error_need_nearby_permission">
-    Esta aplicação precisa da permissão Próximo para trocar cartões com pessoas perto de ti.
-  </string>
   <string name="error_connection">
     Não foi possível estabelecer uma ligação.
     Por favor, confirma que tens Internet disponível e tenta novamente.
-  </string>
-  <string name="error_play_services_update_required">
-    Tens que actualizar o Google Play Services para trocar cartões com pessoas perto de ti.
-  </string>
-  <string name="error_play_services_required">
-    Card Case precisa de Google Play Services instalado para trocar cartões com pessoas perto de ti.
   </string>
   <string name="error_avatar_receiving">Não foi possível processar a image. Por favor tente com uma
     imagem diferente.

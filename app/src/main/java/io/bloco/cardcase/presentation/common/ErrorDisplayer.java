@@ -11,6 +11,7 @@ import android.widget.TextView;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+@SuppressWarnings("unused")
 @Singleton public class ErrorDisplayer {
 
   private final Context context;
@@ -29,7 +30,7 @@ import javax.inject.Singleton;
     show(view, resources.getString(errorRes));
   }
 
-  public void show(View view, String errorMessage) {
+  private void show(View view, String errorMessage) {
     Snackbar snackbar = Snackbar.make(view, errorMessage, Snackbar.LENGTH_LONG);
     setTextColor(snackbar);
     snackbar.show();
@@ -37,7 +38,7 @@ import javax.inject.Singleton;
 
   private void setTextColor(Snackbar snackbar) {
     View view = snackbar.getView();
-    TextView textView = (TextView) view.findViewById(com.google.android.material.R.id.snackbar_text);
+    TextView textView = view.findViewById(com.google.android.material.R.id.snackbar_text);
     textView.setTextColor(ContextCompat.getColor(context, android.R.color.white));
   }
 }

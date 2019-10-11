@@ -21,6 +21,7 @@ import io.bloco.cardcase.presentation.exchange.CardSerializer;
 import io.bloco.cardcase.presentation.user.AvatarPicker;
 import javax.inject.Singleton;
 
+@SuppressWarnings("unused")
 @Singleton @Component(modules = ApplicationModule.class) public interface ApplicationComponent {
 
   void inject(CardViewHolder cardViewHolder);

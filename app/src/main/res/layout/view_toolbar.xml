@@ -15,6 +15,7 @@
       tools:src="@drawable/ic_user"
       tools:visibility="visible"/>
 
+  <!--suppress AndroidUnknownAttribute -->
   <TextView
       android:id="@+id/toolbar_title"
       fontPath="fonts/Lato-Bold.ttf"

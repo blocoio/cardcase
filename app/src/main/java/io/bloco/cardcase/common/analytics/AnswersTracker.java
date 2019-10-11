@@ -22,7 +22,4 @@ public class AnswersTracker implements AnalyticsTracker {
 
     Answers.getInstance().logCustom(event);
   }
-
-  @Override public void terminate() {
-  }
 }

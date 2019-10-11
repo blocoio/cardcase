@@ -13,6 +13,10 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -20,24 +24,31 @@ import io.bloco.cardcase.AndroidApplication;
 import io.bloco.cardcase.R;
 import io.bloco.cardcase.data.models.Card;
 import io.bloco.cardcase.presentation.home.SimpleTextWatcher;
-import java.util.ArrayList;
-import javax.inject.Inject;
 
+@SuppressWarnings("ALL")
 public class CardInfoView extends FrameLayout {
 
-  @Inject ImageLoader imageLoader;
+  @Inject
+  ImageLoader imageLoader;
 
-  @BindView(R.id.card_avatar) ImageView avatar;
-  @BindView(R.id.card_avatar_edit_overlay) View avatarEditOverlay;
-  @BindView(R.id.card_name) EditText name;
-  @BindView(R.id.card_email) EditText email;
-  @BindView(R.id.card_phone) EditText phone;
-  @BindView(R.id.card_fields) ViewGroup fields;
-  @BindView(R.id.card_time) TextView time;
+  @BindView(R.id.card_avatar)
+  ImageView avatar;
+  @BindView(R.id.card_avatar_edit_overlay)
+  View avatarEditOverlay;
+  @BindView(R.id.card_name)
+  EditText name;
+  @BindView(R.id.card_email)
+  EditText email;
+  @BindView(R.id.card_phone)
+  EditText phone;
+  @BindView(R.id.card_fields)
+  ViewGroup fields;
+  @BindView(R.id.card_time)
+  TextView time;
 
   private Card card;
   private CardEditListener editListener;
-  private FieldTextWatcher fieldTextWatcher;
+  private final FieldTextWatcher fieldTextWatcher;
   private boolean editMode;
 
   public CardInfoView(Context context, AttributeSet attrs) {
@@ -55,21 +66,22 @@ public class CardInfoView extends FrameLayout {
     disabledEditMode();
   }
 
-  @OnClick(R.id.card_email) public void clickEmail() {
+  @OnClick(R.id.card_email)
+  public void clickEmail() {
     if (editMode) {
       return;
     }
 
     String uri = "mailto:" + card.getEmail();
     Intent intent = new Intent(Intent.ACTION_SENDTO);
-    intent.setType("text/plain");
-    intent.setData(Uri.parse(uri));
+    intent.setDataAndType(Uri.parse(uri), "text/plain");
 
     Intent chooser = Intent.createChooser(intent, getResources().getString(R.string.send_email));
     getContext().startActivity(chooser);
   }
 
-  @OnClick(R.id.card_phone) public void clickPhone() {
+  @OnClick(R.id.card_phone)
+  public void clickPhone() {
     if (editMode) {
       return;
     }
@@ -80,7 +92,8 @@ public class CardInfoView extends FrameLayout {
     getContext().startActivity(intent);
   }
 
-  @OnClick(R.id.card_avatar) public void pickAvatar() {
+  @OnClick(R.id.card_avatar)
+  public void pickAvatar() {
     if (editMode && editListener != null) {
       editListener.onPickAvatar();
     }
@@ -261,7 +274,8 @@ public class CardInfoView extends FrameLayout {
   }
 
   private class FieldTextWatcher extends SimpleTextWatcher {
-    @Override public void onTextChanged(String newText) {
+    @Override
+    public void onTextChanged(String newText) {
       if (editMode && editListener != null) {
         editListener.onChange(getCard());
 

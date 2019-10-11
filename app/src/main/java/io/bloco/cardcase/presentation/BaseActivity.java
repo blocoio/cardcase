@@ -3,9 +3,11 @@ package io.bloco.cardcase.presentation;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.ActivityOptionsCompat;
-import androidx.appcompat.app.AppCompatActivity;
+
 import io.bloco.cardcase.AndroidApplication;
 import io.bloco.cardcase.R;
 import io.bloco.cardcase.common.di.ActivityModule;
@@ -17,11 +19,13 @@ public abstract class BaseActivity extends AppCompatActivity {
 
   protected Toolbar toolbar;
 
-  @Override protected void onCreate(Bundle savedInstanceState) {
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
   }
 
-  @Override protected void attachBaseContext(Context newBase) {
+  @Override
+  protected void attachBaseContext(Context newBase) {
     super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
   }
 
@@ -34,6 +38,7 @@ public abstract class BaseActivity extends AppCompatActivity {
   }
 
   protected void startActivityWithAnimation(Intent intent) {
+    @SuppressWarnings("unchecked")
     Bundle options = ActivityOptionsCompat.makeSceneTransitionAnimation(this).toBundle();
     ActivityCompat.startActivity(this, intent, options);
   }

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<io.bloco.cardcase.presentation.common.SearchToolbar
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<io.bloco.cardcase.presentation.common.SearchToolbar xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/toolbar_search"
     style="@style/toolbar">
@@ -29,7 +28,9 @@
         android:maxLines="1"
         android:textColor="@color/text_alt"
         android:textColorHint="@color/text_alt_hint"
-        android:textSize="@dimen/text_large"/>
+        android:textSize="@dimen/text_large"
+        tools:ignore="TextFields"
+        android:importantForAutofill="no" />
 
   </LinearLayout>
 

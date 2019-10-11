@@ -33,12 +33,14 @@ import io.bloco.cardcase.data.models.Card;
 import io.bloco.cardcase.presentation.BaseActivity;
 import io.bloco.cardcase.presentation.common.CardAdapter;
 
+@SuppressWarnings("ALL")
 public class ExchangeActivity extends BaseActivity implements ExchangeContract.View {
 
   private static final int REQUEST_INVITE = 145;
 
   @Inject
-  ExchangeContract.Presenter presenter;
+ ExchangeContract.Presenter presenter;
+  @SuppressWarnings("unused")
   @Inject
   CardAdapter cardAdapter;
 
@@ -183,7 +185,7 @@ public class ExchangeActivity extends BaseActivity implements ExchangeContract.V
 
   @Override
   public void close() {
-    runOnUiThread(() -> closeActivityWithAnimation());
+    runOnUiThread(this::closeActivityWithAnimation);
   }
 
   private void dismissDialogs() {

@@ -13,7 +13,7 @@ import javax.inject.Singleton;
 
 @Singleton public class Database {
 
-  private RuntimeExceptionDao<Card, String> cardDao;
+  private final RuntimeExceptionDao<Card, String> cardDao;
 
   @Inject public Database(RuntimeExceptionDao<Card, String> cardDao) {
     this.cardDao = cardDao;

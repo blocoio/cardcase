@@ -33,7 +33,7 @@ import static org.hamcrest.Matchers.not;
 public class UserActivityOnOnboardingTest {
 
   @Rule
-  public ActivityTestRule<UserActivity> activityTestRule =
+  public final ActivityTestRule<UserActivity> activityTestRule =
       new ActivityTestRule<>(UserActivity.class, true, false);
   private CardFactory cardFactory;
 

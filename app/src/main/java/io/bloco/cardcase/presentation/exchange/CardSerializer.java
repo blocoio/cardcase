@@ -35,7 +35,7 @@ public class CardSerializer {
     return unwrapCard(cardWrapper);
   }
 
-  public CardWrapper newCardWrapper(Card card) {
+  private CardWrapper newCardWrapper(Card card) {
     CardWrapper cardWrapper = new CardWrapper();
     cardWrapper.card = card;
     if (card.getAvatarPath() != null) {
@@ -44,7 +44,7 @@ public class CardSerializer {
     return cardWrapper;
   }
 
-  public Card unwrapCard(CardWrapper cardWrapper) {
+  private Card unwrapCard(CardWrapper cardWrapper) {
     Card card = cardWrapper.card;
     if (card == null) {
       return null;

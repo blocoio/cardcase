@@ -53,6 +53,7 @@ public class CardSerializerTest {
     card.setAvatar(avatarFile);
 
     byte[] data = cardSerializer.serialize(card);
+    //noinspection ResultOfMethodCallIgnored
     avatarFile.delete();
     Card outputCard = cardSerializer.deserialize(data);
 
@@ -64,6 +65,7 @@ public class CardSerializerTest {
   @After
   public void tearDown() {
     if (avatarFile != null && avatarFile.exists()) {
+      //noinspection ResultOfMethodCallIgnored
       avatarFile.delete();
       avatarFile = null;
     }

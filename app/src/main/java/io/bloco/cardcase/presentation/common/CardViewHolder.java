@@ -1,25 +1,34 @@
 package io.bloco.cardcase.presentation.common;
 
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.recyclerview.widget.RecyclerView;
+
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.bloco.cardcase.AndroidApplication;
 import io.bloco.cardcase.R;
 import io.bloco.cardcase.data.models.Card;
 import io.bloco.cardcase.presentation.home.CardDetailDialog;
-import javax.inject.Inject;
 
+@SuppressWarnings("unused")
 public class CardViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-  @Inject DateTimeFormat dateTimeFormat;
-  @Inject ImageLoader imageLoader;
+  @Inject
+  DateTimeFormat dateTimeFormat;
+  @Inject
+  ImageLoader imageLoader;
 
-  @BindView(R.id.card_avatar) ImageView avatar;
-  @BindView(R.id.card_name) TextView name;
-  @BindView(R.id.card_time) TextView time;
+  @BindView(R.id.card_avatar)
+  ImageView avatar;
+  @BindView(R.id.card_name)
+  TextView name;
+  @BindView(R.id.card_time)
+  TextView time;
 
   private final CardDetailDialog cardDetailDialog;
   private Card card;
@@ -46,7 +55,8 @@ public class CardViewHolder extends RecyclerView.ViewHolder implements View.OnCl
     }
   }
 
-  @Override public void onClick(View view) {
+  @Override
+  public void onClick(View view) {
     cardDetailDialog.show(card);
   }
 }

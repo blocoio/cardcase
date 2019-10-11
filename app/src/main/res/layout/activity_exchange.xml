@@ -6,7 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/exchange_container"
-    android:background="@color/secondary">
+    android:background="@color/secondary"
+    tools:ignore="Overdraw">
 
   <androidx.coordinatorlayout.widget.CoordinatorLayout
       android:id="@+id/layout"

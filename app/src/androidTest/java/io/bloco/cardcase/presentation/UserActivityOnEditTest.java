@@ -35,11 +35,11 @@ import static org.hamcrest.CoreMatchers.not;
 public class UserActivityOnEditTest {
 
   @Rule
-  public ActivityTestRule<HomeActivity> initialTestRule =
+  public final ActivityTestRule<HomeActivity> initialTestRule =
       new ActivityTestRule<>(HomeActivity.class);
 
   @Rule
-  public ActivityTestRule<UserActivity> activityTestRule =
+  public final ActivityTestRule<UserActivity> activityTestRule =
       new ActivityTestRule<>(UserActivity.class, true, false);
 
   private CardFactory cardFactory;

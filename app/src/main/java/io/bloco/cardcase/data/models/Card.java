@@ -132,6 +132,7 @@ import java.util.List;
     this.updatedAt = updatedAt;
   }
 
+  @SuppressWarnings("unused")
   public boolean isUser() {
     return isUser;
   }

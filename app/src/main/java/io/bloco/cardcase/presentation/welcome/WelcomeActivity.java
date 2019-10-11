@@ -3,6 +3,9 @@ package io.bloco.cardcase.presentation.welcome;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+
+import javax.inject.Inject;
+
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.bloco.cardcase.R;
@@ -11,11 +14,12 @@ import io.bloco.cardcase.common.di.ActivityComponent;
 import io.bloco.cardcase.common.di.DaggerActivityComponent;
 import io.bloco.cardcase.presentation.BaseActivity;
 import io.bloco.cardcase.presentation.user.UserActivity;
-import javax.inject.Inject;
 
+@SuppressWarnings("unused")
 public class WelcomeActivity extends BaseActivity {
 
-  @Inject AnalyticsService analyticsService;
+  @Inject
+  AnalyticsService analyticsService;
 
   public static class Factory {
     public static Intent getIntent(Context context) {
@@ -23,7 +27,8 @@ public class WelcomeActivity extends BaseActivity {
     }
   }
 
-  @Override protected void onCreate(Bundle savedInstanceState) {
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_welcome);
     initializeInjectors();
@@ -31,7 +36,8 @@ public class WelcomeActivity extends BaseActivity {
     analyticsService.trackEvent("Welcome Screen");
   }
 
-  @OnClick(R.id.welcome_start) void onClickStart() {
+  @OnClick(R.id.welcome_start)
+  void onClickStart() {
     Intent intent = UserActivity.Factory.getOnboardingIntent(this);
     startActivity(intent);
     finishWithAnimation();

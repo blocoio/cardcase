@@ -12,13 +12,14 @@ import java.sql.SQLException;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+@SuppressWarnings("unused")
 @Singleton public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 
   private static final String DATABASE_NAME = "database";
   private static final String TEST_DATABASE_NAME = "database_test";
   private static final int DATABASE_VERSION = 2;
 
-  private Class[] mTables = new Class[] { Card.class };
+  private final Class[] mTables = new Class[] { Card.class };
 
   @Inject public DatabaseHelper(Context context, AndroidApplication.Mode mode) {
     super(context, getDbName(mode), null, DATABASE_VERSION);
@@ -28,6 +29,7 @@ import javax.inject.Singleton;
     return mode == AndroidApplication.Mode.NORMAL ? DATABASE_NAME : TEST_DATABASE_NAME;
   }
 
+  @SuppressWarnings("unchecked")
   @Override public void onCreate(SQLiteDatabase database, ConnectionSource connectionSource) {
     try {
       for (Class tableClass : mTables) {
@@ -49,6 +51,7 @@ import javax.inject.Singleton;
     }
   }
 
+  @SuppressWarnings("unchecked")
   public void clear() {
     try {
       for (Class tableClass : mTables) {
@@ -59,6 +62,7 @@ import javax.inject.Singleton;
     }
   }
 
+  @SuppressWarnings("unchecked")
   private void dropTables() throws SQLException {
     for (Class tableClass : mTables) {
       TableUtils.dropTable(connectionSource, tableClass, true);

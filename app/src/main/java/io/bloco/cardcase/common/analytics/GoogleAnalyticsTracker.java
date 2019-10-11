@@ -42,7 +42,4 @@ public class GoogleAnalyticsTracker implements AnalyticsTracker {
 
     tracker.send(eventBuilder.build());
   }
-
-  @Override public void terminate() {
-  }
 }

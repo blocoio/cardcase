@@ -45,7 +45,8 @@
         android:layout_height="@dimen/card_name_height"
         android:hint="@string/name"
         android:textSize="@dimen/card_name_text"
-        android:nextFocusDown="@+id/card_email"/>
+        android:nextFocusDown="@+id/card_email"
+        tools:ignore="Autofill" />
 
     <EditText
         android:id="@id/card_email"
@@ -55,7 +56,8 @@
         android:layout_marginTop="@dimen/margin_tiny"
         android:hint="@string/email"
         android:inputType="textEmailAddress"
-        android:nextFocusDown="@+id/card_phone"/>
+        android:nextFocusDown="@+id/card_phone"
+        tools:ignore="Autofill" />
 
     <EditText
         android:id="@id/card_phone"
@@ -65,7 +67,8 @@
         android:layout_marginTop="@dimen/margin_tiny"
         android:hint="@string/phone"
         android:inputType="phone"
-        android:nextFocusDown="@+id/card_fields"/>
+        android:nextFocusDown="@+id/card_fields"
+        tools:ignore="Autofill" />
 
     <LinearLayout
         android:id="@id/card_fields"

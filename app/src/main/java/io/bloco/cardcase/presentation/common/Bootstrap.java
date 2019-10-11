@@ -11,6 +11,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import javax.inject.Inject;
 
+@SuppressWarnings("unused")
 public class Bootstrap {
 
   private static final int NUM_CARDS = 16;

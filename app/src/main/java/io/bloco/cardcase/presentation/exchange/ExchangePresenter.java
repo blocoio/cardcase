@@ -1,7 +1,5 @@
 package io.bloco.cardcase.presentation.exchange;
 
-import androidx.annotation.StringRes;
-
 import com.google.android.gms.common.api.Status;
 
 import java.util.ArrayList;
@@ -96,7 +94,7 @@ public class ExchangePresenter
   @Override
   public void onError(Status status) {
     Timber.e("Exchange error: %s", status);
-    showError(R.string.error_connection);
+    showConnectionError();
   }
 
   private void addNewCard(final Card card) {
@@ -117,11 +115,11 @@ public class ExchangePresenter
     }
   }
 
-  private void showError(@StringRes int messageRes) {
+  private void showConnectionError() {
     if (errorState) {
       return;
     }
     errorState = true;
-    view.showError(messageRes);
+    view.showError(R.string.error_connection);
   }
 }

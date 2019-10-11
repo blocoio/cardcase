@@ -20,6 +20,7 @@ import io.bloco.cardcase.presentation.home.HomePresenter;
 
 import static org.mockito.Mockito.verify;
 
+@SuppressWarnings("ALL")
 public class HomePresenterTest {
   @InjectMocks
   private HomePresenter homePresenter;

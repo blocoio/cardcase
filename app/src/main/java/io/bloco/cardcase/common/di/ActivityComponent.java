@@ -24,5 +24,6 @@ public interface ActivityComponent {
   void inject(WelcomeActivity activity);
 
   //Exposed to sub-graphs.
+  @SuppressWarnings("unused")
   Activity activity();
 }
