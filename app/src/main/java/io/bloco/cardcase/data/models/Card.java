@@ -155,7 +155,7 @@ public class Card {
   }
 
   public boolean isValid() {
-    return (!getName().isEmpty());
+    return !getName().isEmpty();
   }
 
   public boolean matchQuery(String query) {
