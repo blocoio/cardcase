@@ -34,13 +34,12 @@ import io.bloco.cardcase.presentation.user.UserActivity;
 import io.bloco.cardcase.presentation.welcome.WelcomeActivity;
 import timber.log.Timber;
 
+@SuppressWarnings("ALL")
 public class HomeActivity extends BaseActivity
     implements HomeContract.View, SearchToolbar.SearchListener {
 
-  @Inject
-  HomeContract.Presenter presenter;
-  @Inject
-  CardAdapter cardAdapter;
+  @Inject HomeContract.Presenter presenter;
+  @Inject CardAdapter cardAdapter;
 
   @BindView(R.id.toolbar_search)
   SearchToolbar searchToolbar;

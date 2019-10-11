@@ -9,26 +9,34 @@ import android.graphics.BitmapFactory;
 import android.hardware.Camera;
 import android.net.Uri;
 import android.provider.MediaStore;
+
 import androidx.core.content.FileProvider;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
 import io.bloco.cardcase.BuildConfig;
 import io.bloco.cardcase.R;
 import io.bloco.cardcase.common.Preconditions;
 import io.bloco.cardcase.presentation.common.FileHelper;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import javax.inject.Inject;
-import javax.inject.Singleton;
 
-@Singleton public class AvatarPicker {
+@Singleton
+public class AvatarPicker {
 
-  public class ReceivingError extends Exception {}
-  public class ResizeError extends Exception {}
+  class ReceivingError extends Exception {
+  }
 
-  public static final int AVATAR_REQUEST_CODE = 21;
-  public static final int CROP_REQUEST_CODE = 31;
+  class ResizeError extends Exception {
+  }
+
+  private static final int AVATAR_REQUEST_CODE = 21;
+  private static final int CROP_REQUEST_CODE = 31;
   public static final int IMAGE_QUALITY = 50;
-  public static final int AVATAR_SIZE = 512;
+  private static final int AVATAR_SIZE = 512;
 
   private final Context context;
   private final Resources resources;
@@ -39,7 +47,8 @@ import javax.inject.Singleton;
     public static final String FILE_PATH = "file_path";
   }
 
-  @Inject public AvatarPicker(Context context, Resources resources, FileHelper fileHelper) {
+  @Inject
+  public AvatarPicker(Context context, Resources resources, FileHelper fileHelper) {
     this.context = context;
     this.resources = resources;
     this.fileHelper = fileHelper;
@@ -54,6 +63,7 @@ import javax.inject.Singleton;
     pickIntent.addCategory(Intent.CATEGORY_OPENABLE);
 
     Intent takePhotoIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+    //noinspection deprecation
     takePhotoIntent.putExtra("android.intent.extras.CAMERA_FACING",
         Camera.CameraInfo.CAMERA_FACING_FRONT);
     takePhotoIntent.putExtra(MediaStore.EXTRA_OUTPUT, getTempFileUri());
@@ -62,13 +72,13 @@ import javax.inject.Singleton;
 
     String pickTitle = resources.getString(R.string.avatar_picker);
     Intent chooserIntent = Intent.createChooser(pickIntent, pickTitle);
-    chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, new Intent[] { takePhotoIntent });
+    chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, new Intent[]{takePhotoIntent});
 
     activity.startActivityForResult(chooserIntent, AVATAR_REQUEST_CODE);
   }
 
   public File processActivityResult(int requestCode, int resultCode, Intent data,
-      Activity activity) throws ReceivingError, ResizeError {
+                                    Activity activity) throws ReceivingError, ResizeError {
     // Crop
     if (requestCode == CROP_REQUEST_CODE) {
       clearTempFile();

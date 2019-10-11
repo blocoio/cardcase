@@ -3,11 +3,15 @@ package io.bloco.cardcase.presentation.user;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import android.transition.Transition;
 import android.transition.TransitionInflater;
-import android.view.View;
 import android.view.ViewGroup;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.io.File;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -21,24 +25,31 @@ import io.bloco.cardcase.presentation.common.CardInfoView;
 import io.bloco.cardcase.presentation.common.ErrorDisplayer;
 import io.bloco.cardcase.presentation.common.ImageLoader;
 import io.bloco.cardcase.presentation.home.HomeActivity;
-import java.io.File;
-import javax.inject.Inject;
 
+@SuppressWarnings("unused")
 public class UserActivity extends BaseActivity
     implements UserContract.View, CardInfoView.CardEditListener {
 
-  @Inject UserContract.Presenter presenter;
-  @Inject ImageLoader imageLoader;
-  @Inject AvatarPicker avatarPicker;
-  @Inject ErrorDisplayer errorDisplayer;
+  @Inject
+  UserContract.Presenter presenter;
+  @Inject
+  ImageLoader imageLoader;
+  @Inject
+  AvatarPicker avatarPicker;
+  @Inject
+  ErrorDisplayer errorDisplayer;
 
-  @BindView(R.id.user_layout) ViewGroup rootLayout;
-  @BindView(R.id.user_card) CardInfoView cardView;
-  @BindView(R.id.user_edit) FloatingActionButton edit;
-  @BindView(R.id.user_done) FloatingActionButton done;
+  @BindView(R.id.user_layout)
+  ViewGroup rootLayout;
+  @BindView(R.id.user_card)
+  CardInfoView cardView;
+  @BindView(R.id.user_edit)
+  FloatingActionButton edit;
+  @BindView(R.id.user_done)
+  FloatingActionButton done;
 
   public static class Factory {
-    public static class BundleArgs {
+    static class BundleArgs {
       private static final String ONBOARDING = "onboarding";
     }
 
@@ -53,7 +64,8 @@ public class UserActivity extends BaseActivity
     }
   }
 
-  @Override protected void onCreate(Bundle savedInstanceState) {
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_user);
 
@@ -86,7 +98,8 @@ public class UserActivity extends BaseActivity
     ButterKnife.bind(this);
   }
 
-  @Override protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+  @Override
+  protected void onActivityResult(int requestCode, int resultCode, Intent data) {
     super.onActivityResult(requestCode, resultCode, data);
     File avatarFile;
 
@@ -106,72 +119,89 @@ public class UserActivity extends BaseActivity
     }
   }
 
-  @OnClick(R.id.user_edit) public void onEditClicked() {
+  @OnClick(R.id.user_edit)
+  public void onEditClicked() {
     presenter.clickedEdit();
   }
 
-  @OnClick(R.id.user_done) public void onDoneClicked() {
+  @OnClick(R.id.user_done)
+  public void onDoneClicked() {
     presenter.clickedDone(cardView.getCard());
   }
 
-  @Override public void showUser(Card userCard) {
+  @Override
+  public void showUser(Card userCard) {
     cardView.setCard(userCard);
   }
 
-  @Override public void showBack() {
+  @Override
+  public void showBack() {
     toolbar.setEndButton(R.drawable.ic_back_right, R.string.back, v -> presenter.clickedBack());
   }
 
-  @Override public void hideBack() {
+  @Override
+  public void hideBack() {
     toolbar.removeEndButton();
   }
 
-  @Override public void showCancel() {
+  @Override
+  public void showCancel() {
     toolbar.setStartButton(R.drawable.ic_close, R.string.back, v -> presenter.clickedCancel());
   }
 
-  @Override public void hideCancel() {
+  @Override
+  public void hideCancel() {
     toolbar.removeStartButton();
   }
 
-  @Override public void showEditButton() {
+  @Override
+  public void showEditButton() {
     edit.show();
   }
 
-  @Override public void hideEditButton() {
+  @Override
+  public void hideEditButton() {
     edit.show();
   }
 
-  @Override public void showDoneButton() {
+  @Override
+  public void showDoneButton() {
     done.show();
   }
 
-  @Override public void hideDoneButton() {
+  @Override
+  public void hideDoneButton() {
     done.show();
   }
 
-  @Override public void enableEditMode() {
+  @Override
+  public void enableEditMode() {
     cardView.enableEditMode();
   }
 
-  @Override public void disabledEditMode() {
+  @Override
+  public void disabledEditMode() {
     cardView.disabledEditMode();
   }
 
-  @Override public void openHome() {
+  @Override
+  public void openHome() {
     Intent intent = HomeActivity.Factory.getIntent(this);
     startActivityWithAnimation(intent);
   }
 
-  @Override public void close() {
+  @Override
+  public void close() {
     finishWithAnimation();
   }
 
-  @Override public void onPickAvatar() {
+  @Override
+  public void onPickAvatar() {
     avatarPicker.startPicker(this);
   }
 
-  @Override public void onChange(Card updatedCard) {
+  @Override
+  public void onChange(Card updatedCard) {
     presenter.onCardChanged(updatedCard);
   }
 }

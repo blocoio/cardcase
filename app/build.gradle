@@ -45,6 +45,7 @@ android {
 
   lintOptions {
     warningsAsErrors true
+    disable 'DefaultLocale'
   }
 
   packagingOptions {
@@ -63,7 +64,7 @@ android {
 }
 
 dependencies {
-  implementation 'androidx.appcompat:appcompat:1.0.0'
+  implementation 'androidx.appcompat:appcompat:1.1.0'
   implementation 'androidx.cardview:cardview:1.0.0'
   implementation 'com.google.android.material:material:1.0.0'
   implementation 'com.google.android.gms:play-services-nearby:17.0.0'
@@ -73,10 +74,10 @@ dependencies {
   implementation 'com.google.dagger:dagger:2.14'
   annotationProcessor 'com.google.dagger:dagger-compiler:2.14'
   // Logging
-  implementation 'com.jakewharton.timber:timber:4.5.1'
+  implementation 'com.jakewharton.timber:timber:4.7.1'
   // View injection
-  implementation 'com.jakewharton:butterknife:10.0.0'
-  annotationProcessor 'com.jakewharton:butterknife-compiler:10.0.0'
+  implementation 'com.jakewharton:butterknife:10.2.0'
+  annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.0'
   // Database
   implementation 'com.j256.ormlite:ormlite-android:4.48'
   // Fonts
@@ -86,9 +87,9 @@ dependencies {
   // Crop avatar
   implementation 'com.lyft:scissors:1.0.1'
   // JSON serialization
-  implementation 'com.google.code.gson:gson:2.8.2'
+  implementation 'com.google.code.gson:gson:2.8.5'
   // Crash & usage monitoring
-  implementation('com.crashlytics.sdk.android:crashlytics:2.8.0@aar') {
+  implementation('com.crashlytics.sdk.android:crashlytics:2.10.1@aar') {
     transitive = true
   }
   // Generate fake data
@@ -97,12 +98,12 @@ dependencies {
   testImplementation 'junit:junit:4.12'
   testImplementation 'org.mockito:mockito-core:2.10.0'
   androidTestImplementation 'junit:junit:4.12'
-  androidTestImplementation 'androidx.annotation:annotation:1.0.0'
+  androidTestImplementation 'androidx.annotation:annotation:1.1.0'
   androidTestImplementation 'androidx.test:runner:1.2.0'
   androidTestImplementation 'androidx.test.ext:junit:1.1.1'
   androidTestImplementation 'androidx.test:rules:1.2.0'
-  androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
-  androidTestImplementation('androidx.test.espresso:espresso-contrib:3.1.0') {
+  androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+  androidTestImplementation('androidx.test.espresso:espresso-contrib:3.2.0') {
     exclude module: 'recyclerview-v7'
     exclude module: 'support-v4'
   }

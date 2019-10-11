@@ -1,10 +1,13 @@
 package io.bloco.cardcase.presentation.common;
 
 import android.content.Context;
+
 import androidx.annotation.Nullable;
+
 import android.util.AttributeSet;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -13,7 +16,8 @@ import io.bloco.cardcase.presentation.home.SimpleTextWatcher;
 
 public class SearchToolbar extends androidx.appcompat.widget.Toolbar {
 
-  @BindView(R.id.toolbar_search_field) EditText field;
+  @BindView(R.id.toolbar_search_field)
+  EditText field;
 
   private SearchListener listener;
 
@@ -21,12 +25,14 @@ public class SearchToolbar extends androidx.appcompat.widget.Toolbar {
     super(context, attrs);
   }
 
-  @Override protected void onFinishInflate() {
+  @Override
+  protected void onFinishInflate() {
     super.onFinishInflate();
     ButterKnife.bind(this);
 
     field.addTextChangedListener(new SimpleTextWatcher() {
-      @Override public void onTextChanged(String newText) {
+      @Override
+      public void onTextChanged(String newText) {
         if (listener != null) {
           listener.onSearchQuery(newText);
         }
@@ -34,7 +40,8 @@ public class SearchToolbar extends androidx.appcompat.widget.Toolbar {
     });
   }
 
-  @OnClick(R.id.toolbar_search_close) public void onCloseClicked() {
+  @OnClick(R.id.toolbar_search_close)
+  public void onCloseClicked() {
     clear();
 
     if (listener != null) {
@@ -51,7 +58,8 @@ public class SearchToolbar extends androidx.appcompat.widget.Toolbar {
     field.postDelayed(() -> {
       InputMethodManager keyboard = (InputMethodManager)
           getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-      keyboard.hideSoftInputFromWindow(field.getWindowToken(), 0);
+      if (keyboard != null)
+        keyboard.hideSoftInputFromWindow(field.getWindowToken(), 0);
     }, 100);
   }
 
@@ -60,12 +68,14 @@ public class SearchToolbar extends androidx.appcompat.widget.Toolbar {
     field.postDelayed(() -> {
       InputMethodManager keyboard = (InputMethodManager)
           getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-      keyboard.showSoftInput(field, 0);
+      if (keyboard != null)
+        keyboard.showSoftInput(field, 0);
     }, 100);
   }
 
   public interface SearchListener {
     void onSearchClosed();
+
     void onSearchQuery(String query);
   }
 }

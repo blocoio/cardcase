@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
   <color name="primary">#607D8B</color>
   <color name="secondary">#00BFA5</color>
 
@@ -7,9 +7,9 @@
   <color name="background_card">#FAFAFA</color>
   <color name="background_crop">#000000</color>
 
-  <color name="text">#333333</color>
+  <color name="text" tools:ignore="UnusedResources">#333333</color>
   <color name="text_light">#999999</color>
-  <color name="text_hint">#999999</color>
+  <color name="text_hint" tools:ignore="UnusedResources">#999999</color>
   <color name="text_alt">#FFFFFF</color>
   <color name="text_alt_hint">#80FFFFFF</color>
 

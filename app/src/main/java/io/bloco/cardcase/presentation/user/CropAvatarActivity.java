@@ -1,5 +1,6 @@
 package io.bloco.cardcase.presentation.user;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -8,27 +9,32 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.view.View;
+
+import com.lyft.android.scissors.CropView;
+
+import java.io.File;
+import java.util.concurrent.ExecutionException;
+
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import com.lyft.android.scissors.CropView;
 import io.bloco.cardcase.R;
 import io.bloco.cardcase.common.Preconditions;
 import io.bloco.cardcase.common.di.ActivityComponent;
 import io.bloco.cardcase.common.di.DaggerActivityComponent;
 import io.bloco.cardcase.presentation.BaseActivity;
-import java.io.File;
-import java.util.concurrent.ExecutionException;
-import javax.inject.Inject;
 
 public class CropAvatarActivity extends BaseActivity {
 
   public static final int RESULT_ERROR = 999;
 
-  @Inject AvatarPicker avatarPicker;
+  @Inject
+  AvatarPicker avatarPicker;
 
-  @BindView(R.id.crop_avatar_view) CropView cropView;
+  @BindView(R.id.crop_avatar_view)
+  CropView cropView;
 
   private ProgressDialog waitDialog;
   private CropView.Extensions cropExtensions;
@@ -41,7 +47,8 @@ public class CropAvatarActivity extends BaseActivity {
     }
   }
 
-  @Override protected void onCreate(Bundle savedInstanceState) {
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_crop);
 
@@ -70,18 +77,22 @@ public class CropAvatarActivity extends BaseActivity {
     ButterKnife.bind(this);
   }
 
-  @Override protected void onDestroy() {
+  @Override
+  protected void onDestroy() {
     super.onDestroy();
     dismissDialog();
   }
 
-  @OnClick(R.id.crop_avatar_fab) public void crop() {
+  @SuppressLint("StaticFieldLeak")
+  @OnClick(R.id.crop_avatar_fab)
+  public void crop() {
     showWaitDialog();
 
     new AsyncTask<Void, Void, File>() {
       private Exception exception;
 
-      @Override protected File doInBackground(Void... params) {
+      @Override
+      protected File doInBackground(Void... params) {
         File avatarFile = avatarPicker.createNewAvatarFile();
         executeCrop(avatarFile);
         try {
@@ -92,7 +103,8 @@ public class CropAvatarActivity extends BaseActivity {
         return avatarFile;
       }
 
-      @Override protected void onPostExecute(File avatarFile) {
+      @Override
+      protected void onPostExecute(File avatarFile) {
         if (exception != null) {
           finishWithError();
         } else {

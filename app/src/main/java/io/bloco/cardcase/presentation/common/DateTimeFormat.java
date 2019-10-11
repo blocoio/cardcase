@@ -7,7 +7,8 @@ import java.util.Date;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-@Singleton public class DateTimeFormat {
+@Singleton
+class DateTimeFormat {
 
   private static final int SECOND_MILLIS = 1000;
   private static final int MINUTE_MILLIS = 60 * SECOND_MILLIS;

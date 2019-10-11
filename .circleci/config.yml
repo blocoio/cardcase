@@ -37,7 +37,7 @@ jobs:
       - cardcase_setup
       - run:
           name: Build
-          command: ./gradlew build -x lint
+          command: ./gradlew assemble
   lint:
     executor: cardcase_executor
     steps:

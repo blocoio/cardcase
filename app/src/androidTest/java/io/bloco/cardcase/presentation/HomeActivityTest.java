@@ -29,7 +29,7 @@ import static org.hamcrest.core.StringStartsWith.startsWith;
 public class HomeActivityTest {
 
   @Rule
-  public ActivityTestRule<HomeActivity> activityTestRule =
+  public final ActivityTestRule<HomeActivity> activityTestRule =
       new ActivityTestRule<>(HomeActivity.class);
   private CardFactory cardFactory;
 
@@ -88,6 +88,7 @@ public class HomeActivityTest {
         HomeActivity.Factory.getIntent(getInstrumentation().getTargetContext()));
   }
 
+  @SuppressWarnings("UnusedReturnValue")
   private Card createUserCard() {
     return cardFactory.createUserCard();
   }

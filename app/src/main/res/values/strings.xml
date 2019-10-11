@@ -8,12 +8,10 @@
   <string name="name">Name</string>
   <string name="email">Email</string>
   <string name="phone">Phone number</string>
-  <string name="field_hint"></string>
   <string name="exchange">Exchange</string>
   <string name="close">Close</string>
   <string name="edit">Edit</string>
   <string name="card_time">Added %s</string>
-  <string name="added_at">Added %s</string>
   <string name="waiting">Waiting</string>
   <string name="ok">OK</string>
   <string name="cancel">Cancel</string>
@@ -24,7 +22,6 @@
   <string name="crop_avatar_dialog">Cropping photo</string>
 
   <string name="time_just_now">now</string>
-  <string name="time_a_minute_ago">a minute ago</string>
   <string name="time_minutes">%dm</string>
   <string name="time_hours">%dh</string>
 
@@ -66,19 +63,8 @@
 
   <!-- Errors -->
   <string name="error">Error (sorry!)</string>
-  <string name="error_exchange_general">Could not start card exchange. Please try again later.
-  </string>
-  <string name="error_need_nearby_permission">This application needs the Nearby permission to
-    exchange cards with people nearby.
-  </string>
   <string name="error_connection">Could not connect. Please confirm internet is available and try
     again.
-  </string>
-  <string name="error_play_services_update_required">You need to upgrade Google Play Services to
-    exchange cards with people nearby.
-  </string>
-  <string name="error_play_services_required">Card Case needs Google Play Services installed to
-    exchange cards with people nearby.
   </string>
   <string name="error_avatar_receiving">Could not process image. Please try with a different one.
   </string>

@@ -3,6 +3,7 @@ package io.bloco.cardcase.domain.presenters;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -23,6 +24,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+@SuppressWarnings("unused")
 public class ExchangePresenterTest {
   @InjectMocks
   private ExchangePresenter exchangePresenter;
@@ -30,15 +32,17 @@ public class ExchangePresenterTest {
   @Mock
   private NearbyManager nearbyManager;
   @Mock
-  CardSerializer cardSerializer;
+  private CardSerializer cardSerializer;
   @Mock
-  GetUserCard getUserCard;
+  private GetUserCard getUserCard;
   @Mock
-  SaveReceivedCards saveReceivedCards;
+  private SaveReceivedCards saveReceivedCards;
   @Mock
-  AnalyticsService analyticsService;
+  private AnalyticsService analyticsService;
   @Mock
   private ExchangeContract.View view;
+  @Captor
+  private ArgumentCaptor<List<Card>> receivedCardsCaptor;
 
   @Before
   public void setup() {
@@ -47,6 +51,7 @@ public class ExchangePresenterTest {
   }
 
   @Test
+  @SuppressWarnings("unchecked")
   public void onMessageReceived() {
     ArgumentCaptor<List<Card>> receivedCardsCaptor = ArgumentCaptor.forClass(List.class);
     verify(view).setupCards(receivedCardsCaptor.capture());
