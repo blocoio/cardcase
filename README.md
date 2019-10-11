@@ -1,5 +1,7 @@
 # Card Case
 
+[![CircleCI](https://circleci.com/gh/blocoio/cardcase.svg?style=svg)](https://circleci.com/gh/blocoio/cardcase)
+
 _Exchange your business card with people nearby_ ([Website](https://www.bloco.io/card-case))
 
 Leave your paper business cards at home. With Card Case you can create your digital business card, and share it with people nearby in seconds.
