@@ -1,5 +1,7 @@
 # Card Case
 
+⚠️ Warning: this project is no longer being maintained. ⚠️
+
 [![CircleCI](https://circleci.com/gh/blocoio/cardcase.svg?style=svg)](https://circleci.com/gh/blocoio/cardcase)
 
 _Exchange your business card with people nearby_ ([Website](https://www.bloco.io/card-case))
